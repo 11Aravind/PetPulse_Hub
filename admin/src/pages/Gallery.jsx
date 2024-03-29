@@ -91,7 +91,7 @@ export const Gallerylist=()=>{
                         galleryDetails.map((eachValue, id) =>
                             <tr key={id} scope="row">
                                 <td>{eachValue._id}</td>
-                                <td><img src={`http://localhost:5000/${eachValue.url}`} alt="banner" className="bannerImg"  /></td>
+                                <td><img src={`http://localhost:5001/${eachValue.url}`} alt="banner" className="bannerImg"  /></td>
                                 <td>  <i className="bi bi-trash3-fill"></i>  </td>
                                 {/* <td><i className="bi bi-pencil-square"></i> </td> */}
                             </tr>

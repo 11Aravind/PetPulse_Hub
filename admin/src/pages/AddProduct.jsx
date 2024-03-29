@@ -15,7 +15,6 @@ const AddProduct=()=>{
     }
     useEffect(()=>{
         httpRequest('get',"api/category").then((data) => {
-                // setCategoryList(data.);
                 if (data && Array.isArray(data.categoryDetails)) {
                     setCategoryList(data.categoryDetails);
                 } else {

@@ -76,7 +76,7 @@ const Blogs = () => {
                                 <tr key={id} scope="row">
                                     <td>{eachValue._id}</td>
                                     <td>{eachValue.tittle}</td>
-                                    <td><img src={eachValue.image} alt="banner" className="bannerImg" /></td>
+                                    <td><img src={`http://localhost:5001/${eachValue.image}`} alt="banner" className="bannerImg" /></td>
                                     <td>{eachValue.description}</td>
                                     <td>  <i className="bi bi-trash3-fill"></i>  </td>
                                     {/* <td><i className="bi bi-pencil-square"></i> </td> */}

@@ -1,0 +1,99 @@
+/* .product-cards{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+} */
+.product-name{
+    color: #000;
+    font-size: 20px;
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+}
+.price{
+    display: flex;
+    /* justify-content: space-between; */
+    align-items: center;
+}
+.oldPrice{
+    text-decoration-line: line-through;
+    text-decoration-color: red;
+    color: #666 !important;
+    font-size: 15px;
+}
+
+.product-image{
+    /* height: 223px;
+    padding: 12px; */
+    /* height: 173px; */
+    margin-top: 9px;
+    height: 227px;
+}
+.newprice{
+    /* font-weight: 600;
+    font-size: 13px;
+    padding: 10px 0;
+    color: var(--primary); */
+    font-weight: 700;
+    font-size: 16px;
+    padding: 10px 6px;
+    /* color: var(--primary); */
+}
+
+.card-title {
+    font-weight: 400;
+    font-size: 14px;
+    color: #333;
+}
+.card.h-100 {
+    border-radius: 6px;
+    border: 1px solid rgba(128,128,128,.16);
+    box-shadow: 0 1px 4px rgb(128 128 128 / 11%);
+}
+.addToCartBtn{
+    color: white;
+    background: var(--primary);
+    border: none;
+    padding: 2px 9px;
+    font-size: 13px;
+    font-size: 13px;
+    line-height: 30px;
+    font-weight: bold;
+}
+.cardBtn{
+    color: var(--primary);
+    border: 1px solid var(--primary);
+    padding: 2px 9px;
+    font-size: 13px;
+    font-size: 13px;
+    line-height: 30px;
+    font-weight: bold;
+    width: 100%;
+    background: transparent;
+}
+.img-container{
+    position: relative;
+    display: inline-block;
+}
+.options-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    color: var(--projectedColor);
+    border: 1px solid var(--projectedColor);
+    font-size: 13px;
+    padding: 1px 8px;
+    cursor: pointer;
+    visibility: hidden;
+    transition: visibility 0.3s ease-in-out;
+  }
+  .img-container:hover .options-btn {
+    visibility: visible;
+  }
+  .cart-footer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }

@@ -18,11 +18,11 @@ export const Categorydetails = () => {
     useEffect(() => {
         httpRequest('get',"api/category").then((data) => {
             // Check if the fetched data is an object and has 'categoryDetails' array
-            // if (data && Array.isArray(data.categoryDetails)) {
-                setCategoryDetails(data);
-            // } else {
-            //     console.error("Fetched data does not contain 'categoryDetails' array:", data);
-            // }
+            if (data && Array.isArray(data.categoryDetails)) {
+                setCategoryDetails(data.categoryDetails);
+            } else {
+                console.error("Fetched data does not contain 'categoryDetails' array:", data);
+            }
         }).catch(error => {
             console.error("Error fetching data:", error);
         });

@@ -29,11 +29,11 @@ const Product=()=>{
        useEffect(() => {
         httpRequest('get',"api/product").then((data) => {
             // Check if the fetched data is an object and has 'productDetails' array
-            // if (data && Array.isArray(data.productDetails)) {
-                setProductList(data);
-            // } else {
-            //     console.error("Fetched data does not contain 'productDetails' array:", data);
-            // }
+            if (data && Array.isArray(data.productDetails)) {
+                setProductList(data.productDetails);
+            } else {
+                console.error("Fetched data does not contain 'productDetails' array:", data);
+            }
         }).catch(error => {
             console.log("Error fetching data:", error);
         });

@@ -15,7 +15,12 @@ const AddProduct=()=>{
     }
     useEffect(()=>{
         httpRequest('get',"api/category").then((data) => {
-                setCategoryList(data);
+                // setCategoryList(data.);
+                if (data && Array.isArray(data.categoryDetails)) {
+                    setCategoryList(data.categoryDetails);
+                } else {
+                    console.error("Fetched data does not contain 'categoryDetails' array:", data);
+                }
         }).catch(error => {
             console.error("Error fetching data:", error);
         });
@@ -34,7 +39,6 @@ const AddProduct=()=>{
         .then((response)=>showMessage(response.message))
         .catch((err)=>console.log(err));
     }
- 
     return(
         <div className="content-div">
         <div className="card-header">

@@ -28,7 +28,7 @@ const Table = ({ tableCardHeadding, tableHeadding, tableValues ,inlineStyle}) =>
                             <tr key={id} scope="row">
                                 <td>{eachValue._id}</td>
                                 <td>{eachValue.name}</td>
-                                <td> <img src={`http://localhost:5000/${eachValue.image}`} alt="img" style={{"width": "100px"}} /> </td>
+                                <td> <img src={`http://localhost:5001/${eachValue.image}`} alt="img" style={{"width": "100px"}} /> </td>
                                 <td>{eachValue.oldPrice}</td>
                                 <td>{eachValue.newPrice}</td>
                                 <td>{eachValue.description}</td>

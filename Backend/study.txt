@@ -1,0 +1,43 @@
+npm install mongodb first install
+// JK6JJzd4lgT6awpY ->password
+// aravindas247 ->username
+mongodb+srv://aravindas247:<password>@cluster0.21ylyi6.mongodb.net/?retryWrites=true&w=majority ->connect mongodb atles
+1) impoert monggose first
+2)  mongoose.connect() ->used to connect  
+3) php il class vech object create cheytha pole models undakkunnu 
+    a) create model folder
+    b) create a model or collection 
+    c)impoert mongoose
+    d)mongoose.Schema ->used to build schema
+        const collection/schema name=new mongoose.Schema
+       ( 
+        name:{
+            type:String,
+            required:true
+            minlength:6
+        }
+        email:{
+            type:String,
+            required:true,
+            unique:true
+        }
+       )
+    e)export connection as export default mongoose.model("model name", schema variable(in step d))
+    //model name capital ane standated
+
+    modelname.find() ->select * from ...
+
+mongoose.model() ->define a schema,create a model
+                    In summary, mongoose.model() is used to compile a schema into a model, allowing you to 
+                    interact with MongoDB collections in a structured and consistent way.
+
+.save() ->  save a new record to the db
+bcryptjs    =>to hash the password library
+1)npm i bcryptjs
+modelName.find()->data edukkan ite mongoose provide cheyyunne ane ,it return an array/object
+take value from url->req.param.varName
+
+Multer -> is a middleware for multipart/formdata
+
+// "email":"admin@gmail.com",
+// "password":"sudo@*,"

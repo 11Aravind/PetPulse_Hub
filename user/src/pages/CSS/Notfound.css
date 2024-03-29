@@ -1,0 +1,14 @@
+/* body {
+    
+  } */
+  .notFoundHeadding {
+    color: #555;
+    font-size: 5em;
+    font-family: Arial;
+    margin: 40px;
+  }
+  .notFoundDesc {
+    color: #777;
+    font-family: Arial;
+    margin: 40px;
+  }

@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom"
 import { useSelector } from "react-redux"
 import Categoryslider from "../component/Categoryslider";
+import "../component/CSS/Card.css"
 const Pets = () => {
     const products = useSelector((state) => state.products.productList);
     // console.log(products);

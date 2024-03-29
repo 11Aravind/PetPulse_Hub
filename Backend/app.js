@@ -13,7 +13,7 @@ const app=express();
 // app.use(express.static('uploads'));
 app.use(express.json())
 app.use(cors())
-const PORT=5000
+const PORT=5001
 // Serve images from a directory named 'images'
 // app.use('/', express.static('uploads'));
 

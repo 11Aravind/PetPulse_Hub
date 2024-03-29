@@ -1,5 +1,5 @@
 import axios from "axios";
-window.$apiBaseUrl = "http://localhost:5000/";
+window.$apiBaseUrl = "http://localhost:5001/";
 export const httpRequest = (method, url, data,json) => {
   return new Promise((resolve, reject) => {
     let config = {

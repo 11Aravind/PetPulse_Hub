@@ -1,0 +1,23 @@
+.category-item {
+    text-align: center;
+    margin-bottom: 20px;
+    width: 75px;
+}
+
+.category-image img {
+    width: 100%;
+    max-width: 100px; /* Limit the maximum width of the image */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 50%; /* Make the image round */
+}
+
+.category-name {
+    font-size: 17px;
+    margin-top: 10px;
+    font-weight: 400;
+}
+.align-center{
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}

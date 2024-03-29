@@ -35,7 +35,7 @@ const Productdetails = () => {
         <div className="topSpacing">
             <div className="productDetails-container">
                 <div className="left-container">
-                  { product &&  <img src={`http://localhost:5000/${product.image}`} alt="" />}
+                  { product &&  <img src={`http://localhost:5001/${product.image}`} alt="" />}
                 </div>
                 <div className="rigt-container">
                     <div className="product-name">

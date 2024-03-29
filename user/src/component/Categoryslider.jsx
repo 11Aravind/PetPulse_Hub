@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import './CSS/categoryslider.css'; // Import CSS file
 
-const Categoryslider = ({categorys}) => {
+const Categoryslider = ({ categorys }) => {
   const containerRef = useRef(null);
   const [scrollPosition, setScrollPosition] = useState(0);
 
@@ -81,7 +81,7 @@ const Categoryslider = ({categorys}) => {
   return (
     <div className="container">
       <div className="main-slider">
-      <h1 className='headding'>Main Categorys</h1>
+        <h1 className='headding'>Main Categorys</h1>
         <div className="label-container">
           <button className="arrow-left" onClick={scrollLeft}>
             <i className="bi bi-arrow-left"></i>
@@ -92,17 +92,23 @@ const Categoryslider = ({categorys}) => {
         </div>
         <div className="card-slider-main" ref={containerRef}>
           {
-          
-          categorys.map((category,index) => (
-            <div className="card-wrapper" key={index}>
-              {/* <img
+
+            categorys.map((category, index) => (
+              <div className="card-wrapper" key={index}>
+                {/* <img
                 src={`https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_288,h_360/v1674029856/PC_Creative%20refresh/3D_bau/banners_new/Pizza.png`}
                 alt=""
               /> */}
-              <img src={`http://localhost:5000/${category.image}`} alt="" />
-              <span>{category.mainCategory}</span>
-            </div>
-          ))}
+                <div className="mainContainer">
+                  <div className="image">
+                    <img src={`http://localhost:5000/${category.image}`} alt="" />
+                  </div>
+                  <div className="categoryName">
+                    <span>{category.mainCategory}</span>
+                  </div>
+                </div>
+              </div>
+            ))}
         </div>
       </div>
     </div>

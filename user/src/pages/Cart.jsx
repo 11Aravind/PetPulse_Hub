@@ -17,7 +17,7 @@ const Cart = ({ callbackShowCart }) => {
           return(
           <div className="cart-row"  key={key}>
           <div className="cart-img">
-            <img src={`http://localhost:5000/${product.image}`} alt="" />
+            <img src={`http://localhost:5001/${product.image}`} alt="" />
           </div>
           <div className="cart-details">
             <div className="cart-description">

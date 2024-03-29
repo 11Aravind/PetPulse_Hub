@@ -1,0 +1,26 @@
+.quantitybtn-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* width: 116px; */
+    /* height: 5px; */
+    letter-spacing: .1rem;
+    /* padding-top: 3%; */
+}
+.quentitybtn {
+    color: #000;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 700;
+    padding: 0px 10px;
+    /* padding: 4px 14px; */
+    border-radius: 50%;
+    background: #f5f3f1;
+}
+.quentity_count {
+    border-left: none;
+    border-right: none;
+}
+.quantity{
+    padding: 2px 10px;
+}

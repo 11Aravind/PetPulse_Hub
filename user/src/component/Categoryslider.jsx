@@ -65,7 +65,7 @@ const Categoryslider = ({ categorys,headding }) => {
               /> */}
                 <div className="mainContainer">
                   <div className="image">
-                    <img src={`http://localhost:5000/${category.image}`} alt="" />
+                    <img src={`http://localhost:5001/${category.image}`} alt="" />
                   </div>
                   <div className="categoryName">
                     <b>{category.subCategory}</b>

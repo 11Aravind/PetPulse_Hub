@@ -1,14 +1,14 @@
 .category-item {
     text-align: center;
     margin-bottom: 20px;
-    width: 75px;
+    /* width: 75px; */
+    width: 91px;
 }
 
 .category-image img {
     width: 100%;
     max-width: 100px; /* Limit the maximum width of the image */
     height: auto; /* Maintain aspect ratio */
-    border-radius: 50%; /* Make the image round */
 }
 
 .category-name {

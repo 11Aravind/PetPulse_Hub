@@ -10,45 +10,55 @@ const Home = () => {
   const mainCategorys = [
     {
         url: "https://cdn.petsworld.network/v1/b/assets.petsworld.network/o/images%2Fcategories%2Fcategory-dog.png?h=256",
-        name: "Pets"
+        name: "Pets",
+        route:"/Pets"
     },
     {
         url: "images/food.png",
-        name: "Food"
+        name: "Food",
+        route:"/foods"
     },
     {
         url: "images/acc.png",
-        name: "Accessorys"
+        name: "Accessorys",
+        route:"/accessorys"
     },
     {
         url: "images/medi.png",
-        name: "Medicine"
+        name: "Medicine",
+        route:"/accessorys"
     },
     {
         url: "images/blogs.png",
-        name: "Blogs"
+        name: "Blogs",
+         route:"/accessorys"
     },
     {
         url: "images/care.png",
-        name: "Care_Taking"
+        name: "Care_Taking",
+         route:"/accessorys"
     },
 ];
   const dogCategorys = [
     {
         url: "https://www.petsy.online/cdn/shop/files/Dog-Food.jpg?v=1710755622&width=194",
-        name: "Food"
+        name: "Food",
+         route:"/routenotadded"
     },
     {
         url: "https://www.petsy.online/cdn/shop/files/Dog-Toys_12ce7fa5-1cdc-4b31-b0e5-8f57a863fcca.jpg?v=1710755622&width=194",
-        name: "Toys"
+        name: "Toys",
+         route:"/routenotadded"
     },
     {
         url: "https://www.petsy.online/cdn/shop/files/Dog-Accessories_ae912f34-23a9-42f1-b52c-ba0394b05ced.jpg?v=1710755622&width=194",
-        name: "Accessorys"
+        name: "Accessorys",
+         route:"/routenotadded"
     },
     {
         url: "https://www.petsy.online/cdn/shop/files/Dog-Treats_6294ba49-0864-41bc-953d-7fa1eafb7e1c.jpg?v=1710755622&width=194",
-        name: "Medicine"
+        name: "Medicine",
+         route:"/routenotadded"
     },
 ];
 

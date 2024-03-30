@@ -5,6 +5,7 @@ import { useSelector,useDispatch } from "react-redux";
 import {addToCart} from "../Slice/cartSlice"
 import { useEffect,useState } from "react";
 import Cart from "./Cart";
+import Notfound from "./Notfound";
 const Productdetails = () => {
     const { id } = useParams();
     const product = useSelector((state) => state.products.productList.find(product => product._id === id));
@@ -32,8 +33,11 @@ const Productdetails = () => {
         setShowCart(!setShowCart);
     }
     return (
+
         <div className="topSpacing">
-            <div className="productDetails-container">
+            {
+                product ? 
+            (<div className="productDetails-container">
                 <div className="left-container">
                   { product &&  <img src={`http://localhost:5001/${product.image}`} alt="" />}
                 </div>
@@ -72,7 +76,8 @@ const Productdetails = () => {
                         }
                     </div>
                 </div>
-            </div>
+            </div>):<Notfound/>
+            }
         </div>
     );
 }

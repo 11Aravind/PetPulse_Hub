@@ -8,7 +8,7 @@ const Pets = () => {
     return (
         <div className="topSpacing">
             {/* <h1 className="headding">Pets</h1> */}
-            <Categoryslider categorys={categorys}/>
+            <Categoryslider categorys={categorys} headding={"Our Pets"}/>
             <h1 className="headding">New Products</h1>
             <div className="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-4 g-4">
                 {

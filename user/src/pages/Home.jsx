@@ -7,13 +7,58 @@ import { useSelector } from "react-redux";
 
 const Home = () => {
   const categorys = useSelector((state) => state.categorys.categoryList);
-  console.log(categorys);
+  const mainCategorys = [
+    {
+        url: "https://cdn.petsworld.network/v1/b/assets.petsworld.network/o/images%2Fcategories%2Fcategory-dog.png?h=256",
+        name: "Pets"
+    },
+    {
+        url: "images/food.png",
+        name: "Food"
+    },
+    {
+        url: "images/acc.png",
+        name: "Accessorys"
+    },
+    {
+        url: "images/medi.png",
+        name: "Medicine"
+    },
+    {
+        url: "images/blogs.png",
+        name: "Blogs"
+    },
+    {
+        url: "images/care.png",
+        name: "Care_Taking"
+    },
+];
+  const dogCategorys = [
+    {
+        url: "https://www.petsy.online/cdn/shop/files/Dog-Food.jpg?v=1710755622&width=194",
+        name: "Food"
+    },
+    {
+        url: "https://www.petsy.online/cdn/shop/files/Dog-Toys_12ce7fa5-1cdc-4b31-b0e5-8f57a863fcca.jpg?v=1710755622&width=194",
+        name: "Toys"
+    },
+    {
+        url: "https://www.petsy.online/cdn/shop/files/Dog-Accessories_ae912f34-23a9-42f1-b52c-ba0394b05ced.jpg?v=1710755622&width=194",
+        name: "Accessorys"
+    },
+    {
+        url: "https://www.petsy.online/cdn/shop/files/Dog-Treats_6294ba49-0864-41bc-953d-7fa1eafb7e1c.jpg?v=1710755622&width=194",
+        name: "Medicine"
+    },
+];
+
   return (
     <div className="container">
       <ImageSlider />
-
-      <h1 className="headding">Our Categorys</h1>
-      <Categorylist />
+      <h1 className="headding">Our Services</h1>
+      <Categorylist categorys={mainCategorys}/>
+      <h1 className="headding">Top Categories For Your Dog</h1>
+      <Categorylist categorys={dogCategorys}/>
       <Categoryslider categorys={categorys} />
       <h1 className="headding">Pet-tastic Deals</h1>
       {/* <MyCarousel  items={newProducts}/> */}

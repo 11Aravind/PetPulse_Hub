@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import './CSS/categoryslider.css'; // Import CSS file
 
-const Categoryslider = ({ categorys }) => {
+const Categoryslider = ({ categorys,headding }) => {
   const containerRef = useRef(null);
   const [scrollPosition, setScrollPosition] = useState(0);
 
@@ -42,46 +42,10 @@ const Categoryslider = ({ categorys }) => {
       behavior: 'smooth'
     });
   };
-  // const containerRef = useRef(null);
-  // const [scrollPosition, setScrollPosition] = useState(0);
-
-  // useEffect(() => {
-  //   const updateScrollPosition = () => {
-  //     if (containerRef.current) {
-  //       setScrollPosition(containerRef.current.scrollLeft);
-  //     }
-  //   };
-
-  //   containerRef.current.addEventListener("scroll", updateScrollPosition);
-  //   return () => {
-  //     containerRef.current.removeEventListener("scroll", updateScrollPosition);
-  //   };
-  // }, []);
-
-  // const scrollLeft = () => {
-  //   const newPosition = scrollPosition - containerRef.current.offsetWidth / 2;
-  //   setScrollPosition(newPosition >= 0 ? newPosition : 0);
-  //   containerRef.current.scrollTo({
-  //     left: newPosition,
-  //     behavior: 'smooth'
-  //   });
-  // };
-
-  // const scrollRight = () => {
-  //   const newPosition = scrollPosition + containerRef.current.offsetWidth / 2;
-  //   const maxScroll = containerRef.current.scrollWidth - containerRef.current.clientWidth;
-  //   setScrollPosition(newPosition <= maxScroll ? newPosition : maxScroll);
-  //   containerRef.current.scrollTo({
-  //     left: newPosition,
-  //     behavior: 'smooth'
-  //   });
-  // };
-
-
   return (
     <div className="container">
       <div className="main-slider">
-        <h1 className='headding'>Main Categorys</h1>
+        <h1 className='headding'>{headding}</h1>
         <div className="label-container">
           <button className="arrow-left" onClick={scrollLeft}>
             <i className="bi bi-arrow-left"></i>
@@ -104,7 +68,7 @@ const Categoryslider = ({ categorys }) => {
                     <img src={`http://localhost:5000/${category.image}`} alt="" />
                   </div>
                   <div className="categoryName">
-                    <span>{category.mainCategory}</span>
+                    <b>{category.subCategory}</b>
                   </div>
                 </div>
               </div>

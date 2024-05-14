@@ -1,14 +1,24 @@
-import { Link, useParams } from "react-router-dom";
-import "./CSS/productdetails.css"
-import Quantitybtn from "../component/Quantitybtn";
 import { useSelector,useDispatch } from "react-redux";
+import { Link, useParams } from "react-router-dom";
+import ButtonComponent from "../component/ButtonComponent"
+import Quantitybtn from "../component/Quantitybtn";
 import {addToCart} from "../Slice/cartSlice"
 import { useEffect,useState } from "react";
-import Cart from "./Cart";
 import Notfound from "./Notfound";
+import "./CSS/productdetails.css"
+import Cart from "./Cart";
 const Productdetails = () => {
     const { id } = useParams();
     const product = useSelector((state) => state.products.productList.find(product => product._id === id));
+    // const [showCart,setShowCart]=useState(false);
+    // const dispatch = useDispatch();
+    // const addProduct=()=>{
+    //     dispatch(addToCart(product))
+    //     setShowCart(!showCart)
+    // }
+    const callbackShowCart=()=>{
+        setShowCart(!setShowCart);
+    }
     const productFeature = [
         {
             url: "https://greenlandorganicfarms.com/shipping.png",
@@ -23,17 +33,8 @@ const Productdetails = () => {
             description: "Hand Picked Items"
         },
     ];
-    const [showCart,setShowCart]=useState(false);
-    const dispatch = useDispatch();
-    const addProduct=()=>{
-        dispatch(addToCart(product))
-        setShowCart(!showCart)
-    }
-    const callbackShowCart=()=>{
-        setShowCart(!setShowCart);
-    }
+    console.log(product);
     return (
-
         <div className="topSpacing">
             {
                 product ? 
@@ -51,10 +52,18 @@ const Productdetails = () => {
                     </div>
                     <div className="addToCart fixedBtn">
                         {/* <Link to="/cart"> */}
-                            <button className="addToCartBtn" onClick={addProduct}>Add</button>
+                            {/* <button className="addToCartBtn" onClick={addProduct}>Add</button>
                             {
                                 showCart && <Cart callbackShowCart={callbackShowCart}/>
-                            }
+                            } */}
+
+<Link to="/cart">
+              <ButtonComponent
+                text="ADD TO CART"
+                classs="addbtn addtocart"
+                product={product}
+              />
+            </Link>
                         {/* </Link> */}
                     </div>
                     <div className="sub-headding">
@@ -66,7 +75,7 @@ const Productdetails = () => {
                     <div className="product-featureCOntainer">
                         {
                             productFeature.map((feature, index) =>
-                                <div className="shipping">
+                                <div className="shipping" key={index}>
                                     <img src={feature.url} alt="" />
                                     <div className="feature">
                                         {feature.description}

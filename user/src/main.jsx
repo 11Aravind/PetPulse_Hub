@@ -5,13 +5,16 @@ import { BrowserRouter } from 'react-router-dom';
 import "bootstrap-icons/font/bootstrap-icons.css";
 import {store} from "./store.js"
 import { Provider } from 'react-redux';
+import { CartProvider } from "react-use-cart";
 import './index.css'
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
+  <Provider store={store} >
+      {/* <React.StrictMode> */}
     <BrowserRouter>
-    <Provider store={store} >
+    <CartProvider>
     <App />
-    </Provider>
+    </CartProvider>
     </BrowserRouter>
-  </React.StrictMode>,
+  {/* </React.StrictMode>, */}
+    </Provider>
 )

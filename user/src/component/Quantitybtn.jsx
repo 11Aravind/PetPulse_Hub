@@ -1,13 +1,24 @@
-import { useState } from "react";
-import "./CSS/Quantitybtn.css";
-const Quantitybtn=()=>{
-    const[quentity,setQuantity]=useState(1)
-    return(
-        <div className="quantitybtn-container">
-            <div className="quentitybtn quentity_decreass" onClick={()=>setQuantity(quentity-1)} >-</div>
-            <div className="quantity  quentity_count">{quentity}</div>
-            <div className="quentitybtn quentity_increass" onClick={()=>setQuantity(quentity+1)}>+</div>
+import { useCart } from "react-use-cart";
+import "./CSS/Quantitybtn.css"
+export default function Quantitybtn({ item }) {
+  const { updateItemQuantity, removeItem } = useCart();
+  return (
+    <>
+      <div className="quantity_container">
+        <div
+          className="quantity_btn decreass_quantity"
+          onClick={() => updateItemQuantity(item.id, item.quantity - 1)}
+        >
+          -
         </div>
-    )
+        <div className="quantity_btn quantity_count">{item.quantity}</div>
+        <div
+          className="quantity_btn"
+          onClick={() => updateItemQuantity(item.id, item.quantity + 1)}
+        >
+          +
+        </div>
+      </div>
+    </>
+  );
 }
-export default Quantitybtn;

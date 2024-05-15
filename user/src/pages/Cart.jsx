@@ -60,7 +60,8 @@ const Cart = ({ callbackShowCart }) => {
   const closeCart = () => {
     callbackShowCart()
   }
-
+  // const id=useSelector((state)=>state.user.userId);
+  // console.log(id);
   return (
     <>
       {isEmpty ? (

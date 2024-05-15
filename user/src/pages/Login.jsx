@@ -2,7 +2,10 @@ import { Link } from "react-router-dom";
 import "./CSS/Login.css"
 import { useEffect, useRef } from "react";
 import {httpRequest} from "../API/api"
+import { useDispatch } from "react-redux";
+import {fetchAndStore} from "../Slice/userSlice"
 export const Login = () => {
+  const dispatch=useDispatch();
   const email = useRef("");
   const passsword = useRef("");
 
@@ -12,8 +15,9 @@ export const Login = () => {
       "password": passsword.current.value
     }
     httpRequest('post','api/user/login', loginData)
-      .then((res) => console.log(res))
+      .then((res) => dispatch(fetchAndStore(res.user_id)))
       .catch((error) => console.log(error));
+     
   }
 
   return (

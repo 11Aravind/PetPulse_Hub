@@ -72,7 +72,7 @@ export const Signup = () => {
           />
         </div>
         <div className="form-group txtBox-spacing">
-          <button type="submit" className="bigLoginBtn" onClick={signUp}>
+          <button type="submit" className="bigButton" onClick={signUp}>
             Signup
           </button>
         </div>

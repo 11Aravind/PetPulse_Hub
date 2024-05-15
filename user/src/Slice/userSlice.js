@@ -6,7 +6,7 @@ const userSlice = createSlice({
     },
     reducers: { // hear reducers
         fetchAndStore:(state,action)=>{
-            state.productList=action.payload;
+            state.userId=action.payload;
         }, //this is an action creator
     },
 })

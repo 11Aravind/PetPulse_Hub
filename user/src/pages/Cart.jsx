@@ -52,10 +52,10 @@ const Cart = ({ callbackShowCart }) => {
   const { isEmpty, items, cartTotal } = useCart();
   const navigate = useNavigate();
   // const imagePath = useSelector((state) => state.banner.imagePath);
-  // const userId = useSelector((state) => state.user.user_id);
-  // const onCheckOut = () => {
-  //   userId == null ? navigate("/signIn") : navigate("/OrderConfirmation");
-  // };
+  const userId = useSelector((state) => state.user.userId);
+  const onCheckOut = () => {
+    userId == null ? navigate("/login") : navigate("/OrderConfirmation");
+  };
 
   const closeCart = () => {
     callbackShowCart()
@@ -101,7 +101,7 @@ const Cart = ({ callbackShowCart }) => {
             text={"Checkout- ₹" + cartTotal}
             classs="addbtn checkOutBtn"
             checkOut={true}
-          // onClick={onCheckOut}
+          onClick={onCheckOut}
           />
         </div>
       )}

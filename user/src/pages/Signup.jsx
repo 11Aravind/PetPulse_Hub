@@ -1,8 +1,9 @@
 
+import { useEffect, useRef ,useState} from "react";
 import { Link } from "react-router-dom";
+import {httpRequest} from "../API/api"
 import "./CSS/Login.css"
-import { useRef } from "react";
-import { useState } from "react";
+
 export const Signup = () => {
   const [message, setMessage] = useState("");
   const email = useRef("");
@@ -15,18 +16,24 @@ export const Signup = () => {
     }, 3000);
   }
   const signUp = () => {
-    if (password != confirmPassword) {
+    if (password.current.value != confirmPassword.current.value) {
       showHideMessage("Enter same passsword");
     }
     else {
       const signupData = {
-        "email": email,
-        "password": password
+        "email": email.current.value,
+        "password": password.current.value
       }
-      console.log(signupData);
+      httpRequest('post','api/user/signup',signupData)
+      .then((res)=>showHideMessage(res.message))
+      .catch((err)=>console.log(err));
+      // console.log(signupData);
+
     }
 
   }
+
+
   return (
     <div className="login-container">
       <div className="mx-auto col-10 col-md-8 col-lg-4 loginBox">

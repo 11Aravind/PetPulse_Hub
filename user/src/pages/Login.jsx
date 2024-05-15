@@ -1,6 +1,19 @@
 import { Link } from "react-router-dom";
 import "./CSS/Login.css"
+import { useEffect, useRef } from "react";
+import {httpRequest} from "../API/api"
 export const Login = () => {
+  const email = useRef("");
+  const passsword = useRef("");
+  const login = () => {
+    const loginData = {
+      "email": email.current.value,
+      "password": passsword.current.value
+    }
+    httpRequest('post', 'api/user/login', loginData)
+      .then((res) => console.log(res))
+      .catch((error) => console.log(error));
+  }
   return (
 
     <div className="login-container">
@@ -15,6 +28,7 @@ export const Login = () => {
               className="form-control username"
               id="username"
               placeholder="Email"
+              ref={email}
             />
           </div>
           <div className="form-group txtBox-spacing">
@@ -24,12 +38,14 @@ export const Login = () => {
               className="form-control password"
               id="password"
               placeholder="Password"
+              ref={passsword}
             />
           </div>
           <div className="form-group txtBox-spacing">
-            <button type="submit" className="bigLoginBtn">
+            <button type="submit" className="bigButton" onClick={login}>
               Log in
             </button>
+
           </div>
           <small className="redirectLink">
             Don't have an account? <Link to="/signup">Sign Up</Link>

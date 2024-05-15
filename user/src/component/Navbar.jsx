@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import ButtonComponent from "./ButtonComponent";
 import "./CSS/Navbar.css";
 const Navbar = () => {
     const menus = [
@@ -44,8 +45,8 @@ const Navbar = () => {
                                     {/* <div className="image-container">
                                     <img src="https://static.freshtohome.com/images/icons/category-icons/chicken.png" />
                                     </div> */}
-                                    <Link  to={menu.to} className="menu">
-                                    <span>{menu.menu}</span></Link></li>
+                                    <Link to={menu.to} className="menu">
+                                        <span>{menu.menu}</span></Link></li>
                             );
                         })
                     }
@@ -57,7 +58,12 @@ const Navbar = () => {
                 <ul className="menu-items">
                     {/* <li><Link to="/" className="menu">search</Link></li> */}
                     <li><Link to="/cart" className="menu"><i className="bi bi-cart-check-fill"></i></Link></li>
-                    <li><Link to="/login"><button className="addToCartBtn">Login</button></Link></li>
+                    <li><Link to="/login">
+                         <ButtonComponent
+                        text="Login"
+                        classs="addbtn smallBtn"
+                       
+                    /></Link></li>
                 </ul>
             </div>
         </nav>

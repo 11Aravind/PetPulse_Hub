@@ -10,12 +10,12 @@ import Cart from "./Cart";
 const Productdetails = () => {
     const { id } = useParams();
     const product = useSelector((state) => state.products.productList.find(product => product._id === id));
-    // const [showCart,setShowCart]=useState(false);
+    const [showCart,setShowCart]=useState(false);
     // const dispatch = useDispatch();
-    // const addProduct=()=>{
-    //     dispatch(addToCart(product))
-    //     setShowCart(!showCart)
-    // }
+    const addProduct=()=>{
+        // dispatch(addToCart(product))
+        setShowCart(!showCart)
+    }
     const callbackShowCart=()=>{
         setShowCart(!setShowCart);
     }
@@ -60,11 +60,11 @@ const Productdetails = () => {
 <Link to="/cart">
               <ButtonComponent
                 text="ADD TO CART"
-                classs="addbtn addtocart"
+                classs="addbtn smallBtn"
                 product={product}
               />
             </Link>
-                        {/* </Link> */}
+                      
                     </div>
                     <div className="sub-headding">
                         Description

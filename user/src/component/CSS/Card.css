@@ -50,16 +50,7 @@
     border: 1px solid rgba(128,128,128,.16);
     box-shadow: 0 1px 4px rgb(128 128 128 / 11%);
 }
-.addToCartBtn{
-    color: white;
-    background: var(--primary);
-    border: none;
-    padding: 2px 9px;
-    font-size: 13px;
-    font-size: 13px;
-    line-height: 30px;
-    font-weight: bold;
-}
+
 .cardBtn{
     color: var(--primary);
     border: 1px solid var(--primary);

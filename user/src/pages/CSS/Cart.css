@@ -1,12 +1,12 @@
 
-.cart-img{
+.img-cart{
     width: 95px;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
 }
-.cart-img img{
+.product-cart-img{
     width: 100%;
 }
 .cart-details{
@@ -40,9 +40,23 @@
 .closeBtn{
     position: fixed;
     right: 0;
+    top: 0;
     font-size: 36px;
     padding: 0px 10px;
     cursor: pointer;
+}
+.product-det-cart{
+    margin: 7px 6px;
+    font-size: 13px;
+}
+.body-tr{
+    display: flex;
+    justify-content: space-around;
+}
+.quantity-price-container{
+display: flex;
+justify-content: space-around;
+align-items: center;
 }
 @media (max-width:768px) {
     .cart-container {

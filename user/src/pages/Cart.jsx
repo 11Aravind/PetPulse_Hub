@@ -1,4 +1,5 @@
-// import "./CSS/Cart.css";
+import "./CSS/Cart.css";
+import "./CSS/ButtonComponent.css"
 // import Quantitybtn from "../component/Quantitybtn"
 // import { useSelector} from "react-redux";
 // const Cart = ({ callbackShowCart }) => {
@@ -47,7 +48,7 @@ import { useCart } from "react-use-cart";
 import ButtonComponent from "../component/ButtonComponent";
 import Quantitybtn from "../component/Quantitybtn";
 
-const Cart = () => {
+const Cart = ({ callbackShowCart }) => {
   const { isEmpty, items, cartTotal } = useCart();
   const navigate = useNavigate();
   // const imagePath = useSelector((state) => state.banner.imagePath);
@@ -55,6 +56,11 @@ const Cart = () => {
   // const onCheckOut = () => {
   //   userId == null ? navigate("/signIn") : navigate("/OrderConfirmation");
   // };
+
+  const closeCart = () => {
+    callbackShowCart()
+  }
+
   return (
     <>
       {isEmpty ? (
@@ -64,6 +70,8 @@ const Cart = () => {
       ) : (
         <div className="cart-container">
           <div className="cart-body">
+            <div className="closeBtn" ><i className="bi bi-x"></i></div>
+            <h3 className="headding">Shopping Bag</h3>
             {items.map((product, key) => {
               return (
                 <div className="body-tr" key={key}>
@@ -71,16 +79,19 @@ const Cart = () => {
                     <img
                       className="product-cart-img"
                       // src={imagePath + product.product_img}
-                      src={`http://localhost:5001/${product.image}`} 
+                      src={`http://localhost:5001/${product.image}`}
                       alt="product-img"
                     />
                   </div>
                   <div className="product-det-cart">
-                    <div className="cart-th">{product.product_name}</div>
-                    <div className="cart-th main-txt">{product.price}</div>
-                    <div className="cart-th">
-                      <Quantitybtn item={product} />
+                    <div className="cart-th">{product.name}</div>
+                    <div className="quantity-price-container">
+                      <div className="cart-th main-txt">₹{product.newPrice}</div>
+                      <div className="cart-th">
+                        <Quantitybtn item={product} />
+                      </div>
                     </div>
+
                   </div>
                 </div>
               );
@@ -90,7 +101,7 @@ const Cart = () => {
             text={"Checkout- ₹" + cartTotal}
             classs="addbtn checkOutBtn"
             checkOut={true}
-            // onClick={onCheckOut}
+          // onClick={onCheckOut}
           />
         </div>
       )}

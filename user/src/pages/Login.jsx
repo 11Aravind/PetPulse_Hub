@@ -5,20 +5,21 @@ import {httpRequest} from "../API/api"
 export const Login = () => {
   const email = useRef("");
   const passsword = useRef("");
+
   const login = () => {
     const loginData = {
       "email": email.current.value,
       "password": passsword.current.value
     }
-    httpRequest('post', 'api/user/login', loginData)
+    httpRequest('post','api/user/login', loginData)
       .then((res) => console.log(res))
       .catch((error) => console.log(error));
   }
+
   return (
 
     <div className="login-container">
       <div className="mx-auto col-10 col-md-8 col-lg-4 loginBox">
-        <form className="form-example" action="" method="post">
           <h3 className="main-headding">Welcome to PetPulse Hub</h3>
           <p className="login-desc">The leading platform for pet lovers,sellers and buyers </p>
           <div className="form-group txtBox-spacing">
@@ -42,7 +43,7 @@ export const Login = () => {
             />
           </div>
           <div className="form-group txtBox-spacing">
-            <button type="submit" className="bigButton" onClick={login}>
+            <button type="button" className="bigButton" onClick={login}>
               Log in
             </button>
 
@@ -50,7 +51,6 @@ export const Login = () => {
           <small className="redirectLink">
             Don't have an account? <Link to="/signup">Sign Up</Link>
           </small>
-        </form>
 
       </div>
     </div>

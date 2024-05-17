@@ -1,4 +1,5 @@
 import User from "../models/User.js";
+import Address from "../models/Address.js"
 import bcrypt from 'bcryptjs';
 
 export const getUserDetails = async (req, res, next) => {
@@ -24,7 +25,7 @@ export const signupMiddleware = async (req, res, next) => {
         console.log(error);
     }
     if (existingEmail)
-        return res.status(400).json({ message: "user already exist",status:"failed" })
+        return res.status(400).json({ message: "user already exist", status: "failed" })
 
     const hashedPassword = bcrypt.hashSync(password)
 
@@ -39,12 +40,11 @@ export const signupMiddleware = async (req, res, next) => {
     } catch (err) {
         return console.log(err);
     }
-    return res.status(201).json({ message:"successsfuly Registered",status:"success" })
+    return res.status(201).json({ message: "successsfuly Registered", status: "success" })
 }
 
 
 export const loginMiddleware = async (req, res, next) => {
-
     const { email, password } = req.body;
     let existingUser;
     try {
@@ -52,9 +52,30 @@ export const loginMiddleware = async (req, res, next) => {
     }
     catch (error) { return console.log(error); }
     if (!existingUser)
-        return res.status(401).json({ message: "coudn't find user e-mail" ,status:"failed",user_id: null})
-    const isPasswordCorrect=bcrypt.compareSync(password,existingUser.password)
-    if(!isPasswordCorrect)
-        return res.status(401).json({message:"password was wrong " ,status:"failed",user_id: null})
-    return res.status(200).json({message:"Login was successful",status:"success",user_id: existingUser._id}  )
+        return res.status(401).json({ message: "coudn't find user e-mail", status: "failed", user_id: null })
+    const isPasswordCorrect = bcrypt.compareSync(password, existingUser.password)
+    if (!isPasswordCorrect)
+        return res.status(401).json({ message: "password was wrong ", status: "failed", user_id: null })
+    return res.status(200).json({ message: "Login was successful", status: "success", user_id: existingUser._id })
+}
+export const storeAddress = async (req, res) => {
+    const { userId, name, mobileNo, pincode, locality, address, city, state, landmark, address_type } = req.body;
+    let userAddress = new address({
+        userId,
+        name,
+        mobileNo,
+        pincode,
+        locality,
+        address,
+        city,
+        state,
+        landmark,
+        address_type
+    });
+    try {
+        await userAddress.save();
+        res.status(200).json({ message: "successfuly stored", status: "success" });
+    } catch (err) {
+        res.status(200).json({status:"failed",message:`address not saved ${err}`});
+    }
 }

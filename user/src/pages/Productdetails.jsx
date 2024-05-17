@@ -11,9 +11,7 @@ const Productdetails = () => {
     const { id } = useParams();
     const product = useSelector((state) => state.products.productList.find(product => product._id === id));
     const [showCart,setShowCart]=useState(false);
-    // const dispatch = useDispatch();
     const addProduct=()=>{
-        // dispatch(addToCart(product))
         setShowCart(!showCart)
     }
     const callbackShowCart=()=>{
@@ -57,13 +55,14 @@ const Productdetails = () => {
                                 showCart && <Cart callbackShowCart={callbackShowCart}/>
                             } */}
 
-<Link to="/cart">
+{/* <Link to="/cart"> */}
               <ButtonComponent
                 text="ADD TO CART"
                 classs="addbtn smallBtn"
                 product={product}
               />
-            </Link>
+            {/* </Link> */}
+            <Cart/>
                       
                     </div>
                     <div className="sub-headding">

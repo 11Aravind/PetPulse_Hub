@@ -1,0 +1,20 @@
+.payementModeDiv {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+
+    .CashOnDelivery,
+    .Online {
+        border: 1px solid var(--primary);
+        padding: 1% 4%;
+        cursor: pointer;
+    }
+
+    .selected {
+        background-color: var(--primary);
+        color: white;
+    }
+}

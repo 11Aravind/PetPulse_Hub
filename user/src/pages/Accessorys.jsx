@@ -6,7 +6,7 @@ const Accessorys=()=>{
     const filterCategory=categorys.filter((itemCat)=>itemCat.mainCategory==="Accessorys" && products.some((productItem)=>productItem.category_id===itemCat._id ));
     const filteredProduct=products.filter(product=>categorys.some(category=>category._id===product.category_id && category.mainCategory==="Accessorys"));
     return(
-        <Produtcard categorys={filterCategory} products={filteredProduct}/>
+        <Produtcard categorys={filterCategory} products={filteredProduct} headding="Our Accessorys"/>
     );
 }
 export default Accessorys;

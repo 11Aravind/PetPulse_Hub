@@ -7,9 +7,14 @@ const Pets = () => {
     const categorys=useSelector((state)=>state.categorys.categoryList.filter(item=>item.mainCategory=="Pets"));
     const products = useSelector((state) => state.products.productList);
     const filteredProduct=products.filter(product=>categorys.some(category=>category._id===product.category_id && category.mainCategory==="Pets"));
-    // console.log(products);
+    console.log(filteredProduct);
     return (
-       <Produtcard categorys={categorys} products={filteredProduct}/>
+       <>
+       {
+          filteredProduct.length===0 ?"Pets was empty" :<Produtcard categorys={categorys} products={filteredProduct} headding="Our Pets"/> 
+        }
+       {/* <Produtcard categorys={categorys} products={filteredProduct}/>  */}
+       </>
     )
 }
 export default Pets;

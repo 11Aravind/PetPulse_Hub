@@ -8,7 +8,7 @@ const Foods=()=>{
     const filteredProduct=products.filter(product=>categorys.some(category=>category._id===product.category_id && category.mainCategory==="Food"));
     // console.log(filteredProduct);
     return(
-      <Produtcard categorys={filterCategory} products={filteredProduct} />
+      <Produtcard categorys={filterCategory} products={filteredProduct} headding="Our Top Food Items" />
    )
 }
 export default Foods;

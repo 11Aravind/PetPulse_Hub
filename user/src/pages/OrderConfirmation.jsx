@@ -138,10 +138,11 @@ const [isAddressVisible,setAddressVisible]=useState(false);
         </label>
       </div>
       <div className="col-12">
-        <button onClick={()=>setAddressVisible(!isAddressVisible)}><h5>+ Add a new address</h5></button>
+        <button className="addAddressBtn" onClick={()=>setAddressVisible(!isAddressVisible)}>+ Add a new address</button>
     {   isAddressVisible && <Address />}
       </div>
       <h5>ORDER SUMMARY</h5>
+      <h5>PAYMENT</h5>
     </div>
 
   );

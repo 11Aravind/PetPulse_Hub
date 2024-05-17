@@ -7,8 +7,10 @@
 
 .category-image img {
     width: 100%;
-    max-width: 100px; /* Limit the maximum width of the image */
-    height: auto; /* Maintain aspect ratio */
+    max-width: 100px;
+    height: auto;
+    aspect-ratio: 3 / 2;
+    object-fit: contain;
 }
 
 .category-name {

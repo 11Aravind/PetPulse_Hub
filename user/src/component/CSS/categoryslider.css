@@ -71,6 +71,7 @@ button {
     height: 143px;
     width: 129px;
     cursor: pointer;
+    object-fit: contain;
   }
   .mainContainer{
     display: flex;

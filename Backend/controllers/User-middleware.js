@@ -43,7 +43,6 @@ export const signupMiddleware = async (req, res, next) => {
     return res.status(201).json({ message: "successsfuly Registered", status: "success" })
 }
 
-
 export const loginMiddleware = async (req, res, next) => {
     const { email, password } = req.body;
     let existingUser;
@@ -76,6 +75,17 @@ export const storeAddress = async (req, res) => {
         await userAddress.save();
         res.status(200).json({ message: "successfuly stored", status: "success" });
     } catch (err) {
-        res.status(200).json({status:"failed",message:`address not saved ${err}`});
+        res.status(200).json({ status: "failed", message: `address not saved ${err}` });
     }
+}
+export const getAddress = async (req, res) => {
+    let addressList;
+    try {
+        addressList = await Address.find();
+    } catch (error) {
+        return res.status(404).json({ status: "failed", message: `something went wrong ${error}`, data: {} })
+    }
+    if (addressList.length === 0)
+        return res.status(404).json({ status: "failed", message: "address empty", data: {} })
+    return res.status(200).json({ status: "success", message: "success", data: { addressList } })
 }

@@ -76,7 +76,8 @@ export const storeAddress = async (req, res) => {
 export const getAddress = async (req, res) => {
     let addressList;
     try {
-        addressList = await Address.find();
+        const { userId } = req.query;
+        addressList = await Address.findById({userId});
     } catch (error) {
         return res.status(404).json({ status: "failed", message: `something went wrong ${error}`, data: {} })
     }

@@ -44,9 +44,10 @@ export const OrderConfirmation = () => {
   //     });
   //   }
   // };
+  const userId = useSelector((state) => state.user.userId)
   const [isAddressVisible, setAddressVisible] = useState(false);
   useEffect(() => {
-    httpRequest('get', "api/user/getAddress")
+    httpRequest('get',`api/user/getAddress?userId=${userId}`)
       .then((response) => {
         console.log(response.message);
       })

@@ -1,7 +1,8 @@
 
-import { useEffect, useRef ,useState} from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import {httpRequest} from "../API/api"
+import { httpRequest } from "../API/api"
+import { useNavigate } from "react-router-dom";
 import "./CSS/Login.css"
 
 export const Signup = () => {
@@ -9,6 +10,7 @@ export const Signup = () => {
   const email = useRef("");
   const password = useRef("");
   const confirmPassword = useRef("");
+  const navigate = useNavigate();
   const showHideMessage = (msg) => {
     setMessage(msg);
     setTimeout(() => {
@@ -24,9 +26,12 @@ export const Signup = () => {
         "email": email.current.value,
         "password": password.current.value
       }
-      httpRequest('post','api/user/signup',signupData)
-      .then((res)=>showHideMessage(res.message))
-      .catch((err)=>console.log(err));
+      httpRequest('post', 'api/user/signup', signupData)
+        .then((res) => {
+          showHideMessage(res.message);
+          navigate("/login")
+        })
+        .catch((err) => console.log(err));
       // console.log(signupData);
 
     }
@@ -39,7 +44,6 @@ export const Signup = () => {
       <div className="mx-auto col-10 col-md-8 col-lg-4 loginBox">
         <h3 className="main-headding">Signup</h3>
         <p className="login-desc">Signup and join the pet community </p>
-
         <div className="errorMsg">{message}</div>
         <div className="form-group  txtBox-spacing">
           {/* <label for="username">E-mail</label> */}

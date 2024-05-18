@@ -1,8 +1,8 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { useCart } from "react-use-cart";
-// import { httpRequest } from "../../API/api";
+import { httpRequest } from "../API/api";
 import ButtonComponent from "../component/ButtonComponent";
 import "./CSS/OrderConfirmation.css";
 export const OrderConfirmation = () => {
@@ -45,6 +45,13 @@ export const OrderConfirmation = () => {
   //   }
   // };
 const [isAddressVisible,setAddressVisible]=useState(false);
+useEffect(()=>{
+  httpRequest('get',"api/user/getAddress")
+  .then((response)=>{
+    console.log(response.message);
+  })
+  .catch((err)=>console.log(err));
+},[])
   return (
     // <div className="spacing categoryFilterContainer">
     //   <div className="product-headding">Confirm your address</div>

@@ -3,6 +3,8 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { httpRequest } from "../API/api"
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux"
+import {setRoute} from "../Slice/commonSlice"
 import "./CSS/Login.css"
 
 export const Signup = () => {
@@ -11,6 +13,7 @@ export const Signup = () => {
   const password = useRef("");
   const confirmPassword = useRef("");
   const navigate = useNavigate();
+  const dispatch=useDispatch();
   const showHideMessage = (msg) => {
     setMessage(msg);
     setTimeout(() => {
@@ -29,6 +32,7 @@ export const Signup = () => {
       httpRequest('post', 'api/user/signup', signupData)
         .then((res) => {
           showHideMessage(res.message);
+          dispatch(setRoute("/signup"))
           navigate("/login")
         })
         .catch((err) => console.log(err));

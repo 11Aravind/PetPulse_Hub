@@ -47,13 +47,17 @@ import { useNavigate } from "react-router";
 import { useCart } from "react-use-cart";
 import ButtonComponent from "../component/ButtonComponent";
 import Quantitybtn from "../component/Quantitybtn";
+import { useDispatch } from "react-redux"
+import {setRoute} from "../Slice/commonSlice"
 
 const Cart = ({ callbackShowCart }) => {
   const { isEmpty, items, cartTotal } = useCart();
   const navigate = useNavigate();
+  const dispatch=useDispatch();
   // const imagePath = useSelector((state) => state.banner.imagePath);
   const userId = useSelector((state) => state.user.userId);
   const onCheckOut = () => {
+    dispatch(setRoute("/cart"));
     userId == null ? navigate("/login") : navigate("/OrderConfirmation");
   };
 

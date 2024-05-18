@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { useNavigate ,useLocation} from "react-router";
 import { useState } from "react";
 import "./CSS/Login.css"
@@ -14,6 +15,8 @@ export const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [previousUrl, setPreviousUrl] = useState("");
+  const previousRoute=useSelector((state)=>state.common.prvRoute);
+  console.log(previousRoute);
 
   // useEffect(() => {
   //   // Save the previous URL when the location changes
@@ -51,7 +54,8 @@ export const Login = () => {
       <div className="mx-auto col-10 col-md-8 col-lg-4 loginBox">
         <h3 className="main-headding">Welcome to PetPulse Hub</h3>
         <p className="login-desc">The leading platform for pet lovers,sellers and buyers </p>
-        <div className="form-group txtBox-spacing">
+    <form>
+    <div className="form-group txtBox-spacing">
           {/* <label for="username">E-mail</label> */}
           <input
             type="text"
@@ -66,9 +70,9 @@ export const Login = () => {
           <input
             type="password"
             className="form-control password"
-            id="password"
             placeholder="Password"
             ref={passsword}
+            // autoComplete="current-password"
           />
         </div>
         <div className="form-group txtBox-spacing">
@@ -77,6 +81,7 @@ export const Login = () => {
           </button>
 
         </div>
+    </form>
         <small className="redirectLink">
           Don't have an account? <Link to="/signup">Sign Up</Link>
         </small>

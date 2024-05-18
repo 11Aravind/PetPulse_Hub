@@ -34,7 +34,6 @@ const Productdetails = () => {
             description: "Hand Picked Items"
         },
     ];
-    console.log(product);
     return (
         <div className="topSpacing">
             {
@@ -61,11 +60,13 @@ const Productdetails = () => {
 {/* <Link to="/cart"> */}
               <ButtonComponent
                 text="ADD TO CART"
-                classs="addbtn smallBtn"
+                classs="addbtn smallBtn checkOut"
                 product={product}
+                onClick={addProduct}
+                // disableValue={true}
               />
             {/* </Link> */}
-            <Cart/>
+           { showCart && <Cart/>}
                       
                     </div>
                     <div className="sub-headding">

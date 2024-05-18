@@ -22,6 +22,7 @@ const ButtonComponent = ({
             tmpProduct.price = product.newPrice;
             // console.log(tmpProduct);
             addItem(tmpProduct, 1);
+            if (onClick) onClick();
           }
         }}
         className={classs}

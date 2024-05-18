@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const commonSlice = createSlice({
     name: "common",
     initialState: {
-        prvRoute: "",
+        prvRoute: "/",
     },
     reducers: {
         setRoute: (state, action) => {

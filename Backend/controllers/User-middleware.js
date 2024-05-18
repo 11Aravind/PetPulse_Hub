@@ -58,24 +58,19 @@ export const loginMiddleware = async (req, res, next) => {
     return res.status(200).json({ message: "Login was successful", status: "success", user_id: existingUser._id })
 }
 export const storeAddress = async (req, res) => {
-    const { userId, name, mobileNo, pincode, locality, address, city, state, landmark, address_type } = req.body;
-    let userAddress = new address({
+    const { userId, name, mobileNo, address, order_id } = req.body;
+    let userAddress = new Address({
         userId,
         name,
         mobileNo,
-        pincode,
-        locality,
         address,
-        city,
-        state,
-        landmark,
-        address_type
+        order_id
     });
     try {
         await userAddress.save();
-        res.status(200).json({ message: "successfuly stored", status: "success" });
+        return res.status(200).json({ message: "successfuly stored", status: "success" });
     } catch (err) {
-        res.status(200).json({ status: "failed", message: `address not saved ${err}` });
+        return res.status(200).json({ status: "failed", message: `address not saved ${err}` });
     }
 }
 export const getAddress = async (req, res) => {
@@ -86,6 +81,6 @@ export const getAddress = async (req, res) => {
         return res.status(404).json({ status: "failed", message: `something went wrong ${error}`, data: {} })
     }
     if (addressList.length === 0)
-       return  res.status(200).json({ status: "failed", message: "address empty", data: {} })
-   return  res.status(200).json({ status: "success", message: "success", data: { addressList } })
+        return res.status(200).json({ status: "failed", message: "address empty", data: {} })
+    return res.status(200).json({ status: "success", message: "success", data: { addressList } })
 }

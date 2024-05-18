@@ -31,7 +31,7 @@ export const OrderConfirmation = () => {
   //       paymentMode: paymentMode,
   //       orderID: null
   //     };
-      // console.log(data);
+  // console.log(data);
   //     httpRequest(data, "checkOut.php").then((respose) => {
   //       if (respose && respose.status && paymentMode == "cod") {
   //         //cod success
@@ -44,14 +44,14 @@ export const OrderConfirmation = () => {
   //     });
   //   }
   // };
-const [isAddressVisible,setAddressVisible]=useState(false);
-useEffect(()=>{
-  httpRequest('get',"api/user/getAddress")
-  .then((response)=>{
-    console.log(response.message);
-  })
-  .catch((err)=>console.log(err));
-},[])
+  const [isAddressVisible, setAddressVisible] = useState(false);
+  useEffect(() => {
+    httpRequest('get', "api/user/getAddress")
+      .then((response) => {
+        console.log(response.message);
+      })
+      .catch((err) => console.log(err));
+  }, [])
   return (
     // <div className="spacing categoryFilterContainer">
     //   <div className="product-headding">Confirm your address</div>
@@ -145,8 +145,8 @@ useEffect(()=>{
         </label>
       </div>
       <div className="col-12">
-        <button className="addAddressBtn" onClick={()=>setAddressVisible(!isAddressVisible)}>+ Add a new address</button>
-    {   isAddressVisible && <Address />}
+        <button className="addAddressBtn" onClick={() => setAddressVisible(!isAddressVisible)}>+ Add a new address</button>
+        {isAddressVisible && <Address />}
       </div>
       <h5>ORDER SUMMARY</h5>
       <h5>PAYMENT</h5>
@@ -155,46 +155,68 @@ useEffect(()=>{
   );
 };
 const Address = () => {
+  const name = useRef("")
+  const mobile = useRef("")
+  const pincode = useRef("")
+  const locality = useRef("")
+  const address = useRef("")
+  const city = useRef("")
+  const state = useRef("")
+  const userId = useSelector((state) => state.user.userId)
+  const saveAddress = () => {
+    const addressData = {
+      "user_id": userId,
+      "name": name.current.value,
+      "mobileno": mobile.current.value,
+      "address": address.current.value +" ,"+ locality.current.value+" ,"+ city.current.value +" ,"+  pincode.current.value +" ,"+ state.current.value,
+      "order_id": null,
+    }
+    httpRequest('post',"api/user/address",addressData)
+    .then((res)=>console.log(res))
+    .catch((error)=>console.log(error));
+  }
   return (
     <>
       <form className=" container row g-3">
         <div className="col-md-6">
           <label htmlFor="inputEmail4" className="form-label">Name</label>
-          <input type="text" className="form-control" id="inputEmail4" />
+          <input type="text" className="form-control" ref={name} id="inputEmail4" />
         </div>
         <div className="col-md-6">
           <label htmlFor="inputPassword4" className="form-label">Mobile Number</label>
-          <input type="Number" className="form-control" id="inputPassword4" />
+          <input type="Number" className="form-control" ref={mobile} id="inputPassword4" />
         </div>
         <div className="col-md-6">
           <label htmlFor="inputEmail4" className="form-label">Pincode</label>
-          <input type="text" className="form-control" id="inputEmail4" />
+          <input type="text" className="form-control" ref={pincode} id="inputEmail4" />
         </div>
         <div className="col-md-6">
           <label htmlFor="inputPassword4" className="form-label">Locality</label>
-          <input type="Number" className="form-control" id="inputPassword4" />
+          <input type="text" className="form-control" ref={locality} id="inputPassword4" />
         </div>
         <div className="col-12">
           <label htmlFor="inputAddress" className="form-label">Address</label>
-          <input type="text" className="form-control" id="inputAddress" placeholder="" />
+          <input type="text" className="form-control" ref={address} id="inputAddress" placeholder="" />
         </div>
 
         <div className="col-md-6">
           <label htmlFor="inputEmail4" className="form-label">City</label>
-          <input type="text" className="form-control" id="inputEmail4" />
+          <input type="text" className="form-control" ref={city} id="inputEmail4" />
         </div>
         <div className="col-md-6">
           <label htmlFor="inputPassword4" className="form-label">State</label>
-          <input type="Number" className="form-control" id="inputPassword4" />
+          <input type="text" className="form-control" ref={state} id="inputPassword4" />
         </div>
 
 
         <div className="col-md-6">
-          <ButtonComponent
+          {/* <ButtonComponent
             text="Confirm"
             classs="addbtn checkOutBtn"
             orderConfirmation={true}
-          />
+            onClick={addAddress}
+          /> */}
+          <button type="button" className="checkOutBtn" onClick={saveAddress}>Confirm</button>
         </div>
         <div className="col-md-6">
           <button type="button">CANCEL</button>

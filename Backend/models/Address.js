@@ -15,32 +15,12 @@ const addressSchema = new Schema({
         require:true,
         maxlength:10
     },
-    pincode: {
-        type:Number,
-        require:true
-    },
-    locality: {
-        type:String,
-        require:true
-    },
     address: {
         type:String,
         require:true
     },
-    city: {
-        type:String,
-        require:true
-    },
-    state: {
-        type:String,
-        require:true
-    },
-    landmark: {
-        type:String,
-        require:true
-    },
-    address_type: {
-        type:String,
+    order_id: {
+        type:Number,
         require:true
     }
 })

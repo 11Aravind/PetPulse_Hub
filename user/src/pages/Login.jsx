@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { useNavigate ,useLocation} from "react-router";
+import { useNavigate, useLocation } from "react-router";
 import { useState } from "react";
 import "./CSS/Login.css"
 import { useEffect, useRef } from "react";
@@ -15,36 +15,22 @@ export const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [previousUrl, setPreviousUrl] = useState("");
-  const previousRoute=useSelector((state)=>state.common.prvRoute);
+  const previousRoute = useSelector((state) => state.common.prvRoute);
   console.log(previousRoute);
-
-  // useEffect(() => {
-  //   // Save the previous URL when the location changes
-  //   const previousUrl = localStorage.getItem("previousUrl");
-  //   setPreviousUrl(previousUrl || "/");
-  
-  //   console.log(previousUrl);
-  // }, []);
   const login = () => {
     const loginData = {
       "email": email.current.value,
       "password": passsword.current.value
     }
     httpRequest('post', 'api/user/login', loginData)
-      .then((res) =>{ 
+      .then((res) => {
         dispatch(fetchAndStore(res.user_id));
-        // if (previousUrl.includes("/productdetails/")) {
-        //   // If the previous URL was a product details page
-        //   navigate(previousUrl);
-        // } else {
-        //   // Default navigation if the previous URL doesn't match a specific condition
-        //   navigate("/");
-        // }
-    
+       (previousRoute=="/" || previousRoute=="/signup")?navigate("/"):navigate("/cart")
+
       })
-      .catch((error) => 
+      .catch((error) =>
         console.log(error)
-    );
+      );
 
   }
 
@@ -54,34 +40,34 @@ export const Login = () => {
       <div className="mx-auto col-10 col-md-8 col-lg-4 loginBox">
         <h3 className="main-headding">Welcome to PetPulse Hub</h3>
         <p className="login-desc">The leading platform for pet lovers,sellers and buyers </p>
-    <form>
-    <div className="form-group txtBox-spacing">
-          {/* <label for="username">E-mail</label> */}
-          <input
-            type="text"
-            className="form-control username"
-            id="username"
-            placeholder="Email"
-            ref={email}
-          />
-        </div>
-        <div className="form-group txtBox-spacing">
-          {/* <label for="password">Password</label> */}
-          <input
-            type="password"
-            className="form-control password"
-            placeholder="Password"
-            ref={passsword}
+        <form>
+          <div className="form-group txtBox-spacing">
+            {/* <label for="username">E-mail</label> */}
+            <input
+              type="text"
+              className="form-control username"
+              id="username"
+              placeholder="Email"
+              ref={email}
+            />
+          </div>
+          <div className="form-group txtBox-spacing">
+            {/* <label for="password">Password</label> */}
+            <input
+              type="password"
+              className="form-control password"
+              placeholder="Password"
+              ref={passsword}
             // autoComplete="current-password"
-          />
-        </div>
-        <div className="form-group txtBox-spacing">
-          <button type="button" className="bigButton" onClick={login}>
-            Log in
-          </button>
+            />
+          </div>
+          <div className="form-group txtBox-spacing">
+            <button type="button" className="bigButton" onClick={login}>
+              Log in
+            </button>
 
-        </div>
-    </form>
+          </div>
+        </form>
         <small className="redirectLink">
           Don't have an account? <Link to="/signup">Sign Up</Link>
         </small>

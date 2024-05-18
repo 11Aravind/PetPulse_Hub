@@ -56,6 +56,7 @@ const Cart = ({ callbackShowCart }) => {
   const dispatch=useDispatch();
   // const imagePath = useSelector((state) => state.banner.imagePath);
   const userId = useSelector((state) => state.user.userId);
+  const imgPath = useSelector((state) => state.common.imagePath);
   const onCheckOut = () => {
     dispatch(setRoute("/cart"));
     userId == null ? navigate("/login") : navigate("/OrderConfirmation");
@@ -84,7 +85,7 @@ const Cart = ({ callbackShowCart }) => {
                     <img
                       className="product-cart-img"
                       // src={imagePath + product.product_img}
-                      src={`http://localhost:5001/${product.image}`}
+                      src={imgPath+product.image}
                       alt="product-img"
                     />
                   </div>

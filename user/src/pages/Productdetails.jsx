@@ -5,12 +5,15 @@ import Quantitybtn from "../component/Quantitybtn";
 import {addToCart} from "../Slice/cartSlice"
 import { useEffect,useState } from "react";
 import Notfound from "./Notfound";
+
 import "./CSS/productdetails.css"
 import Cart from "./Cart";
 const Productdetails = () => {
     const { id } = useParams();
     const product = useSelector((state) => state.products.productList.find(product => product._id === id));
     const [showCart,setShowCart]=useState(false);
+    const imgPath=useSelector((state)=>state.common.imagePath)
+
     const addProduct=()=>{
         setShowCart(!showCart)
     }
@@ -38,7 +41,7 @@ const Productdetails = () => {
                 product ? 
             (<div className="productDetails-container">
                 <div className="left-container">
-                  { product &&  <img src={`http://localhost:5001/${product.image}`} alt="" />}
+                  { product &&  <img src={imgPath+product.image} alt="" />}
                 </div>
                 <div className="rigt-container">
                     <div className="product-name">

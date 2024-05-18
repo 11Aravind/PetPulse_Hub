@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom"
 import Categoryslider from "./Categoryslider";
+import {useSelector} from "react-redux"
 const Produtcard = ({ categorys, products,headding }) => {
+    const imgPath=useSelector((state)=>state.common.imagePath)
     return (
         <div className="topSpacing">
             {/* <h1 className="headding">Pets</h1> */}
@@ -14,7 +16,7 @@ const Produtcard = ({ categorys, products,headding }) => {
                                 <Link to={`/productdetails/${product._id}`} className="card-link">
                                     <div className="card h-100">
                                         <div className="img-container">
-                                            <img src={`http://localhost:5001/${product.image}`} className="card-img-top product-image" alt="..." />
+                                            <img src={imgPath+product.image }className="card-img-top product-image" alt="..." />
                                             <button className="options-btn">view option</button>
                                         </div>
                                         <div className="card-body">

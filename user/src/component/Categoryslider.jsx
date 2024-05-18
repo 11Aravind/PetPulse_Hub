@@ -1,9 +1,11 @@
 import React, { useEffect, useState, useRef } from 'react';
 import './CSS/categoryslider.css'; // Import CSS file
-
+import { useSelector } from 'react-redux';
 const Categoryslider = ({ categorys,headding }) => {
   const containerRef = useRef(null);
   const [scrollPosition, setScrollPosition] = useState(0);
+
+  const imgPath=useSelector((state)=>state.common.imagePath);
 
   useEffect(() => {
     const updateScrollPosition = () => {
@@ -65,7 +67,7 @@ const Categoryslider = ({ categorys,headding }) => {
               /> */}
                 <div className="mainContainer">
                   <div className="image">
-                    <img src={`http://localhost:5001/${category.image}`} alt="" />
+                    <img src={imgPath+category.image} alt="" />
                   </div>
                   <div className="categoryName">
                     <b>{category.subCategory}</b>

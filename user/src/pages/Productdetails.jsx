@@ -18,7 +18,7 @@ const Productdetails = () => {
         setShowCart(!showCart)
     }
     const callbackShowCart=()=>{
-        setShowCart(!setShowCart);
+        setShowCart(!showCart);
     }
     const productFeature = [
         {
@@ -66,7 +66,7 @@ const Productdetails = () => {
                 // disableValue={true}
               />
             {/* </Link> */}
-           { showCart && <Cart/>}
+           { showCart && <Cart callbackShowCart={callbackShowCart}/>}
                       
                     </div>
                     <div className="sub-headding">

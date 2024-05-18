@@ -76,7 +76,7 @@ const Cart = ({ callbackShowCart }) => {
       ) : (
         <div className="cart-container">
           <div className="cart-body">
-            <div className="closeBtn" ><i className="bi bi-x"></i></div>
+            <div className="closeBtn" onClick={closeCart} ><i className="bi bi-x"></i></div>
             <h3 className="headding">Shopping Bag</h3>
             {items.map((product, key) => {
               return (

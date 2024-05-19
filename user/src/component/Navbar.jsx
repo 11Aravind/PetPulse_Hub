@@ -57,7 +57,7 @@ const Navbar = () => {
                 </Link> </h1>
                 <ul className="menu-items">
                     {/* <li><Link to="/" className="menu">search</Link></li> */}
-                    <li><Link to="/cart" className="menu"><i className="bi bi-cart-check-fill"></i></Link></li>
+                    <li><Link to="/cart" className="menu"><i class="bi bi-bag-fill"></i></Link></li>
                     <li><Link to="/login">
                          <ButtonComponent
                         text="Login"

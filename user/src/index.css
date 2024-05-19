@@ -1,10 +1,12 @@
 *{
   margin: 0;;
   padding: 0;;
+  font-family: Montserrat;
 }
 :root{
   /* --primary:#3c8031; */
-  --primary:#f48424;
+  /* --primary:#f48424; */
+  --primary:#EE6043;
   --color:white;
   --projectedColor:#7755A2;
 }
@@ -15,17 +17,27 @@
   text-align: center;
 }
 .headding{
+
+  /* text-align: center; 
+  font-size: 35px;
   font-weight: 700;
-  font-size: 28px;
-  margin: 39px 0px;
+  text-transform: uppercase;
+  line-height: 1.3em;
+  font-family: Montserrat; */
   text-align: center;
+  font-size: 35px;
+  font-weight: 500;
+  text-transform: capitalize;
+  line-height: 1.3em;
+  margin: 41px 0px;
+  font-family: Montserrat;
 }
 .sub-headding{
-  font-family: "Roboto", sans-serif;
-  font-weight: 500;
+  font-weight: 600;
   font-style: normal;
   padding: 7px 0px;
-    font-size: 18px;
+  font-size: 18px;
+  line-height: 4.5rem;
 }
 a{
   text-decoration: none;

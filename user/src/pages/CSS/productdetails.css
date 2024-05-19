@@ -27,7 +27,7 @@
     color: #000;
     font-weight: 600;
     font-size: 14px;
-    line-height: 25px;
+    line-height: 2rem;
 }
 
 
@@ -40,15 +40,9 @@
     margin-top: 3%;
 }
 .aboutProductDescription {
-    color: #413f3f;
-   
     line-height: 27px;
     margin: 0 auto;
     text-align: justify;
-    font-size: 14px;
-    font-family: "Roboto", sans-serif;
-  font-weight: 400;
-  font-style: normal;
 }
 .product-featureCOntainer {
     align-items: center;

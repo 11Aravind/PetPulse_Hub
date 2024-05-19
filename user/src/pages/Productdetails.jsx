@@ -22,16 +22,16 @@ const Productdetails = () => {
     }
     const productFeature = [
         {
-            url: "https://greenlandorganicfarms.com/shipping.png",
-            description: "Fast Shipping"
+            url: "../images/delivary.png",
+            description: "Fast Delivery"
         },
         {
-            url: "https://greenlandorganicfarms.com/customer.png",
-            description: "10K+ Happy Customer"
+            url: "../images/card.png",
+            description: "Free Shipping"
         },
         {
-            url: "https://greenlandorganicfarms.com/handpicked.png",
-            description: "Hand Picked Items"
+            url: "../images/secure.png",
+            description: "Secure Checkout"
         },
     ];
     return (
@@ -79,7 +79,7 @@ const Productdetails = () => {
                         {
                             productFeature.map((feature, index) =>
                                 <div className="shipping" key={index}>
-                                    <img src={feature.url} alt="" />
+                                    <img className="featureImage" src={feature.url} alt="" />
                                     <div className="feature">
                                         {feature.description}
                                     </div>
@@ -90,6 +90,9 @@ const Productdetails = () => {
                 </div>
             </div>):<Notfound/>
             }
+            <h1 className="headding">Related products</h1>
+            
+
         </div>
     );
 }

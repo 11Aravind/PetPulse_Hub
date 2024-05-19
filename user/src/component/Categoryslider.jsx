@@ -47,7 +47,7 @@ const Categoryslider = ({ categorys,headding }) => {
   return (
     <div className="container">
       <div className="main-slider">
-        <h1 className='headding'>{headding}</h1>
+        {/* <h1 className='category-headding'>{headding}</h1> */}
         <div className="label-container">
           <button className="arrow-left" onClick={scrollLeft}>
             <i className="bi bi-arrow-left"></i>
@@ -70,7 +70,7 @@ const Categoryslider = ({ categorys,headding }) => {
                     <img src={imgPath+category.image} alt="" />
                   </div>
                   <div className="categoryName">
-                    <b>{category.subCategory}</b>
+                  {category.subCategory}
                   </div>
                 </div>
               </div>

@@ -68,7 +68,7 @@ const Home = () => {
       <h1 className="headding">Our Services</h1>
       <Categorylist categorys={mainCategorys}/>
       <h1 className="headding">Top Categories For Your Dog</h1>
-      <Categorylist categorys={dogCategorys}/>
+      {/* <Categorylist categorys={dogCategorys}/> */}
       <Categoryslider categorys={categorys} />
       <h1 className="headding">Pet-tastic Deals</h1>
       {/* <MyCarousel  items={newProducts}/> */}

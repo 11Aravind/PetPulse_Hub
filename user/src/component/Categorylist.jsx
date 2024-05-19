@@ -15,7 +15,7 @@ const Categorylist = ({categorys}) => {
                                 <img src={item.url} alt={item.name} />
                             </div>
                             <div className="category-name">
-                                <b>{item.name}</b>
+                             {item.name}
                             </div>
                         </div>
                 </Link>

@@ -1,18 +1,11 @@
-/* .product-cards{
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
-} */
 .product-name{
     color: #000;
-    font-size: 20px;
-    font-family: "Roboto", sans-serif;
-    font-weight: 500;
-    font-style: normal;
+    font-size: 26px;
+        font-weight: 500;
+    line-height: 3.5rem;
 }
 .price{
     display: flex;
-    /* justify-content: space-between; */
     align-items: center;
 }
 .oldPrice{
@@ -23,21 +16,14 @@
 }
 
 .product-image{
-    /* height: 223px;
-    padding: 12px; */
-    /* height: 173px; */
     margin-top: 9px;
     height: 227px;
 }
 .newprice{
-    /* font-weight: 600;
-    font-size: 13px;
-    padding: 10px 0;
-    color: var(--primary); */
-    font-weight: 700;
-    font-size: 16px;
+    font-weight: 600;
+    font-size: 23px;
     padding: 10px 6px;
-    /* color: var(--primary); */
+
 }
 
 .card-title {

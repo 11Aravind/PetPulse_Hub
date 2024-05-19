@@ -13,11 +13,10 @@
     color: white;
     background: var(--primary);
     border: none;
-    padding: 2px 9px;
+    padding: 7px 16px;
+    border-radius: 18px;
     font-size: 13px;
-    font-size: 13px;
-    line-height: 30px;
-    font-weight: bold;
+    line-height: 25px;
 }
 .bigButton{
     width: 100%;

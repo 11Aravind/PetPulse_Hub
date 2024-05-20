@@ -5,29 +5,36 @@ const Addblog = () => {
     const category = useRef("");
     const videoLink = useRef("");
     const description = useRef("");
+    const [msg, setMessage] = useState("");
     const addBlog = () => {
-        // const blogData = new FormData();
-        // blogData.append("category", category.current.value);
-        // blogData.append("link", videoLink.current.value);
-        // blogData.append("description", description.current.value);
-        // console.log(blogData);
-        const blogData ={
+        const blogData = {
             "category": category.current.value,
-            "link":videoLink.current.value,
-            "description":description.current.value
+            "link": videoLink.current.value,
+            "description": description.current.value
         }
         console.log(blogData);
         httpRequest(
             'post',
             "api/blog/add",
             blogData,
-        ).then((data) => console.log(data));
+        ).then((response) => {
+            console.log(response);
+            category.current.value = "";
+            videoLink.current.value = "";
+            description.current.value = "";
+            setMessage(response.message);
+            hideMessage()
+        });
+    }
+    const hideMessage = () => {
+        setTimeout(() =>
+            setMessage(""), 3000)
     }
     return (
         <div className="content-div">
             <div className="card-header">
-                <div className="card-headding">Add Blog
-                </div>
+                <div className="card-headding">Add Blog </div>
+                <div className="errorMessage">{msg}</div>
             </div>
             <div className="table-container">
                 <div className="row " style={{ padding: "37px" }}>

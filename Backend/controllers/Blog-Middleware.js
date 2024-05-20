@@ -15,29 +15,30 @@ export const getAllBlogs = async (req, res, next) => {
 }
 
 export const addBlog = async (req, res, next) => {
-    const { tittle, description } = req.body;
-    const image=req.file.path;
+    const { category, link, description } = req.body;
+    // const image=req.file.path;
+    // console.log(req.body);
     const newBlog = new Blog({
-        tittle,
-        image,
+        category,
+        link,
         description
     });
     try {
         await newBlog.save();
     } catch (error) {
-        return res.status(400).json({ message: "blog was not added" })
+        return res.status(404).json({ message: `blog was not added ${error}`,data:`The data is${req.category}`})
     }
     return res.status(200).json({ message: "New blog was added" })
 }
 
 export const updateBlog = async (req, res, next) => {
-    const { title, description } = req.body;
+    const { category, link, description } = req.body;
     const blogId = req.params.id;
     let blog;
     try {
         //findByIdAndUpdate(id,update cheyyenda value) ite id find cheythe value update akkikollum
         blog = await Blog.findByIdAndUpdate(blogId,
-            { title, description }
+            { category, link, description }
         )
     } catch (error) {
         return console.log(error);

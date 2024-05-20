@@ -2,15 +2,21 @@ import { useRef, useState } from "react";
 import { httpRequest } from "../API/api.js";
 import "./CSS/form.css"
 const Addblog = () => {
-    const tittle = useRef("");
+    const category = useRef("");
+    const videoLink = useRef("");
     const description = useRef("");
-    const [file, setImage] = useState();
-
     const addBlog = () => {
-        const blogData = new FormData();
-        blogData.append("tittle", tittle.current.value);
-        blogData.append("description", description.current.value);
-        blogData.append("image", file);
+        // const blogData = new FormData();
+        // blogData.append("category", category.current.value);
+        // blogData.append("link", videoLink.current.value);
+        // blogData.append("description", description.current.value);
+        // console.log(blogData);
+        const blogData ={
+            "category": category.current.value,
+            "link":videoLink.current.value,
+            "description":description.current.value
+        }
+        console.log(blogData);
         httpRequest(
             'post',
             "api/blog/add",
@@ -26,12 +32,12 @@ const Addblog = () => {
             <div className="table-container">
                 <div className="row " style={{ padding: "37px" }}>
                     <div className="col">
-                        <label htmlFor="Tittle" className="form-label">Tittle</label>
-                        <input type="text" ref={tittle} className="form-control" id="Tittle" />
+                        <label htmlFor="Tittle" className="form-label">Video Category</label>
+                        <input type="text" ref={category} className="form-control" id="Tittle" />
                     </div>
                     <div className="col">
-                        <label htmlFor="formFile" className="form-label">Image</label>
-                        <input className="form-control" onChange={(e) => setImage(e.target.files[0])} type="file" id="formFile" />
+                        <label htmlFor="formFile" className="form-label">Youtube Link</label>
+                        <input className="form-control" ref={videoLink} type="text" id="formFile" />
                     </div>
                     <div className=" mb-3">
                         <label htmlFor="exampleFormControlTextarea1" className="form-label">Description</label>

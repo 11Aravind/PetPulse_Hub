@@ -1,11 +1,11 @@
 import mongoose from "mongoose";
 const Schema=mongoose.Schema;
 const blogSchema=new Schema({
-    tittle:{
+    category:{
         type:String,
         required:true
     },
-    image:{
+    category:{
         type:String,
         required:true
     },

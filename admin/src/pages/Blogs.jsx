@@ -3,32 +3,7 @@ import { httpRequest } from "../API/api";
 import { Link } from "react-router-dom";
 import Table from "../components/Table"
 const Blogs = () => {
-    const inlineStyle = {
-        left: "0%",
-        width: "100%",
-        top: "111%",
-    }
-    const tableHeadding = [
-        {
-            th: "#id"
-        },
-        {
-            th: "Tittle"
-        },
-        {
-            th: "Image"
-        },
-        {
-            th: "Description"
-        },
-        {
-            th: "Action"
-        },
-        {
-            th: ""
-        },
-    ];
-    const [blogDetails, setBlogDetails] = useState([]);
+    const [blogs, setBlogDetails] = useState([]);
     useEffect(() => {
         httpRequest('get',"api/blog").then((data) => {
             // Check if the fetched data is an object and has 'categoryDetails' array
@@ -41,25 +16,25 @@ const Blogs = () => {
             console.error("Error fetching data:", error);
         });
     }, []);
-    const tableCardHeadding =
-    {
-        tableHeadding: "Blog Details",
-        buttonText: " Add",
-        link: "/addblog"
-    };
+    const tableHeadding = [
+        {th: "#id"},
+        {th: "category"},
+        {th: "Link"},
+        {th: "Description"},
+        {th: "Action"},
+        {th: ""},
+    ];
     return (
         <div className="content-div">
              <div className="card-header">
-                <div className="card-headding">Blog
+                <div className="card-headding">Blogs
                     {/* <p className="errorMessage">{alertMessage}</p> */}
                 </div>
                 <div className="top-button">
-
                     <Link to="/addblog"> <button className="btn-primary"> +Add</button></Link>
-
                 </div>
             </div>
-            <div className="content-div" style={inlineStyle}>
+            <div className="content-div contentDiv" >
                 <table className="table-container table">
                     <thead>
                         <tr className="table-headding">
@@ -72,14 +47,14 @@ const Blogs = () => {
                     </thead>
                     <tbody>
                         {
-                            blogDetails.map((eachValue, id) =>
+                            blogs.map((blog, id) =>
                                 <tr key={id} scope="row">
-                                    <td>{eachValue._id}</td>
-                                    <td>{eachValue.tittle}</td>
-                                    <td><img src={`http://localhost:5001/${eachValue.image}`} alt="banner" className="bannerImg" /></td>
-                                    <td>{eachValue.description}</td>
+                                    <td>{blog._id}</td>
+                                    <td>{blog.category}</td>
+                                    <td>{blog.link}</td>
+                                    <td>{blog.description}</td>
                                     <td>  <i className="bi bi-trash3-fill"></i>  </td>
-                                    {/* <td><i className="bi bi-pencil-square"></i> </td> */}
+                                    <td><i className="bi bi-pencil-square"></i> </td>
                                 </tr>
                             )
                         }

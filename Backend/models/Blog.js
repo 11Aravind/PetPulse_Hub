@@ -5,7 +5,7 @@ const blogSchema=new Schema({
         type:String,
         required:true
     },
-    category:{
+    link:{
         type:String,
         required:true
     },

@@ -68,7 +68,11 @@ body {
   top: 23%;
   width: 77%;
 }
-
+.contentDiv{
+  left: 0%;
+  width: 100%;
+  top: 111%;
+}
 /* .content-div{
   margin-left: 2%;
   margin-top: 3%;

@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
 import ButtonComponent from "./ButtonComponent";
+import { useSelector } from "react-redux"
 import "./CSS/Navbar.css";
 const Navbar = () => {
+    const userId = useSelector((state) => state.user.userId)
     const menus = [
         {
             menu: 'PETS',
@@ -42,28 +44,32 @@ const Navbar = () => {
                         menus.map((menu, id) => {
                             return (
                                 <li className="menuContainer" key={id}>
-                                    {/* <div className="image-container">
-                                    <img src="https://static.freshtohome.com/images/icons/category-icons/chicken.png" />
-                                    </div> */}
                                     <Link to={menu.to} className="menu">
-                                        <span>{menu.menu}</span></Link></li>
+                                        <span>{menu.menu}</span>
+                                    </Link>
+                                </li>
                             );
                         })
                     }
                 </ul>
-                <h1 className="logo"><Link to="/">
-                    <img src="https://static.freshtohome.com/images/logo/2021/logo-medium.png" alt="" />
-
-                </Link> </h1>
+                <h1 className="logo">
+                    <Link to="/">
+                        <img src="https://static.freshtohome.com/images/logo/2021/logo-medium.png" alt="" />
+                    </Link>
+                </h1>
                 <ul className="menu-items">
                     {/* <li><Link to="/" className="menu">search</Link></li> */}
-                    <li><Link to="/cart" className="menu"><i class="bi bi-bag-fill"></i></Link></li>
-                    <li><Link to="/login">
-                         <ButtonComponent
-                        text="Login"
-                        classs="addbtn smallBtn"
-                       
-                    /></Link></li>
+                    {userId ? (<><li><Link to="/cart" className="menu"><i class="bi bi-bag-fill"></i></Link></li>
+                        <li><Link to="/cart" className="menu"><i class="bi bi-person-fill"></i></Link></li>   </>)
+                        : (<li>
+                            <Link to="/login">
+                                <ButtonComponent
+                                    text="Login"
+                                    classs="addbtn smallBtn"
+                                />
+                            </Link>
+                        </li>)
+                    }
                 </ul>
             </div>
         </nav>

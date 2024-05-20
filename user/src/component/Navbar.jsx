@@ -23,7 +23,7 @@ const Navbar = () => {
         },
         {
             menu: 'BLOGS',
-            to: "/accessorys"
+            to: "/blogs"
         },
         {
             menu: 'CARE TAKING',

@@ -10,6 +10,14 @@ import productRouter from "./routes/product-routers.js";
 import cors from "cors";
 
 const app=express();
+// Middleware to set Permissions-Policy header
+app.use((req, res, next) => {
+  res.setHeader(
+    "Permissions-Policy",
+    "geolocation=(self \"https://www.youtube.com\")"
+  );
+  next();
+});
 // app.use(express.static('uploads'));
 app.use(express.json())
 app.use(cors())

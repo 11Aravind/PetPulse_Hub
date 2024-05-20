@@ -8,6 +8,7 @@ import { Routes, Route } from "react-router-dom";
 import Notfound from "./pages/Notfound";
 import Productdetails from "./pages/Productdetails";
 import {OrderConfirmation} from "./pages/OrderConfirmation";
+import Blogs from "./pages/Blogs";
 import Cart from "./pages/Cart";
 const routerInfo = [
     {
@@ -17,6 +18,10 @@ const routerInfo = [
     {
         path: "/pets",
         component: <Pets />
+    },
+    {
+        path: "/blogs",
+        component: <Blogs />
     },
     {
         path: "/foods",

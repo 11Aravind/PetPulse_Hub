@@ -59,8 +59,8 @@ const Navbar = () => {
                 </h1>
                 <ul className="menu-items">
                     {/* <li><Link to="/" className="menu">search</Link></li> */}
-                    {userId ? (<><li><Link to="/cart" className="menu"><i class="bi bi-bag-fill"></i></Link></li>
-                        <li><Link to="/cart" className="menu"><i class="bi bi-person-fill"></i></Link></li>   </>)
+                    {userId ? (<><li><Link to="/cart" className="menu"><i className="bi bi-bag-fill"></i></Link></li>
+                        <li><Link to="/cart" className="menu"><i className="bi bi-person-fill"></i></Link></li>   </>)
                         : (<li>
                             <Link to="/login">
                                 <ButtonComponent

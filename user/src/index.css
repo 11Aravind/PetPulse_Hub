@@ -42,11 +42,19 @@
 a{
   text-decoration: none;
 }
-/* .col{
-  margin: 18px 0px;
-} */
+.subHeadding {
+  font-weight: 600;
+  font-size: 23px;
+  padding: 10px 6px;
+}
+.filterContainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid gray;
+  border-radius: 9px;
+}
 .topSpacing{
-  /* padding: 18px 110px; */
   padding: 0px 49px;
 }
 .subNavBar{

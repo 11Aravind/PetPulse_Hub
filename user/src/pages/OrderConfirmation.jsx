@@ -46,10 +46,12 @@ export const OrderConfirmation = () => {
   // };
   const userId = useSelector((state) => state.user.userId)
   const [isAddressVisible, setAddressVisible] = useState(false);
+  const [addressList,setAddress]=useState([])
   useEffect(() => {
     httpRequest('get',`api/user/getAddress?userId=${userId}`)
       .then((response) => {
-        console.log(response.message);
+        console.log(response);
+        setAddress(response.data)
       })
       .catch((err) => console.log(err));
   }, [])
@@ -133,18 +135,14 @@ export const OrderConfirmation = () => {
     // </div>
     <div className="container  col-6">
       <h5>DELIVERY ADDRESS</h5>
-      <div className="form-check">
+   { addressList.length!==0 ?  (<div className="form-check">
         <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" />
         <label className="form-check-label" htmlFor="flexRadioDefault2">
           <b>Nandakumar , 8129365304</b>  Sreenandanam ,muthupilakkadu,muthupilakkkadu p.o,sasthamcotta,Kollam,690520,Kerala
         </label>
-      </div>
-      <div className="form-check">
-        <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" />
-        <label className="form-check-label" htmlFor="flexRadioDefault1">
-          <b>Nandakumar , 8129365304</b>  Sreenandanam ,muthupilakkadu,muthupilakkkadu p.o,sasthamcotta,Kollam,690520,Kerala
-        </label>
-      </div>
+      </div>):(<div>Choose or add an address</div>)
+      }
+     
       <div className="col-12">
         <button className="addAddressBtn" onClick={() => setAddressVisible(!isAddressVisible)}>+ Add a new address</button>
         {isAddressVisible && <Address />}
@@ -164,6 +162,7 @@ const Address = () => {
   const city = useRef("")
   const state = useRef("")
   const userId = useSelector((state) => state.user.userId)
+  
   const saveAddress = () => {
     const addressData = {
       "user_id": userId,

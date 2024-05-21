@@ -1,5 +1,5 @@
 import ReactSearchBox from "react-search-box";
-const Searchbox=()=>{
+const Searchbox=({products})=>{
     const data = [
         {
             key: "john",

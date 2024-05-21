@@ -5,6 +5,7 @@ import { useCart } from "react-use-cart";
 import { httpRequest } from "../API/api";
 import ButtonComponent from "../component/ButtonComponent";
 import "./CSS/OrderConfirmation.css";
+import { useLocation } from "react-router"
 export const OrderConfirmation = () => {
   // const { isEmpty, items, cartTotal } = useCart();
   // const savedAddress = useSelector((state) => state.user.address);
@@ -46,12 +47,12 @@ export const OrderConfirmation = () => {
   // };
   const userId = useSelector((state) => state.user.userId)
   const [isAddressVisible, setAddressVisible] = useState(false);
-  const [addressList,setAddress]=useState([])
+  const [addressList, setAddress] = useState([])
   useEffect(() => {
-    httpRequest('get',`api/user/getAddress?userId=${userId}`)
+    httpRequest('get', `api/user/getAddress?userId=${userId}`)
       .then((response) => {
-        console.log(response);
-        setAddress(response.data)
+        console.log(response.data.addressList);
+        setAddress(response.data.addressList)
       })
       .catch((err) => console.log(err));
   }, [])
@@ -135,14 +136,21 @@ export const OrderConfirmation = () => {
     // </div>
     <div className="container  col-6">
       <h5>DELIVERY ADDRESS</h5>
-   { addressList.length!==0 ?  (<div className="form-check">
-        <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" />
-        <label className="form-check-label" htmlFor="flexRadioDefault2">
-          <b>Nandakumar , 8129365304</b>  Sreenandanam ,muthupilakkadu,muthupilakkkadu p.o,sasthamcotta,Kollam,690520,Kerala
-        </label>
-      </div>):(<div>Choose or add an address</div>)
+      {addressList.length !== 0 ? (
+        addressList.map((addressItem,key)=>
+        {
+          return(
+        <div className="form-check">
+          <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" />
+          <label className="form-check-label" htmlFor="flexRadioDefault2">
+            <b>{addressItem.name }</b> {addressItem.address}
+          </label>
+        </div>
+          )
+        })
+      ) : (<div>Choose or add an address</div>)
       }
-     
+
       <div className="col-12">
         <button className="addAddressBtn" onClick={() => setAddressVisible(!isAddressVisible)}>+ Add a new address</button>
         {isAddressVisible && <Address />}
@@ -162,18 +170,20 @@ const Address = () => {
   const city = useRef("")
   const state = useRef("")
   const userId = useSelector((state) => state.user.userId)
-  
+  useEffect(() => {
+    userId == null && navigate("/login")
+  }, [userId])
   const saveAddress = () => {
     const addressData = {
-      "user_id": userId,
+      "userId": userId,
       "name": name.current.value,
       "mobileno": mobile.current.value,
-      "address": address.current.value +" ,"+ locality.current.value+" ,"+ city.current.value +" ,"+  pincode.current.value +" ,"+ state.current.value,
+      "address": address.current.value + " ," + locality.current.value + " ," + city.current.value + " ," + pincode.current.value + " ," + state.current.value,
       "order_id": null,
     }
-    httpRequest('post',"api/user/address",addressData)
-    .then((res)=>console.log(res))
-    .catch((error)=>console.log(error));
+    httpRequest('post', "api/user/address", addressData)
+      .then((res) => console.log(res))
+      .catch((error) => console.log(error));
   }
   return (
     <>

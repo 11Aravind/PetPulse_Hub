@@ -7,7 +7,7 @@ const Produtcard = ({ categorys, products, headding }) => {
     return (
         <div className="topSpacing">
             {/* <h1 className="headding">Pets</h1> */}
-            <Categoryslider categorys={categorys} headding={headding} />
+         { categorys&&  <Categoryslider categorys={categorys} headding={headding} />}
             <Filter products={products}/>
             {/* <h1 className="headding">New Products</h1> */}
             <div className="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-4 g-4" style={{ "marginTop": "40px" }}>

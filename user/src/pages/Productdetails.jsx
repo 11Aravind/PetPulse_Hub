@@ -1,14 +1,17 @@
+import ButtonComponent from "../component/ButtonComponent"
 import { useSelector,useDispatch } from "react-redux";
 import { Link, useParams } from "react-router-dom";
-import ButtonComponent from "../component/ButtonComponent"
+import { useEffect,useState } from "react";
+import Produtcard from "../component/Produtcard"
 import Quantitybtn from "../component/Quantitybtn";
 import {addToCart} from "../Slice/cartSlice"
-import { useEffect,useState } from "react";
 import Notfound from "./Notfound";
 import "./CSS/productdetails.css"
 import Cart from "./Cart";
 const Productdetails = () => {
     const { id } = useParams();
+    const recomentedProduct=useSelector((state)=>state.products.filteredProduct.filter(product=>product._id!==id));
+    // console.log(recomentedProduct);
     // const relatedProduct=products.filter((item)=>item._id !==id)
     const product = useSelector((state) => state.products.productList.find(product => product._id === id));
     const [showCart,setShowCart]=useState(false);
@@ -91,7 +94,8 @@ const Productdetails = () => {
             </div>):<Notfound/>
             }
             <h1 className="headding">Related products</h1>
-            
+            <Produtcard products={recomentedProduct} headding="Our Top Food Items" />
+
 
         </div>
     );

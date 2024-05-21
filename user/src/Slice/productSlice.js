@@ -3,12 +3,16 @@ const productSlice = createSlice({
     name: "products",
     initialState: {
         productList:[],
+        filteredProduct:[]
     },
     reducers: { // hear reducers
         fetchAndStore:(state,action)=>{
             state.productList=action.payload;
         }, //this is an action creator
+        filterAndStore:(state,action)=>{
+            state.filteredProduct=action.payload;
+        },
     },
 })
-export const {fetchAndStore}=productSlice.actions;
+export const {fetchAndStore,filterAndStore}=productSlice.actions;
 export default productSlice.reducer; //here reducer

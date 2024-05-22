@@ -36,3 +36,17 @@
     font-weight: 400;
     padding: 12px 21px;
 }
+.cancelBtn{
+    background-color: #838080;
+  }
+.cashOnDelivery{
+    background: #fff;
+    border: 1px solid var(--primary);
+    padding: 6px 18px;
+    color: var(--primary);
+}
+.onlinePayment{
+    background: var(--primary);
+    padding: 6px 18px;
+    color: #fff;
+}

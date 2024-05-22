@@ -87,6 +87,9 @@ img{
     border-radius: 3px;
 }
 
+.headdingSpace{
+  line-height: 47px;
+}
 @media (max-width:768px) {
 .topSpacing{
   padding: 0px 8px;

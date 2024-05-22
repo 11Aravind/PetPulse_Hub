@@ -51,11 +51,13 @@ export const OrderConfirmation = () => {
   useEffect(() => {
     httpRequest('get', `api/user/getAddress?userId=${userId}`)
       .then((response) => {
-        console.log(response.data.addressList);
         setAddress(response.data.addressList)
       })
       .catch((err) => console.log(err));
   }, [])
+  const changeAddressVisibility=()=>{
+    setAddressVisible(!isAddressVisible)
+  }
   return (
     // <div className="spacing categoryFilterContainer">
     //   <div className="product-headding">Confirm your address</div>
@@ -135,33 +137,43 @@ export const OrderConfirmation = () => {
     //   />
     // </div>
     <div className="container  col-6">
-      <h5>DELIVERY ADDRESS</h5>
-      {addressList.length !== 0 ? (
-        addressList.map((addressItem,key)=>
-        {
-          return(
-        <div className="form-check">
-          <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" />
-          <label className="form-check-label" htmlFor="flexRadioDefault2">
-            <b>{addressItem.name }</b> {addressItem.address}
-          </label>
-        </div>
+      <h5 className="headdingSpace">DELIVERY ADDRESS</h5>
+      {addressList.length !== 0 && (
+        addressList.map((addressItem, key) => {
+          return (
+            <div className="form-check" key={key}>
+              <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" />
+              <label className="form-check-label" htmlFor="flexRadioDefault2">
+                <b>{addressItem.name}</b> {addressItem.address}
+              </label>
+            </div>
           )
         })
-      ) : (<div>Choose or add an address</div>)
+      ) 
       }
-
-      <div className="col-12">
-        <button className="addAddressBtn" onClick={() => setAddressVisible(!isAddressVisible)}>+ Add a new address</button>
-        {isAddressVisible && <Address />}
+      <div className="col-12 ">
+        <button className="addAddressBtn headdingSpace " onClick={() => setAddressVisible(!isAddressVisible)}>+ Add a new address</button>
+        {isAddressVisible && <Address changeAddressVisibility={changeAddressVisibility} />}
       </div>
-      <h5>ORDER SUMMARY</h5>
-      <h5>PAYMENT</h5>
+      {/* <h5>ORDER SUMMARY</h5> */}
+      <h5 className="headdingSpace">PAYMENT</h5>
+      <div className="col-12 row">
+        <div className="col-6">
+          <input type="radio" className="cashOnDelivery" name="paymentMod" id="cash"/>
+          <label htmlFor="cash">Cash on Delivery</label>
+      {/* <button className="cashOnDelivery">Cash on Delivery</button> */}
+        </div>
+        <div className="col-6">
+        <input type="radio" className="cashOnDelivery" name="paymentMod" id="online"/>
+          <label htmlFor="online">Online Payment</label>
+        {/* <button className="onlinePayment">Online Payment</button> */}
+        </div>
+      </div>
     </div>
 
   );
 };
-const Address = () => {
+const Address = ({changeAddressVisibility}) => {
   const name = useRef("")
   const mobile = useRef("")
   const pincode = useRef("")
@@ -171,13 +183,13 @@ const Address = () => {
   const state = useRef("")
   const userId = useSelector((state) => state.user.userId)
   useEffect(() => {
-    userId == null && navigate("/login")
+    userId === null && navigate("/login")
   }, [userId])
   const saveAddress = () => {
     const addressData = {
       "userId": userId,
       "name": name.current.value,
-      "mobileno": mobile.current.value,
+      "mobileNo": mobile.current.value,
       "address": address.current.value + " ," + locality.current.value + " ," + city.current.value + " ," + pincode.current.value + " ," + state.current.value,
       "order_id": null,
     }
@@ -220,16 +232,10 @@ const Address = () => {
 
 
         <div className="col-md-6">
-          {/* <ButtonComponent
-            text="Confirm"
-            classs="addbtn checkOutBtn"
-            orderConfirmation={true}
-            onClick={addAddress}
-          /> */}
-          <button type="button" className="checkOutBtn" onClick={saveAddress}>Confirm</button>
+          <button type="button" className="checkOutBtn cancelBtn" onClick={changeAddressVisibility}>CANCEL</button>
         </div>
         <div className="col-md-6">
-          <button type="button">CANCEL</button>
+          <button type="button" className="checkOutBtn" onClick={saveAddress}>Confirm</button>
         </div>
 
       </form>

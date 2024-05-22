@@ -7,18 +7,13 @@ import ButtonComponent from "../component/ButtonComponent";
 import "./CSS/OrderConfirmation.css";
 import { useLocation } from "react-router"
 export const OrderConfirmation = () => {
-  // const { isEmpty, items, cartTotal } = useCart();
-  // const savedAddress = useSelector((state) => state.user.address);
+  const { isEmpty, items, cartTotal } = useCart();
+  console.log(cartTotal);
+  console.log(items);
   //   const loginCredentials = JSON.parse(localStorage.getItem("loginCredentials"));
   //   const user_id = loginCredentials.user_id;
   // const [paymentMode, setPaymentMode] = useState("cod");
   // const navigate = useNavigate();
-  // const Ref_fname = useRef("");
-  // const Ref_Area = useRef("");
-  // const Ref_houseNumber = useRef("");
-  // const Ref_pin = useRef("");
-  // const Ref_phone = useRef("");
-  // const Ref_city = useRef("");
   // let completeOrder = () => {
   //   if (!isEmpty) {
   //     const product = items.map(({ product_id, price, quantity }) => {
@@ -55,50 +50,10 @@ export const OrderConfirmation = () => {
       })
       .catch((err) => console.log(err));
   }, [])
-  const changeAddressVisibility=()=>{
+  const changeAddressVisibility = () => {
     setAddressVisible(!isAddressVisible)
   }
   return (
-    // <div className="spacing categoryFilterContainer">
-    //   <div className="product-headding">Confirm your address</div>
-    //   <div className="addressContainer">
-    //     <div className="addressItem">
-    //       <div className="fullNameText">Full Name <span className="redStar" /></div>
-    //       <div className="fullNameInput">
-    //         <input type="text" name="fullName" ref={Ref_fname} className="inputText" />
-    //       </div>
-    //     </div>
-    //     <div className="addressItem">
-    //       <div className="fullNameText">Area/Building</div>
-    //       <div className="fullNameInput">
-    //         <input type="text" name="fullName" ref={Ref_Area} className="inputText" />
-    //       </div>
-    //     </div>
-    //     <div className="addressItem">
-    //       <div className="fullNameText">House/Flat number</div>
-    //       <div className="fullNameInput">
-    //         <input type="text" name="fullName" ref={Ref_houseNumber} className="inputText" />
-    //       </div>
-    //     </div>
-    //     <div className="addressItem">
-    //       <div className="fullNameText">Pin code</div>
-    //       <div className="fullNameInput">
-    //         <input type="text" name="fullName" ref={Ref_pin} className="inputText" />
-    //       </div>
-    //     </div>
-    //     <div className="addressItem">
-    //       <div className="fullNameText">Phone</div>
-    //       <div className="fullNameInput">
-    //         <input type="text" name="fullName" ref={Ref_phone} className="inputText" />
-    //       </div>
-    //     </div>
-    //     <div className="addressItem">
-    //       <div className="fullNameText">City</div>
-    //       <div className="fullNameInput">
-    //         <input type="text" name="fullName" ref={Ref_city} className="inputText" />
-    //       </div>
-    //     </div>
-    //   </div>
     //   <div className="product-headding spacing">Payment mode</div>
     //   <div className="payementModeDiv spacing">
     //     <div>
@@ -127,15 +82,12 @@ export const OrderConfirmation = () => {
     //           setPaymentMode(event.target.value);
     //         }}
     //       />
-    //     </div>
-    //   </div>
     //   <ButtonComponent
     //     text="Confirm"
     //     classs="addbtn checkOutBtn"
     //     orderConfirmation={true}
     //     onClick={completeOrder}
     //   />
-    // </div>
     <div className="container  col-6">
       <h5 className="headdingSpace">DELIVERY ADDRESS</h5>
       {addressList.length !== 0 && (
@@ -149,7 +101,7 @@ export const OrderConfirmation = () => {
             </div>
           )
         })
-      ) 
+      )
       }
       <div className="col-12 ">
         <button className="addAddressBtn headdingSpace " onClick={() => setAddressVisible(!isAddressVisible)}>+ Add a new address</button>
@@ -159,21 +111,21 @@ export const OrderConfirmation = () => {
       <h5 className="headdingSpace">PAYMENT</h5>
       <div className="col-12 row">
         <div className="col-6">
-          <input type="radio" className="cashOnDelivery" name="paymentMod" id="cash"/>
+          <input type="radio" className="cashOnDelivery" name="paymentMod" id="cash" />
           <label htmlFor="cash">Cash on Delivery</label>
-      {/* <button className="cashOnDelivery">Cash on Delivery</button> */}
+          {/* <button className="cashOnDelivery">Cash on Delivery</button> */}
         </div>
         <div className="col-6">
-        <input type="radio" className="cashOnDelivery" name="paymentMod" id="online"/>
+          <input type="radio" className="cashOnDelivery" name="paymentMod" id="online" />
           <label htmlFor="online">Online Payment</label>
-        {/* <button className="onlinePayment">Online Payment</button> */}
+          {/* <button className="onlinePayment">Online Payment</button> */}
         </div>
       </div>
     </div>
 
   );
 };
-const Address = ({changeAddressVisibility}) => {
+const Address = ({ changeAddressVisibility }) => {
   const name = useRef("")
   const mobile = useRef("")
   const pincode = useRef("")

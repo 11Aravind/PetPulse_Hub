@@ -2,6 +2,7 @@ import Home from "./pages/Home";
 import Pets from "./pages/Pets";
 import Foods from "./pages/Foods";
 import Accessorys from "./pages/Accessorys";
+import Medicine from "./pages/Medicine";
 import {Login} from "./pages/Login";
 import {Signup} from "./pages/Signup";
 import { Routes, Route } from "react-router-dom";
@@ -30,6 +31,10 @@ const routerInfo = [
     {
         path: "/accessorys",
         component: <Accessorys />
+    },
+    {
+        path: "/medicine",
+        component: <Medicine />
     },
     {
         path: "/productdetails/:id",

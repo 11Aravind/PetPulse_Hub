@@ -19,7 +19,7 @@ const Navbar = () => {
         },
         {
             menu: 'MEDICINE',
-            to: "/accessorys"
+            to: "/medicine"
         },
         {
             menu: 'BLOGS',

@@ -1,11 +1,11 @@
+import ButtonComponent from "../component/ButtonComponent";
 import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { useCart } from "react-use-cart";
 import { httpRequest } from "../API/api";
-import ButtonComponent from "../component/ButtonComponent";
-import "./CSS/OrderConfirmation.css";
 import { useLocation } from "react-router"
+import "./CSS/OrderConfirmation.css";
 export const OrderConfirmation = () => {
   const { isEmpty, items, cartTotal } = useCart();
   console.log(cartTotal);

@@ -172,7 +172,6 @@ const Address = ({ changeAddressVisibility }) => {
           <label htmlFor="inputAddress" className="form-label">Address</label>
           <input type="text" className="form-control" ref={address} id="inputAddress" placeholder="" />
         </div>
-
         <div className="col-md-6">
           <label htmlFor="inputEmail4" className="form-label">City</label>
           <input type="text" className="form-control" ref={city} id="inputEmail4" />
@@ -181,15 +180,12 @@ const Address = ({ changeAddressVisibility }) => {
           <label htmlFor="inputPassword4" className="form-label">State</label>
           <input type="text" className="form-control" ref={state} id="inputPassword4" />
         </div>
-
-
         <div className="col-md-6">
           <button type="button" className="checkOutBtn cancelBtn" onClick={changeAddressVisibility}>CANCEL</button>
         </div>
         <div className="col-md-6">
           <button type="button" className="checkOutBtn" onClick={saveAddress}>Confirm</button>
         </div>
-
       </form>
     </>
   );

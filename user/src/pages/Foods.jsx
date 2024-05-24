@@ -6,7 +6,6 @@ const Foods = () => {
   const dispatch = useDispatch();
   const categorys = useSelector((state) => state.categorys.categoryList);
   const products = useSelector((state) => state.products.productList);
-  // && products.some((productItem)=>productItem.category_id===itemCat._id )
   const filterCategory = categorys.filter((itemCat) => itemCat.mainCategory === "Food");
   const filteredProduct = products.filter(product => categorys.some(category => category._id === product.category_id && category.mainCategory === "Food"));
   dispatch(filterAndStore(filteredProduct));

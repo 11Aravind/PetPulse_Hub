@@ -1,39 +1,40 @@
 import Searchbox from "./Searchbox"
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
+import {filterAndStore} from "../Slice/productSlice"
 const Filter = ({ products }) => {
     const product = useSelector((state) => state.products.filteredProduct);
+    const dispatch=useDispatch()
     const applyFIlter = (e) => {
         const currentFilter = e.target.value;
-        console.log(currentFilter);
+        // console.log(currentFilter);
         let sortedData;
         if (currentFilter === "LOWtoHIGH") {
             sortedData = product.map((v, i) => ({ i, value: v.newPrice }))
                 .sort((a, b) => a.value - b.value)
                 .map((v) => product[v.i]);
-            console.log(sortedData);
+            // console.log(sortedData);
         }
         else if (currentFilter === "HIGHtoLOW") {
             sortedData = product.map((v, i) => ({ i, value: v.newPrice }))
                 .sort((a, b) => b.value - a.value) // Sort in descending order
                 .map((v) => product[v.i]);
-
-            console.log(sortedData);            // console.log(product.sort((item1, item2) => item2.newPrice - item1.newPrice));
+            // console.log(sortedData);           
         }
         else if (currentFilter === "AtoZ") {
             const sortedData = product.map((v, i) => ({ i, value: v.name }))
                 .sort((a, b) => a.value.localeCompare(b.value))
                 .map((v) => product[v.i]);
 
-            console.log(sortedData);
+            // console.log(sortedData);
         }
         else if (currentFilter === "ZtoA") {
             sortedData = product.map((v, i) => ({ i, value: v.name }))
                 .sort((a, b) => b.value.localeCompare(a.value))
                 .map((v) => product[v.i]);
-            console.log(sortedData);
-
-            // console.log(product.sort((item1, item2) => item2.name.localeCompare(item1.name)));
+            // console.log(sortedData);
         }
+        dispatch(filterAndStore(sortedData))
+
     }
     return (
         <>

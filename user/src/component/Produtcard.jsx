@@ -2,6 +2,7 @@ import { Link } from "react-router-dom"
 import Categoryslider from "./Categoryslider";
 import { useSelector } from "react-redux"
 import Filter from "./Filter";
+import { useEffect } from "react";
 const Produtcard = ({ categorys, products, headding }) => {
     const imgPath = useSelector((state) => state.common.imagePath)
     return (

@@ -1,9 +1,30 @@
 import { Link } from "react-router-dom";
 import ButtonComponent from "./ButtonComponent";
 import { useSelector } from "react-redux"
+import React, { useState, useEffect } from 'react';
 import "./CSS/Navbar.css";
 const Navbar = () => {
     const userId = useSelector((state) => state.user.userId)
+    const [isOpen, setIsOpen] = useState(false);
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (isOpen && !event.target.closest('.navbar-container')) {
+                setIsOpen(false);
+            }
+        };
+
+        document.addEventListener('click', handleClickOutside);
+
+        return () => {
+            document.removeEventListener('click', handleClickOutside);
+        };
+    }, [isOpen]);
+
+    const toggleNavbar = () => {
+        setIsOpen(!isOpen);
+    };
+
     const menus = [
         {
             menu: 'PETS',
@@ -31,10 +52,10 @@ const Navbar = () => {
         },
     ];
     return (
-        <nav className="navbar">
+        <nav className={`navbar ${isOpen ? 'open' : ''}`}>
             <div className="navbar-container crossBtn">
-                <input type="checkbox" name="" id="" />
-                <div className="hamburger-lines">
+                <input type="checkbox" name="" id=""checked={isOpen} onChange={toggleNavbar} />
+                <div className="hamburger-lines" onClick={toggleNavbar}>
                     <span className="line line1"></span>
                     <span className="line line2"></span>
                     <span className="line line3"></span>

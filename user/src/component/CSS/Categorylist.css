@@ -7,7 +7,7 @@
 
 .category-image img {
     width: 100%;
-    max-width: 100px;
+    max-width: 80px;
     height: auto;
     aspect-ratio: 3 / 2;
     object-fit: contain;
@@ -19,8 +19,18 @@
     font-weight: 400;
     color: black;
 }
-.align-center{
+
+.align-center {
     justify-content: center;
     align-items: center;
     display: flex;
+}
+
+@media (max-width:768px) {
+    .category-name {
+        font-size: 13px;
+    }
+    .categoryName {
+        font-size: 13px;
+    }
 }

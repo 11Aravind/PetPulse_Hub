@@ -81,4 +81,19 @@
     .product-image {
         height: 173px;
     }  
+    .product-name{
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 2rem;
+    }
+    .newprice{
+        font-size: 19px;
+        padding: 0px 6px;
+    }
+    .card-title{
+        font-size: 13px;
+    }
+    .productdetails-price {
+        line-height: 3.5rem;
+    }
 }

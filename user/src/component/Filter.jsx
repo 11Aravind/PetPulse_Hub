@@ -1,9 +1,32 @@
-import Searchbox from "./Searchbox"
-import { useSelector,useDispatch } from "react-redux";
-import {filterAndStore} from "../Slice/productSlice"
+// import Searchbox from "./Searchbox"
+import ReactSearchBox from "react-search-box";
+import { useSelector, useDispatch } from "react-redux";
+import { filterAndStore } from "../Slice/productSlice"
 const Filter = ({ products }) => {
+    const data = [
+        {
+            key: "john",
+            value: "John Doe",
+        },
+        {
+            key: "jane",
+            value: "Jane Doe",
+        },
+        {
+            key: "mary",
+            value: "Mary Phillips",
+        },
+        {
+            key: "robert",
+            value: "Robert",
+        },
+        {
+            key: "karius",
+            value: "Karius",
+        },
+    ];
     const product = useSelector((state) => state.products.filteredProduct);
-    const dispatch=useDispatch()
+    const dispatch = useDispatch()
     const applyFIlter = (e) => {
         const currentFilter = e.target.value;
         // console.log(currentFilter);
@@ -49,11 +72,22 @@ const Filter = ({ products }) => {
                         <option value="HIGHtoLOW">Price, high to low</option>
                     </select>
                 </div>
-
                 <div className="col-5"></div>
                 <div className="col-3">
-                    <Searchbox products={products} />
-
+                    {/* <Searchbox products={products} /> */}
+                    <ReactSearchBox
+                        placeholder="Start typing to filter..."
+                        value="Doe"
+                        data={products}
+                        leftIcon={<>🎨</>}
+                        iconBoxSize="48px"
+                        onFocus={() => {
+                            console.log("This function is called when is focussed");
+                        }}
+                        onChange={(value) => console.log(value)}
+                        autoFocus
+                        callback={(record) => console.log(record)}
+                    />
                 </div>
             </div>
         </>

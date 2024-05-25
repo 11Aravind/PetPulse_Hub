@@ -8,7 +8,6 @@ import { useLocation } from "react-router"
 import "./CSS/OrderConfirmation.css";
 export const OrderConfirmation = () => {
   const { isEmpty, items, cartTotal } = useCart();
-  console.log(cartTotal);
   console.log(items);
   //   const loginCredentials = JSON.parse(localStorage.getItem("loginCredentials"));
   //   const user_id = loginCredentials.user_id;
@@ -54,40 +53,42 @@ export const OrderConfirmation = () => {
     setAddressVisible(!isAddressVisible)
   }
   return (
-    //   <div className="product-headding spacing">Payment mode</div>
-    //   <div className="payementModeDiv spacing">
-    //     <div>
-    //       {" "}
-    //       <label htmlhtmlFor="CashOnDelivary"> Cash on delivery</label>{" "}
-    //       <input
-    //         name="paymentMode"
-    //         id="CashOnDelivary"
-    //         type="radio"
-    //         value="cod"
-    //         checked={paymentMode == "cod"}
-    //         onChange={(event) => {
-    //           setPaymentMode(event.target.value);
-    //         }}
-    //       />
-    //     </div>
-    //     <div className="spacing">
-    //       <label htmlhtmlFor="Online"> Online Payment</label>{" "}
-    //       <input
-    //         name="paymentMode"
-    //         type="radio"
-    //         id="Online"
-    //         checked={paymentMode == "Online"}
-    //         value="Online"
-    //         onChange={(event) => {
-    //           setPaymentMode(event.target.value);
-    //         }}
-    //       />
-    //   <ButtonComponent
-    //     text="Confirm"
-    //     classs="addbtn checkOutBtn"
-    //     orderConfirmation={true}
-    //     onClick={completeOrder}
-    //   />
+    // <div className="product-headding spacing">Payment mode</div>
+    // <div className="payementModeDiv spacing">
+    //   <div>
+    //     {" "}
+    //     <label htmlhtmlFor="CashOnDelivary"> Cash on delivery</label>{" "}
+    //     <input
+    //       name="paymentMode"
+    //       id="CashOnDelivary"
+    //       type="radio"
+    //       value="cod"
+    //       // checked={paymentMode == "cod"}
+    //       // onChange={(event) => {
+    //       //   setPaymentMode(event.target.value);
+    //       // }}
+    //     />
+    //   </div>
+    //   <div className="spacing">
+    //     <label htmlhtmlFor="Online"> Online Payment</label>{" "}
+    //     <input
+    //       name="paymentMode"
+    //       type="radio"
+    //       id="Online"
+    //       // checked={paymentMode == "Online"}
+    //       value="Online"
+    //       // onChange={(event) => {
+    //       //   setPaymentMode(event.target.value);
+    //       // }}
+    //     />
+    // <ButtonComponent
+    //   text="Confirm"
+    //   classs="addbtn checkOutBtn"
+    //   orderConfirmation={true}
+    //   // onClick={completeOrder}
+    // />
+    // </div>
+    // </div>
     <div className="container  col-6">
       <h5 className="headdingSpace">DELIVERY ADDRESS</h5>
       {addressList.length !== 0 && (
@@ -107,7 +108,25 @@ export const OrderConfirmation = () => {
         <button className="addAddressBtn headdingSpace " onClick={() => setAddressVisible(!isAddressVisible)}>+ Add a new address</button>
         {isAddressVisible && <Address changeAddressVisibility={changeAddressVisibility} />}
       </div>
-      {/* <h5>ORDER SUMMARY</h5> */}
+      <h5 className="headdingSpace">ORDER SUMMARY</h5>
+      {
+        items.map((item, index) => {
+          return (
+            <div className="col-12 row" key={index}>
+              <div className="col-3">
+                <img src={`http://localhost:5001/${item.image}`} alt="" />
+              </div>
+              <div className="col-3">{item.name}</div>
+              <div className="col-3">{item.newPrice}</div>
+              <div className="col-3">{item.quantity}</div>
+            </div>
+          )
+        })
+      }
+<div className="col-12 row">
+  <div className="col-6">Totel Amount</div>
+  <div className="col-6"><b>₹{cartTotal}</b></div>
+ </div>
       <h5 className="headdingSpace">PAYMENT</h5>
       <div className="col-12 row">
         <div className="col-6">
@@ -121,6 +140,7 @@ export const OrderConfirmation = () => {
           {/* <button className="onlinePayment">Online Payment</button> */}
         </div>
       </div>
+      <button className="checkOutBtn">Confirm</button>
     </div>
 
   );

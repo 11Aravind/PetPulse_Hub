@@ -1,13 +1,15 @@
 .checkOutBtn {
     background: var(--primary);
     border: none;
-    padding: 2px 9px;
-    font-size: 13px;
-    line-height: 30px;
-    font-weight: bold;
+    /* padding: 2px 9px; */
+    /* font-size: 13px; */
+    line-height: 37px;
+    /* font-weight: bold; */
     width: 100%;
     color: #fff;
-    border-radius: 10px;
+    /* border-radius: 10px; */
+    margin-top: 30px;
+
 }
 .smallBtn{
     color: white;

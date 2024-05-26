@@ -90,6 +90,10 @@ img{
 .headdingSpace{
   line-height: 47px;
 }
+.topNavBar{
+  height: 28px;
+  background: var(--primary);
+}
 @media (max-width:768px) {
 .topSpacing{
   padding: 0px 8px;

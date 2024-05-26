@@ -4,6 +4,7 @@ import Categorylist from "../component/Categorylist";
 // import MyCarousel  from "../component/CarouselComponent";
 import Categoryslider from "../component/Categoryslider";
 import { useSelector } from "react-redux";
+import Blogs from "./Blogs";
 
 const Home = () => {
   const categorys = useSelector((state) => state.categorys.categoryList);
@@ -72,7 +73,8 @@ const Home = () => {
       <Categoryslider categorys={categorys} />
       <h1 className="headding">Pet-tastic Deals</h1>
       {/* <MyCarousel  items={newProducts}/> */}
-      <Cardslider />
+      <Blogs/>
+      {/* <Cardslider /> */}
     </div>
   );
 }

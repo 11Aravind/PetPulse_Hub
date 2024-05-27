@@ -57,7 +57,7 @@ export const Categorydetails = () => {
                                     <td>{eachValue.mainCategory}</td>
                                     <td>{eachValue.category}</td>
                                     <td>{eachValue.subCategory}</td>
-                                    <td><img src={`http://localhost:5000/${eachValue.image}`} alt="banner" className="bannerImg" /></td>
+                                    <td><img src={`http://localhost:5001/${eachValue.image}`} alt="banner" className="bannerImg" /></td>
                                     <td>  <i className="bi bi-trash3-fill" id={eachValue._id} onClick={deleteCategory}></i>  </td>
                                     {/* <td><i className="bi bi-pencil-square"></i> </td> */}
                                 </tr>

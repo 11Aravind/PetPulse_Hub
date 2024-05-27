@@ -3,7 +3,7 @@ import { httpRequest } from "../API/api";
 import Table from "../components/Table";
 import { useEffect } from "react";
 const Gallery = () => {
-      const [file, setFile] = useState("");
+    const [file, setFile] = useState("");
     const [alertMessage, setMessage] = useState("");
     const showMessage = (msg) => {
         setMessage(msg);
@@ -17,7 +17,7 @@ const Gallery = () => {
         else {
             const galleryData = new FormData();
             galleryData.append('image', file);
-            httpRequest('post',"api/gallery/savegallery",galleryData).then((res) => showMessage(res.message));
+            httpRequest('post', "api/gallery/savegallery", galleryData).then((res) => showMessage(res.message));
         }
     }
     return (
@@ -43,8 +43,8 @@ const Gallery = () => {
     );
 }
 export default Gallery;
-export const Gallerylist=()=>{
-    const inlineStyle={
+export const Gallerylist = () => {
+    const inlineStyle = {
         left: "0%",
         width: "100%",
         top: "111%",
@@ -60,45 +60,47 @@ export const Gallerylist=()=>{
             th: "Action"
         },
     ];
-    const[galleryDetails,setGalleryDetails]=useState([]);
+    const [gallerys, setGalleryDetails] = useState([]);
     useEffect(() => {
-        httpRequest('get',"api/gallery").then((data) => {
-            // Check if the fetched data is an object and has 'categoryDetails' array
-            if (data && Array.isArray(data.galleryList)) {
-                setGalleryDetails(data.galleryList);
+        httpRequest('get', "api/gallery").then((res) => {
+            if (res && Array.isArray(res.data)) {
+                setGalleryDetails(res.data);
             } else {
-                console.error("Fetched data does not contain 'galleryList' array:", data);
+                console.error("Fetched data does not contain 'galleryList' array:", res);
             }
         }).catch(error => {
             console.error("Error fetching data:", error);
         });
     }, []);
-    return(
+    const deleteGallery = (e) => {
+        console.log(e.target.id);
+    }
+    return (
         <>
-        <div className="content-div" style={inlineStyle}> 
-         <table className="table-container table">
-                <thead>
-                    <tr className="table-headding">
+            <div className="content-div" style={inlineStyle}>
+                <table className="table-container table">
+                    <thead>
+                        <tr className="table-headding">
+                            {
+                                tableHeadding.map((eachHeadding, id) =>
+                                    <td key={id}>{eachHeadding.th}</td>
+                                )
+                            }
+                        </tr>
+                    </thead>
+                    <tbody>
                         {
-                            tableHeadding.map((eachHeadding, id) =>
-                                <td key={id}>{eachHeadding.th}</td>
+                            gallerys.length === 0 ? "Gallery was empty.Please Upload gallery" : gallerys.map((gallery, id) =>
+                                <tr key={id} scope="row">
+                                    <td>{gallery._id}</td>
+                                    <td><img src={`http://localhost:5001/${gallery.image}`} alt="banner" className="bannerImg" /></td>
+                                    <td>  <i className="bi bi-trash3-fill" id={gallery._id} onClick={deleteGallery}></i>  </td>
+                                    {/* <td><i className="bi bi-pencil-square"></i> </td> */}
+                                </tr>
                             )
                         }
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                        galleryDetails.map((eachValue, id) =>
-                            <tr key={id} scope="row">
-                                <td>{eachValue._id}</td>
-                                <td><img src={`http://localhost:5001/${eachValue.url}`} alt="banner" className="bannerImg"  /></td>
-                                <td>  <i className="bi bi-trash3-fill"></i>  </td>
-                                {/* <td><i className="bi bi-pencil-square"></i> </td> */}
-                            </tr>
-                        )
-                    }
-                </tbody>
-            </table> 
+                    </tbody>
+                </table>
             </div>
         </>
     );

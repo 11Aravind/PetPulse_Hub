@@ -7,8 +7,12 @@ import { httpRequest } from "../API/api";
 import { useLocation } from "react-router"
 import "./CSS/OrderConfirmation.css";
 export const OrderConfirmation = () => {
+  const [addressId,changeAddressid]=useState(false);
+  const [paymentMod,setPaymentMode]=useState('cod');
+  console.log(paymentMod);
+  console.log(addressId);
   const { isEmpty, items, cartTotal } = useCart();
-  console.log(items);
+  // console.log(items);
 
 
   const amount = cartTotal*100;
@@ -167,15 +171,16 @@ export const OrderConfirmation = () => {
     // />
     // </div>
     // </div>
-    <div className="container  col-6">
+    <div className="container  col-10">
       <h5 className="headdingSpace">DELIVERY ADDRESS</h5>
       {addressList.length !== 0 && (
-        addressList.map((addressItem, key) => {
+        addressList.map((address,key) => {
           return (
             <div className="form-check" key={key}>
-              <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" />
+              <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" 
+              onChange={()=>changeAddressid(address._id)}/>
               <label className="form-check-label" htmlFor="flexRadioDefault2">
-                <b>{addressItem.name}</b> {addressItem.address}
+                <b>{address.name}</b> {address.address}
               </label>
             </div>
           )
@@ -183,23 +188,23 @@ export const OrderConfirmation = () => {
       )
       }
       <div className="col-12 ">
-        <button className="addAddressBtn headdingSpace " onClick={() => setAddressVisible(!isAddressVisible)}>+ Add a new address</button>
+        <button className="addAddressBtn headdingSpace " onClick={() => setAddressVisible(!isAddressVisible)}>+_Add_Address</button>
         {isAddressVisible && <Address changeAddressVisibility={changeAddressVisibility} />}
       </div>
       <h5 className="headdingSpace">ORDER SUMMARY</h5>
       {
-        items.map((item, index) => {
-          return (
-            <div className="col-12 row" key={index}>
-              <div className="col-3">
-                <img src={`http://localhost:5001/${item.image}`} alt="" />
-              </div>
-              <div className="col-3">{item.name}</div>
-              <div className="col-3">{item.newPrice}</div>
-              <div className="col-3">{item.quantity}</div>
-            </div>
-          )
-        })
+        // items.map((item, index) => {
+        //   return (
+        //     <div className="col-12 row" key={index}>
+        //       <div className="col-3">
+        //         <img src={`http://localhost:5001/${item.image}`} alt="" />
+        //       </div>
+        //       <div className="col-3">{item.name}</div>
+        //       <div className="col-3">{item.newPrice}</div>
+        //       <div className="col-3">{item.quantity}</div>
+        //     </div>
+        //   )
+        // })
       }
 <div className="col-12 row">
   <div className="col-6">Totel Amount</div>
@@ -208,17 +213,24 @@ export const OrderConfirmation = () => {
       <h5 className="headdingSpace">PAYMENT</h5>
       <div className="col-12 row">
         <div className="col-6">
-          <input type="radio" className="cashOnDelivery" name="paymentMod" id="cash" />
+          <input type="radio" className="cashOnDelivery" name="paymentMod" id="cash" onClick={()=>setPaymentMode("cod")}/>
           <label htmlFor="cash">Cash on Delivery</label>
           {/* <button className="cashOnDelivery">Cash on Delivery</button> */}
         </div>
         <div className="col-6">
-          <input type="radio" className="cashOnDelivery" name="paymentMod" id="online" />
+          <input type="radio" className="cashOnDelivery" name="paymentMod" id="online" onClick={()=>setPaymentMode("online")}/>
           <label htmlFor="online">Online Payment</label>
           {/* <button className="onlinePayment">Online Payment</button> */}
         </div>
       </div>
-      <button className="checkOutBtn" onClick={paymentHandler}>Confirm</button>
+      {/* <button className="checkOutBtn" onClick={paymentHandler}>Confirm</button> */}
+      <ButtonComponent
+        text="Confirm"
+        classs={addressId == false ? "addbtn checkOutBtn disabled" : "addbtn checkOutBtn"}
+        orderConfirmation={true}
+        // onClick={completeOrder}
+        disableValue={addressId == false ? true : false}
+      />
     </div>
 
   );
@@ -244,7 +256,7 @@ const Address = ({ changeAddressVisibility }) => {
       "userId": userId,
       "name": name.current.value,
       "mobileNo": mobile.current.value,
-      "address": address.current.value + " ," + locality.current.value + " ," + city.current.value + " ," + pincode.current.value + " ," + state.current.value,
+      "address": address.current.value + ",  " + locality.current.value + ",  " + city.current.value + ",  " + pincode.current.value + ", " + state.current.value,
       "order_id": null,
     }
     httpRequest('post', "api/user/address", addressData)
@@ -259,7 +271,7 @@ const Address = ({ changeAddressVisibility }) => {
           <input type="text" className="form-control" ref={name} id="inputEmail4" />
         </div>
         <div className="col-md-6">
-          <label htmlFor="inputPassword4" className="form-label">Mobile Number</label>
+          <label htmlFor="inputPassword4" className="form-label">Mobile No</label>
           <input type="Number" className="form-control" ref={mobile} id="inputPassword4" />
         </div>
         <div className="col-md-6">
@@ -282,12 +294,14 @@ const Address = ({ changeAddressVisibility }) => {
           <label htmlFor="inputPassword4" className="form-label">State</label>
           <input type="text" className="form-control" ref={state} id="inputPassword4" />
         </div>
-        <div className="col-md-6">
+      <div className="row">
+      <div className="col-md-6">
           <button type="button" className="checkOutBtn cancelBtn" onClick={changeAddressVisibility}>CANCEL</button>
         </div>
         <div className="col-md-6">
           <button type="button" className="checkOutBtn" onClick={saveAddress}>Confirm</button>
         </div>
+      </div>
       </form>
     </>
   );

@@ -32,17 +32,17 @@ const Blogs = () => {
                     })
                 }
             </div> */}
-            <div class="row row-cols-1 row-cols-md-3 g-4" style={{ "marginTop": "40px" }}>
+            <div className="row row-cols-1 row-cols-md-3 g-4" style={{ "marginTop": "40px" }}>
                 {
                     blogs.map((blog, index) => {
                         return(
-                            <div class="col">
-                            <div class="card h-100">
+                            <div className="col">
+                            <div className="card h-100">
                             <ReactPlayer url={blog.link} width="366px" height="207px" controls="true" />
-                              <div class="card-body">
-                                {/* <h5 class="card-title">Card title</h5> */}
+                              <div className="card-body">
+                                {/* <h5 className="card-title">Card title</h5> */}
                                 <div className="card-title">{blog.description}</div>
-                                {/* <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p> */}
+                                {/* <p className="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p> */}
                               </div>
                             </div>
                           </div>

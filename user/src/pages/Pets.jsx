@@ -1,12 +1,11 @@
-
 import { useSelector } from "react-redux"
 import Categoryslider from "../component/Categoryslider";
 import Produtcard from "../component/Produtcard";
 import "../component/CSS/Card.css"
 const Pets = () => {
-    const categorys=useSelector((state)=>state.categorys.categoryList.filter(item=>item.mainCategory=="Pets"));
+    const categorys=useSelector((state)=>state.categorys.categoryList.filter(item=>item.mainCategory=="Pet"));
     const products = useSelector((state) => state.products.productList);
-    const filteredProduct=products.filter(product=>categorys.some(category=>category._id===product.category_id && category.mainCategory==="Pets"));
+    const filteredProduct=products.filter(product=>categorys.some(category=>category._id===product.category_id && category.mainCategory==="Pet"));
    //  console.log(filteredProduct);
     return (
        <>

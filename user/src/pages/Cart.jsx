@@ -59,7 +59,7 @@ const Cart = ({ callbackShowCart }) => {
   const imgPath = useSelector((state) => state.common.imagePath);
   const onCheckOut = () => {
     dispatch(setRoute("/cart"));
-    userId == null ? navigate("/login") : navigate("/OrderConfirmation");
+    userId == null ? navigate("/login") : navigate("/Checkout");
   };
 
   const closeCart = () => {

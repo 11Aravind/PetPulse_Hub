@@ -6,7 +6,7 @@ import { useCart } from "react-use-cart";
 import { httpRequest } from "../API/api";
 import { useLocation } from "react-router"
 import "./CSS/OrderConfirmation.css";
-export const OrderConfirmation = () => {
+export const Checkout = () => {
   const [addressId,changeAddressid]=useState(false);
   const [paymentMod,setPaymentMode]=useState('cod');
   console.log(paymentMod);
@@ -188,7 +188,7 @@ export const OrderConfirmation = () => {
       )
       }
       <div className="col-12 ">
-        <button className="addAddressBtn headdingSpace " onClick={() => setAddressVisible(!isAddressVisible)}>+_Add_Address</button>
+        <button className="addAddressBtn headdingSpace " onClick={() => setAddressVisible(!isAddressVisible)}>+ Add Address</button>
         {isAddressVisible && <Address changeAddressVisibility={changeAddressVisibility} />}
       </div>
       <h5 className="headdingSpace">ORDER SUMMARY</h5>

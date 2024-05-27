@@ -7,20 +7,18 @@ import { httpRequest } from "../API/api";
 import { useLocation } from "react-router"
 import "./CSS/OrderConfirmation.css";
 export const Checkout = () => {
-  const [addressId,changeAddressid]=useState(false);
-  const [paymentMod,setPaymentMode]=useState('cod');
-  console.log(paymentMod);
-  console.log(addressId);
+  const [addressId, changeAddressid] = useState(false);
+  const [paymentMode, setPaymentMode] = useState('online');
+  const userId = useSelector((state) => state.user.userId)
   const { isEmpty, items, cartTotal } = useCart();
-  // console.log(items);
 
 
-  const amount = cartTotal*100;
+  const amount = cartTotal * 100;
   const currency = "INR";
   const receiptId = "qwsaq1";
 
   const paymentHandler = async (e) => {
-    const  body={
+    const body = {
       amount,
       currency,
       receipt: receiptId,
@@ -41,9 +39,9 @@ export const Checkout = () => {
 
     var options = {
       key: "rzp_test_u5nxL1KN1AKLE0", // Enter the Key ID generated from the Dashboard
-      amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+      amount, 
       currency,
-      name: "PetPulse Hub", //your business name
+      name: "PetPulse Hub", 
       description: "Test Transaction",
       image: "./tshirt.jpg",
       order_id: order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
@@ -93,35 +91,36 @@ export const Checkout = () => {
   };
   //   const loginCredentials = JSON.parse(localStorage.getItem("loginCredentials"));
   //   const user_id = loginCredentials.user_id;
-  // const [paymentMode, setPaymentMode] = useState("cod");
   // const navigate = useNavigate();
-  // let completeOrder = () => {
-  //   if (!isEmpty) {
-  //     const product = items.map(({ product_id, price, quantity }) => {
-  //       return { product_id, quantity };
-  //     });
-  //     const data = {
-  //       user_id: user_id,
-  //       address: Ref_fname + Ref_Area + Ref_city + Ref_houseNumber + Ref_phone,
-  //       items: product,
-  //       // cartTotal: cartTotal,
-  //       paymentMode: paymentMode,
-  //       orderID: null
-  //     };
-  // console.log(data);
-  //     httpRequest(data, "checkOut.php").then((respose) => {
-  //       if (respose && respose.status && paymentMode == "cod") {
-  //         //cod success
-  //         navigate("/OrderPlaced");
-  //       } else if (respose && respose.status && paymentMode == "Online") {
-  //         //cod success
-  //         data.orderID = respose.message;
-  //         navigate("/PayOnline", { state: data });
-  //       }
-  //     });
-  //   }
-  // };
-  const userId = useSelector((state) => state.user.userId)
+
+  let completeOrder = () => {
+    if (!isEmpty) {
+      const product = items.map(({ _id, price, quantity }) => {
+        return { _id, quantity };
+      });
+      const data = {
+        userId: userId,
+        addressId: addressId,
+        items: product,
+        totelamount: cartTotal,
+        transactionId: "",
+        dateOfOrder: "",
+        status: "pending",
+        paymentMode: paymentMode,
+        order_message:""
+
+      };
+      console.log(data);
+      // httpRequest(data, "checkOut.php").then((respose) => {
+      //   if (respose && respose.status && paymentMode == "cod") {
+      //     navigate("/OrderPlaced");
+      //   } else if (respose && respose.status && paymentMode == "Online") {
+      //     data.orderID = respose.message;
+      //     navigate("/PayOnline", { state: data });
+      //   }
+      // });
+    }
+  };
   const [isAddressVisible, setAddressVisible] = useState(false);
   const [addressList, setAddress] = useState([])
   useEffect(() => {
@@ -135,50 +134,14 @@ export const Checkout = () => {
     setAddressVisible(!isAddressVisible)
   }
   return (
-    // <div className="product-headding spacing">Payment mode</div>
-    // <div className="payementModeDiv spacing">
-    //   <div>
-    //     {" "}
-    //     <label htmlhtmlFor="CashOnDelivary"> Cash on delivery</label>{" "}
-    //     <input
-    //       name="paymentMode"
-    //       id="CashOnDelivary"
-    //       type="radio"
-    //       value="cod"
-    //       // checked={paymentMode == "cod"}
-    //       // onChange={(event) => {
-    //       //   setPaymentMode(event.target.value);
-    //       // }}
-    //     />
-    //   </div>
-    //   <div className="spacing">
-    //     <label htmlhtmlFor="Online"> Online Payment</label>{" "}
-    //     <input
-    //       name="paymentMode"
-    //       type="radio"
-    //       id="Online"
-    //       // checked={paymentMode == "Online"}
-    //       value="Online"
-    //       // onChange={(event) => {
-    //       //   setPaymentMode(event.target.value);
-    //       // }}
-    //     />
-    // <ButtonComponent
-    //   text="Confirm"
-    //   classs="addbtn checkOutBtn"
-    //   orderConfirmation={true}
-    //   // onClick={completeOrder}
-    // />
-    // </div>
-    // </div>
     <div className="container  col-10">
       <h5 className="headdingSpace">DELIVERY ADDRESS</h5>
       {addressList.length !== 0 && (
-        addressList.map((address,key) => {
+        addressList.map((address, key) => {
           return (
             <div className="form-check" key={key}>
-              <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" 
-              onChange={()=>changeAddressid(address._id)}/>
+              <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2"
+                onChange={() => changeAddressid(address._id)} />
               <label className="form-check-label" htmlFor="flexRadioDefault2">
                 <b>{address.name}</b> {address.address}
               </label>
@@ -193,42 +156,52 @@ export const Checkout = () => {
       </div>
       <h5 className="headdingSpace">ORDER SUMMARY</h5>
       {
-        // items.map((item, index) => {
-        //   return (
-        //     <div className="col-12 row" key={index}>
-        //       <div className="col-3">
-        //         <img src={`http://localhost:5001/${item.image}`} alt="" />
-        //       </div>
-        //       <div className="col-3">{item.name}</div>
-        //       <div className="col-3">{item.newPrice}</div>
-        //       <div className="col-3">{item.quantity}</div>
-        //     </div>
-        //   )
-        // })
+        items.map((item, index) => {
+          return (
+            <div className="col-12 row" style={{ marginBottom: "10px" }} key={index}>
+              <div className="col-3" style={{ width: "100px" }}>
+                <img src={`http://localhost:5001/${item.image}`} alt="" />
+              </div>
+              <div className="col-3" style={{ fontSize: "13px" }}>{item.name}</div>
+              <div className="col-3" >{item.newPrice}</div>
+              <div className="col-3" >{item.quantity}</div>
+            </div>
+          )
+        })
       }
-<div className="col-12 row">
-  <div className="col-6">Totel Amount</div>
-  <div className="col-6"><b>₹{cartTotal}</b></div>
- </div>
+      <div className="col-12 row">
+        <div className="col-6">Totel Amount</div>
+        <div className="col-6"><b>₹{cartTotal}</b></div>
+      </div>
       <h5 className="headdingSpace">PAYMENT</h5>
       <div className="col-12 row">
         <div className="col-6">
-          <input type="radio" className="cashOnDelivery" name="paymentMod" id="cash" onClick={()=>setPaymentMode("cod")}/>
-          <label htmlFor="cash">Cash on Delivery</label>
-          {/* <button className="cashOnDelivery">Cash on Delivery</button> */}
+          <input type="radio"
+            className="cashOnDelivery"
+            name="paymentMod"
+            id="cash"
+            checked={paymentMode == "cod"}
+            onClick={() => setPaymentMode("cod")}
+          />
+          <label htmlFor="cash" className="radioPaymentLabels">Cash on Delivery</label>
         </div>
         <div className="col-6">
-          <input type="radio" className="cashOnDelivery" name="paymentMod" id="online" onClick={()=>setPaymentMode("online")}/>
-          <label htmlFor="online">Online Payment</label>
-          {/* <button className="onlinePayment">Online Payment</button> */}
+          <input type="radio"
+            className="cashOnDelivery"
+            name="paymentMod"
+            id="online"
+            checked={paymentMode == "online"}
+            onClick={() => setPaymentMode("online")}
+          />
+          <label htmlFor="online" className="radioPaymentLabels">Online Payment</label>
         </div>
       </div>
-      {/* <button className="checkOutBtn" onClick={paymentHandler}>Confirm</button> */}
+      <button className="checkOutBtn" onClick={paymentHandler}>Confirm</button>
       <ButtonComponent
         text="Confirm"
         classs={addressId == false ? "addbtn checkOutBtn disabled" : "addbtn checkOutBtn"}
         orderConfirmation={true}
-        // onClick={completeOrder}
+        onClick={completeOrder}
         disableValue={addressId == false ? true : false}
       />
     </div>
@@ -294,14 +267,14 @@ const Address = ({ changeAddressVisibility }) => {
           <label htmlFor="inputPassword4" className="form-label">State</label>
           <input type="text" className="form-control" ref={state} id="inputPassword4" />
         </div>
-      <div className="row">
-      <div className="col-md-6">
-          <button type="button" className="checkOutBtn cancelBtn" onClick={changeAddressVisibility}>CANCEL</button>
+        <div className="row">
+          <div className="col-md-6">
+            <button type="button" className="checkOutBtn cancelBtn" onClick={changeAddressVisibility}>CANCEL</button>
+          </div>
+          <div className="col-md-6">
+            <button type="button" className="checkOutBtn" onClick={saveAddress}>Confirm</button>
+          </div>
         </div>
-        <div className="col-md-6">
-          <button type="button" className="checkOutBtn" onClick={saveAddress}>Confirm</button>
-        </div>
-      </div>
       </form>
     </>
   );

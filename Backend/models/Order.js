@@ -9,14 +9,15 @@ const Order = new Schema({
         type: Schema.Types.ObjectId,
         ref: "Address"
     },
-    product_id: {
-        type: Schema.Types.ObjectId,
-        ref: "Product"
+    items: {
+        type: String,
+        // ref: "Product"
+        required:true
     },
-    quantity: {
-        type: Number,
-        required: true
-    },
+    // quantity: {
+    //     type: Number,
+    //     required: true
+    // },
     totelamount: {
         type: Number,
         required: true
@@ -28,10 +29,12 @@ const Order = new Schema({
         type: String,
     },
     status: {
-        type: Boolean
+        type: String,
+        required:true
     },
     paymentMod: {
         type: String,
+        required:true
     },
     order_message: {
         type: String,

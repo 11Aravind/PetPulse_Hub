@@ -37,12 +37,13 @@ const category_id=req.params.category_id;
 let deleteFlag;
 try{
     deleteFlag=await Category.findByIdAndDelete(category_id);
-    if (!deletedProduct) {
-        return res.status(404).json({ message: 'Product not found' });
-    }
-   return  res.status(200).json({ message: 'Product deleted successfully', deletedProduct });
+  
 }catch(err){
-  return  res.status(500).send({message:'deletion failed',err});
+    return  res.status(500).send({message:'deletion failed',err,id:category_id});
 }
+if (!deletedProduct) {
+    return res.status(404).json({ message: 'Product not found' ,id:category_id});
+}
+return  res.status(200).json({ message: 'Product deleted successfully', deletedProduct });
 
 };

@@ -25,6 +25,14 @@ export const getGallery = async (req,res,next) => {
         console.log(err);
     }
     if (galleryList.length === 0)
-        return res.status(200).json({ message: "gallery was empty" });
-    return res.status(200).json({ galleryList });
+        return res.status(200).json({ message: "gallery was empty" ,data:galleryList});
+    return res.status(200).json({ message: "Success" ,data:galleryList});
+}
+export const deleteGallery=async(req,res,next)=>{
+    const galleryId=req.body;
+    try{
+        await Gallery.findById(galleryId)
+    }catch(error){
+        console.log(error);
+    }
 }

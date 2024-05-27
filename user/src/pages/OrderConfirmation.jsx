@@ -11,11 +11,16 @@ export const OrderConfirmation = () => {
   console.log(items);
 
 
-  const amount = 1000000;
+  const amount = cartTotal*100;
   const currency = "INR";
   const receiptId = "qwsaq1";
 
   const paymentHandler = async (e) => {
+    const  body={
+      amount,
+      currency,
+      receipt: receiptId,
+    };
     const response = await fetch("http://localhost:5001/order", {
       method: "POST",
       body: JSON.stringify({
@@ -34,7 +39,7 @@ export const OrderConfirmation = () => {
       key: "rzp_test_u5nxL1KN1AKLE0", // Enter the Key ID generated from the Dashboard
       amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
       currency,
-      name: "Petpulz hub", //your business name
+      name: "PetPulse Hub", //your business name
       description: "Test Transaction",
       image: "./tshirt.jpg",
       order_id: order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1

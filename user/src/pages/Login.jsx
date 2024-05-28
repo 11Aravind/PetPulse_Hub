@@ -16,7 +16,7 @@ export const Login = () => {
   const location = useLocation();
   const [previousUrl, setPreviousUrl] = useState("");
   const previousRoute = useSelector((state) => state.common.prvRoute);
-  console.log(previousRoute);
+  // console.log(previousRoute);
   const login = () => {
     const loginData = {
       "email": email.current.value,
@@ -25,7 +25,7 @@ export const Login = () => {
     httpRequest('post', 'api/user/login', loginData)
       .then((res) => {
         dispatch(fetchAndStore(res.user_id));
-       (previousRoute=="/" || previousRoute=="/signup")?navigate("/"):navigate("/cart")
+       (previousRoute==="/" || previousRoute==="/signup")?navigate("/"):navigate("/cart")
 
       })
       .catch((error) =>

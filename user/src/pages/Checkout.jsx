@@ -7,11 +7,28 @@ import { httpRequest } from "../API/api";
 import { useLocation } from "react-router"
 import "./CSS/OrderConfirmation.css";
 export const Checkout = () => {
+  const navigate=useNavigate()
   const [addressId, changeAddressid] = useState(false);
   const [paymentMode, setPaymentMode] = useState('online');
   const userId = useSelector((state) => state.user.userId)
   const { isEmpty, items, cartTotal } = useCart();
-
+  const [isAddressVisible, setAddressVisible] = useState(false);
+  const [addressList, setAddress] = useState([])
+  const onCheckOut = () => {
+    // dispatch(setRoute("/cart"));
+    userId == null ? navigate("/login") : navigate("/Checkout");
+  };
+  useEffect(() => {
+    onCheckOut();
+    httpRequest('get', `api/user/getAddress?userId=${userId}`)
+      .then((response) => {
+        setAddress(response.data.addressList)
+      })
+      .catch((err) => console.log(err));
+  }, [])
+  const changeAddressVisibility = () => {
+    setAddressVisible(!isAddressVisible)
+  }
 
   const amount = cartTotal * 100;
   const currency = "INR";
@@ -111,6 +128,12 @@ export const Checkout = () => {
 
       };
       console.log(data);
+      httpRequest('post',"api/order/checkout",data)
+      .then((res)=>{
+        if(res && res.status && paymentMode==="cod"){
+          navigate("/Orderplaced")
+        }
+      })
       // httpRequest(data, "checkOut.php").then((respose) => {
       //   if (respose && respose.status && paymentMode == "cod") {
       //     navigate("/OrderPlaced");
@@ -121,18 +144,7 @@ export const Checkout = () => {
       // });
     }
   };
-  const [isAddressVisible, setAddressVisible] = useState(false);
-  const [addressList, setAddress] = useState([])
-  useEffect(() => {
-    httpRequest('get', `api/user/getAddress?userId=${userId}`)
-      .then((response) => {
-        setAddress(response.data.addressList)
-      })
-      .catch((err) => console.log(err));
-  }, [])
-  const changeAddressVisibility = () => {
-    setAddressVisible(!isAddressVisible)
-  }
+
   return (
     <div className="container  col-10">
       <h5 className="headdingSpace">DELIVERY ADDRESS</h5>
@@ -196,7 +208,7 @@ export const Checkout = () => {
           <label htmlFor="online" className="radioPaymentLabels">Online Payment</label>
         </div>
       </div>
-      <button className="checkOutBtn" onClick={paymentHandler}>Confirm</button>
+      {/* <button className="checkOutBtn" onClick={paymentHandler}>Confirm</button> */}
       <ButtonComponent
         text="Confirm"
         classs={addressId == false ? "addbtn checkOutBtn disabled" : "addbtn checkOutBtn"}

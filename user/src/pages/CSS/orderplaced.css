@@ -1,0 +1,8 @@
+.containerDiv{
+    /* background: #3cc03c; */
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: 524px;
+}

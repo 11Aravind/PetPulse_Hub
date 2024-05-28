@@ -61,12 +61,9 @@ const Cart = ({ callbackShowCart }) => {
     dispatch(setRoute("/cart"));
     userId == null ? navigate("/login") : navigate("/Checkout");
   };
-
   const closeCart = () => {
     callbackShowCart()
   }
-  // const id=useSelector((state)=>state.user.userId);
-  // console.log(id);
   return (
     <>
       {isEmpty ? (
@@ -84,7 +81,6 @@ const Cart = ({ callbackShowCart }) => {
                   <div className="img-cart cart-th">
                     <img
                       className="product-cart-img"
-                      // src={imagePath + product.product_img}
                       src={imgPath+product.image}
                       alt="product-img"
                     />

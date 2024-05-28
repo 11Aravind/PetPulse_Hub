@@ -9,7 +9,7 @@ import "./CSS/OrderConfirmation.css";
 export const Checkout = () => {
   const navigate=useNavigate()
   const [addressId, changeAddressid] = useState(false);
-  const [paymentMode, setPaymentMode] = useState('online');
+  const [paymentMode, setPaymentMode] = useState('cod');
   const userId = useSelector((state) => state.user.userId)
   const { isEmpty, items, cartTotal } = useCart();
   const [isAddressVisible, setAddressVisible] = useState(false);
@@ -190,7 +190,7 @@ export const Checkout = () => {
         <div className="col-6">
           <input type="radio"
             className="cashOnDelivery"
-            name="paymentMod"
+            name="paymentMode"
             id="cash"
             checked={paymentMode == "cod"}
             onClick={() => setPaymentMode("cod")}
@@ -200,7 +200,7 @@ export const Checkout = () => {
         <div className="col-6">
           <input type="radio"
             className="cashOnDelivery"
-            name="paymentMod"
+            name="paymentMoed"
             id="online"
             checked={paymentMode == "online"}
             onClick={() => setPaymentMode("online")}

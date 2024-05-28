@@ -7,6 +7,7 @@ import galleryRouter from "./routes/gallery-routs.js";
 import categoryRouter from "./routes/category-routers.js";
 import adminRouter from "./routes/admin-router.js";
 import productRouter from "./routes/product-routers.js";
+import orderRouteer from "./routes/order-router.js"
 import Razorpay from "razorpay"
 import crypto from "crypto"
 import cors from "cors";
@@ -40,6 +41,7 @@ app.use("/api/gallery", galleryRouter);
 app.use("/api/category", categoryRouter);
 app.use("/api/product", productRouter);
 app.use("/api/admin", adminRouter);
+app.use("/api/order", orderRouteer);
 app.post("/order", async (req, res) => {
   try {
     const razorpay = new Razorpay({

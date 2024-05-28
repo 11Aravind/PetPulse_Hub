@@ -10,7 +10,7 @@ const Order = new Schema({
         ref: "Address"
     },
     items: {
-        type: String,
+        type: Array,
         // ref: "Product"
         required:true
     },
@@ -32,7 +32,7 @@ const Order = new Schema({
         type: String,
         required:true
     },
-    paymentMod: {
+    paymentMode: {
         type: String,
         required:true
     },

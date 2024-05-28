@@ -11,6 +11,7 @@ import Productdetails from "./pages/Productdetails";
 import {Checkout} from "./pages/Checkout";
 import Blogs from "./pages/Blogs";
 import Cart from "./pages/Cart";
+import Orderplaced from "./pages/Orderplaced";
 const routerInfo = [
     {
         path: "/",
@@ -55,6 +56,10 @@ const routerInfo = [
     {
         path: "/Checkout",
         component: <Checkout />
+    },
+    {
+        path: "/Orderplaced",
+        component: <Orderplaced />
     },
     {
         path: "*",

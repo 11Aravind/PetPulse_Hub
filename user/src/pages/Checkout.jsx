@@ -64,7 +64,7 @@ export const Checkout = () => {
       // cod
     } else {
       try {
-        const order = await httpRequest("POST", "api/order/", body);
+        const order = await httpRequest("POST", "api/order/checkout", body);
         console.log(order);
         var options = {
           key: "rzp_test_u5nxL1KN1AKLE0", // Enter the Key ID generated from the Dashboard

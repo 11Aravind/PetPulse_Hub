@@ -24,13 +24,10 @@ export const storeOrder = async (req, res) => {
 
         // Create the order using Razorpay SDK
         const order = await razorpay.orders.create(options);
-
         if (!order) {
             return res.status(500).send({ message: "rezorpay not create a order" });
         }
-
         // Save the order details to the database
-
         let a = new Date();
         let date = a.getDate() + "/" + a.getMonth() + "/" + a.getFullYear() + " " + a.getHours() + ":" + a.getMinutes() + ":" + a.getSeconds()
         const newOrder = new Order({
@@ -58,7 +55,7 @@ export const storeOrder = async (req, res) => {
         res.status(500).send({ message: "something went wrong", error: err });
     }
 }
-export const storeCodOrder=async(req,res)=>{
+export const storeCodOrder = async (req, res) => {
     const { userId, addressId, items, razorpayOrderId, status, paymentMode, order_message, amount, currency, receiptId } = req.body;
     let a = new Date();
     let date = a.getDate() + "/" + a.getMonth() + "/" + a.getFullYear() + " " + a.getHours() + ":" + a.getMinutes() + ":" + a.getSeconds()
@@ -67,15 +64,15 @@ export const storeCodOrder=async(req,res)=>{
         addressId,
         items,
         totelamount: amount,
-        razorpayOrderId:0,
+        razorpayOrderId: 0,
         dateOfOrder: date,
-        status:"success",
+        status: "success",
         paymentMode,
         order_message
     })
     try {
         await newOrder.save();
-        res.json({status:"success",message:"success cod"});
+        res.json({ status: "success", message: "success cod" });
     } catch (err) {
         console.log(err);
         res.status(500).send({ message: "data not stored in db", error: err });
@@ -104,4 +101,16 @@ export const validatePaymentStatus = async (req, res) => {
         orderId: razorpay_order_id,
         paymentId: razorpay_payment_id,
     });
+}
+export const getOrder = async (req, res) => {
+    let orderDetails;
+    try {
+        orderDetails = await Order.find()
+    } catch (error) {
+        console.log(error);
+    }
+    if (orderDetails.length !== 0)
+        res.status(200).json({ status: "success", message: "", data: orderDetails })
+    else
+        res.status(400).json({ status: "success", messgae: "order was empty", data: orderDetails })
 }

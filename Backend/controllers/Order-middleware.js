@@ -19,8 +19,8 @@ export const orderStore = async(req, res) => {
     })
     try {
        const savedDocument= await checkOutDetails.save();
+       return res.status(200).json({status:true,message:"successfult store",orderId:savedDocument._id});
     } catch (err) {
        return res.status(404).json({status:false,message:`something went wrong ${err}`,orderId:null});
     }
-    return res.status(200).json({status:true,message:"successfult store",orderId:savedDocument._id});
 }

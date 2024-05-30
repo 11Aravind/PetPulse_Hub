@@ -6,14 +6,16 @@ import { useCart } from "react-use-cart";
 import { httpRequest } from "../API/api";
 import { useLocation } from "react-router"
 import "./CSS/OrderConfirmation.css";
+
 export const Checkout = () => {
-  const navigate=useNavigate()
+  const navigate = useNavigate()
   const [addressId, changeAddressid] = useState(false);
   const [paymentMode, setPaymentMode] = useState('cod');
   const userId = useSelector((state) => state.user.userId)
   const { isEmpty, items, cartTotal } = useCart();
   const [isAddressVisible, setAddressVisible] = useState(false);
   const [addressList, setAddress] = useState([])
+  const [orderID, setOrderId] = useState([])
   const onCheckOut = () => {
     // dispatch(setRoute("/cart"));
     userId == null ? navigate("/login") : navigate("/Checkout");
@@ -52,13 +54,14 @@ export const Checkout = () => {
       },
     });
     const order = await response.json();
+    // console.log(`"order":${order}`);
     console.log(order);
 
     var options = {
       key: "rzp_test_u5nxL1KN1AKLE0", // Enter the Key ID generated from the Dashboard
-      amount, 
+      amount,
       currency,
-      name: "PetPulse Hub", 
+      name: "PetPulse Hub",
       description: "Test Transaction",
       image: "./tshirt.jpg",
       order_id: order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
@@ -66,10 +69,9 @@ export const Checkout = () => {
         const body = {
           ...response,
         };
+        console.log(body);
 
-        const validateRes = await fetch(
-          "http://localhost:5001/order/validate",
-          {
+        const validateRes = await fetch("http://localhost:5001/order/validate",{
             method: "POST",
             body: JSON.stringify(body),
             headers: {
@@ -124,16 +126,19 @@ export const Checkout = () => {
         dateOfOrder: "",
         status: "pending",
         paymentMode: paymentMode,
-        order_message:""
-
+        order_message: ""
       };
-      console.log(data);
-      httpRequest('post',"api/order/checkout",data)
-      .then((res)=>{
-        if(res && res.status && paymentMode==="cod"){
-          navigate("/Orderplaced")
-        }
-      })
+      // console.log(data);
+      httpRequest('post', "api/order/checkout", data)
+        .then((res) => {
+          if (res && res.status && paymentMode === "cod") {
+            navigate("/Orderplaced")
+          } else if (res && res.status && paymentMode == "online") {
+            setOrderId(res.orderId);
+            paymentHandler();
+            //     navigate("/PayOnline", { state: data });
+          }
+        })
       // httpRequest(data, "checkOut.php").then((respose) => {
       //   if (respose && respose.status && paymentMode == "cod") {
       //     navigate("/OrderPlaced");

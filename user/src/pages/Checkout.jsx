@@ -37,18 +37,27 @@ export const Checkout = () => {
   const receiptId = "qwsaq1";
 
   const paymentHandler = async (e) => {
+
+      const product = items.map(({ _id, price, quantity }) => {
+        return { _id, quantity };
+      })
     const body = {
       amount,
       currency,
-      receipt: receiptId,
+      receipt: receiptId, 
+      userId: userId,
+      addressId: addressId,
+      items: product,
+      // totelamount: cartTotal,
+      razorpayOrderId: "",
+      status: "pending",
+      paymentMode: paymentMode,
+      order_message: ""
     };
-    const response = await fetch("http://localhost:5001/order", {
+  
+    const response = await fetch("http://localhost:5001/api/order/", {
       method: "POST",
-      body: JSON.stringify({
-        amount,
-        currency,
-        receipt: receiptId,
-      }),
+      body: JSON.stringify(body),
       headers: {
         "Content-Type": "application/json",
       },
@@ -69,9 +78,9 @@ export const Checkout = () => {
         const body = {
           ...response,
         };
-        console.log(body);
-
-        const validateRes = await fetch("http://localhost:5001/order/validate",{
+        // console.log(body);
+      
+        const validateRes = await fetch("http://localhost:5001/api/order/validate",{
             method: "POST",
             body: JSON.stringify(body),
             headers: {
@@ -117,28 +126,28 @@ export const Checkout = () => {
       const product = items.map(({ _id, price, quantity }) => {
         return { _id, quantity };
       });
-      const data = {
-        userId: userId,
-        addressId: addressId,
-        items: product,
-        totelamount: cartTotal,
-        transactionId: "",
-        dateOfOrder: "",
-        status: "pending",
-        paymentMode: paymentMode,
-        order_message: ""
-      };
+      // const data = {
+      //   userId: userId,
+      //   addressId: addressId,
+      //   items: product,
+      //   totelamount: cartTotal,
+      //   transactionId: "",
+      //   dateOfOrder: "",
+      //   status: "pending",
+      //   paymentMode: paymentMode,
+      //   order_message: ""
+      // };
       // console.log(data);
-      httpRequest('post', "api/order/checkout", data)
-        .then((res) => {
-          if (res && res.status && paymentMode === "cod") {
-            navigate("/Orderplaced")
-          } else if (res && res.status && paymentMode == "online") {
-            setOrderId(res.orderId);
-            paymentHandler();
-            //     navigate("/PayOnline", { state: data });
-          }
-        })
+      // httpRequest('post', "api/order/checkout", data)
+      //   .then((res) => {
+      //     if (res && res.status && paymentMode === "cod") {
+      //       navigate("/Orderplaced")
+      //     } else if (res && res.status && paymentMode == "online") {
+      //       setOrderId(res.orderId);
+      //       paymentHandler();
+      //       //     navigate("/PayOnline", { state: data });
+      //     }
+      //   })
       // httpRequest(data, "checkOut.php").then((respose) => {
       //   if (respose && respose.status && paymentMode == "cod") {
       //     navigate("/OrderPlaced");
@@ -218,7 +227,7 @@ export const Checkout = () => {
         text="Confirm"
         classs={addressId == false ? "addbtn checkOutBtn disabled" : "addbtn checkOutBtn"}
         orderConfirmation={true}
-        onClick={completeOrder}
+        onClick={paymentHandler}
         disableValue={addressId == false ? true : false}
       />
     </div>

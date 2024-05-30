@@ -12,7 +12,7 @@ const Order = new Schema({
     items: {
         type: Array,
         // ref: "Product"
-        required:true
+        required: true
     },
     // quantity: {
     //     type: Number,
@@ -22,26 +22,27 @@ const Order = new Schema({
         type: Number,
         required: true
     },
-    transactionId: {
+    razorpayOrderId: {
         type: String,
+        required: true
     },
     dateOfOrder: {
         type: String,
     },
     status: {
         type: String,
-        required:true
+        required: true
     },
     paymentMode: {
         type: String,
-        required:true
-    },
-    razorpayOrderId: {
-        type: String,
         required: true
-      },
+    },
+    // razorpayOrderId: {
+    //     type: String,
+    //     required: true
+    //   },
     order_message: {
         type: String,
     },
 })
-export default mongoose.model("Order",Order)
+export default mongoose.model("Order", Order)

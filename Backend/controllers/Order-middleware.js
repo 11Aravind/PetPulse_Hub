@@ -5,7 +5,7 @@ export const orderStore = async(req, res) => {
     let a= new Date();
     let date=a.getDate()+"/"+a.getMonth()+"/"+a.getFullYear()+" "+a.getHours()+":"+a.getMinutes()+":"+a.getSeconds()
 
-    const { userId, addressId, items, totelamount, transactionId, dateOfOrder, status, paymentMode, order_message } = req.body;
+    const { userId, addressId, items, totelamount, transactionId, status, paymentMode, order_message } = req.body;
     const checkOutDetails = new Order({
         userId,
         addressId,

@@ -1,22 +1,20 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { httpRequest} from "../API/api"
+import { httpRequest } from "../API/api"
 export const Categorydetails = () => {
     const inlineStyle = { left: "0%", width: "100%", top: "103%", }
-    const tableHeadding = [{ th: "#id" }, { th: "Main category" }, { th: "Category" }, { th: "subCategory" }, { th: "image" }, { th: "Action" }, ];
+    const tableHeadding = [{ th: "#id" }, { th: "Main category" }, { th: "Category" }, { th: "subCategory" }, { th: "image" }, { th: "Action" },];
     const [categoryDetails, setCategoryDetails] = useState([]);
-    const deleteCategory=(e)=>{
-    const category_id=e.target.id;
-    const url=`api/category/${category_id}`;
-    console.log(url);
-    
-    httpRequest(
-        'delete',
-        url,
-    ).then((data) => console.log(data));
+    const deleteCategory = (e) => {
+        const category_id = e.target.id;
+        const url = `api/category/${category_id}`;
+        httpRequest('delete',url,)
+        .then((data) =>{ 
+            setCategoryDetails(prevDetails => prevDetails.filter(category => category._id !== category_id));
+        });
     }
     useEffect(() => {
-        httpRequest('get',"api/category").then((data) => {
+        httpRequest('get', "api/category").then((data) => {
             // Check if the fetched data is an object and has 'categoryDetails' array
             if (data && Array.isArray(data.categoryDetails)) {
                 setCategoryDetails(data.categoryDetails);
@@ -33,7 +31,7 @@ export const Categorydetails = () => {
             <div className="card-header">
                 <div className="card-headding">Category
                 </div>
-                    {/* <div className="errorMessage">{alertMessage}</div> */}
+                {/* <div className="errorMessage">{alertMessage}</div> */}
                 <div className="top-button">
                     <Link to="/addcategory"> <button className="btn-primary"> +Add</button></Link>
                 </div>
@@ -74,13 +72,19 @@ export const AddCategory = () => {
     const maincategory = useRef('');
     const category = useRef('');
     const subcategory = useRef('');
-    const [image, setImage] = useState();
+    const [image, setImage] = useState("");
     const [message, setMessage] = useState("");
     const showMessage = (msg) => {
         setMessage(msg);
         setTimeout(() => {
             setMessage("")
         }, 3000);
+    }
+    const resetValue = () => {
+        maincategory.current.value = "";
+        category.current.value = "";
+        subcategory.current.value = "";
+        setImage("");
     }
     const saveCategory = (e) => {
         // console.log(maincategory.current.value);
@@ -90,14 +94,18 @@ export const AddCategory = () => {
         categoryData.append("subCategory", subcategory.current.value);
         categoryData.append("image", image);
         // console.log(categoryData);
-        httpRequest('post', 'api/category/add',categoryData).then((data) => showMessage(data.message));
+        httpRequest('post', 'api/category/add', categoryData)
+            .then((data) => {
+                resetValue();
+                showMessage(data.message);
+            })
+            .catch((error) => console.log(error));
     }
     return (
         <div className="content-div">
             <div className="card-header">
-                <div className="card-headding">Add Category
-                    <p className="errorMessage">{message}</p>
-                </div>
+                <div className="card-headding">Add Category</div>
+                <div className="errorMessage">{message}</div>
             </div>
             <div className="table-container">
                 <div className="row " style={{ padding: "37px" }}>
@@ -124,6 +132,7 @@ export const AddCategory = () => {
                     <div className="col">
                         <label htmlFor="image">Image</label>
                         <input type="file" onChange={(e) => setImage(e.target.files[0])} className="form-control" id="image" />
+                        <small style={{color:"red"}}>{image===""?"Please select an image":""}</small>
                     </div>
                 </div>
 

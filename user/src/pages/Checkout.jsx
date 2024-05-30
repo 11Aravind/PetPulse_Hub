@@ -89,7 +89,7 @@ export const Checkout = () => {
           }
         );
         const jsonRes = await validateRes.json();
-        console.log(jsonRes);
+        console.log(jsonRes);// validation response
       },
       prefill: {
         //We recommend using the prefill parameter to auto-fill customer's contact information, especially their phone number

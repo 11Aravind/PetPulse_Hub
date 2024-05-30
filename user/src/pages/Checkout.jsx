@@ -32,91 +32,173 @@ export const Checkout = () => {
     setAddressVisible(!isAddressVisible)
   }
 
+
   const amount = cartTotal * 100;
   const currency = "INR";
   const receiptId = "qwsaq1";
 
   const paymentHandler = async (e) => {
-
-      const product = items.map(({ _id, price, quantity }) => {
-        return { _id, quantity };
-      })
+    const product = items.map(({ _id, price, quantity }) => {
+      return { _id, quantity };
+    });
     const body = {
       amount,
       currency,
-      receipt: receiptId, 
+      receipt: receiptId,
       userId: userId,
       addressId: addressId,
       items: product,
-      // totelamount: cartTotal,
+      // totalamount: cartTotal,
       razorpayOrderId: "",
-      status: "pending",
+      status: paymentMode === "cod" ? "success" : "pending",
       paymentMode: paymentMode,
-      order_message: ""
+      order_message: "",
     };
-  
-    const response = await fetch("http://localhost:5001/api/order/", {
-      method: "POST",
-      body: JSON.stringify(body),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const order = await response.json();
-    // console.log(`"order":${order}`);
-    console.log(order);
+    if (paymentMode === "cod") {
+      httpRequest("POST", "api/order/cod", body)
+        .then((res) => {
+          if (res.status === "success")
+            navigate("/Orderplaced")
+        })
+        .catch((err) => console.log(err));
+      // cod
+    } else {
+      try {
+        const order = await httpRequest("POST", "api/order/", body);
+        console.log(order);
+        var options = {
+          key: "rzp_test_u5nxL1KN1AKLE0", // Enter the Key ID generated from the Dashboard
+          amount,
+          currency,
+          name: "PetPulse Hub",
+          description: "Test Transaction",
+          image: "https://static.freshtohome.com/images/logo/2021/logo-medium.png",
+          order_id: order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+          handler: async function (response) {
+            const body = {
+              ...response,
+            };
+            // check here the cod or online payment
 
-    var options = {
-      key: "rzp_test_u5nxL1KN1AKLE0", // Enter the Key ID generated from the Dashboard
-      amount,
-      currency,
-      name: "PetPulse Hub",
-      description: "Test Transaction",
-      image: "./tshirt.jpg",
-      order_id: order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-      handler: async function (response) {
-        const body = {
-          ...response,
+            try {
+              const jsonRes = await httpRequest("POST", "api/order/validate", body);
+              console.log(jsonRes); // validation response
+            } catch (error) {
+              console.error("Validation request failed:", error);
+            }
+
+          },
+          prefill: {
+            //We recommend using the prefill parameter to auto-fill customer's contact information, especially their phone number
+            name: "Web Dev Matrix", //your customer's name
+            email: "webdevmatrix@example.com",
+            contact: "9000000099", //Provide the customer's phone number for better conversion rates
+          },
+          notes: {
+            address: "Razorpay Corporate Office",
+          },
+          theme: {
+            color: "#0fa8db",
+          },
         };
-        // console.log(body);
-      
-        const validateRes = await fetch("http://localhost:5001/api/order/validate",{
-            method: "POST",
-            body: JSON.stringify(body),
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        const jsonRes = await validateRes.json();
-        console.log(jsonRes);// validation response
-      },
-      prefill: {
-        //We recommend using the prefill parameter to auto-fill customer's contact information, especially their phone number
-        name: "Web Dev Matrix", //your customer's name
-        email: "webdevmatrix@example.com",
-        contact: "9000000099", //Provide the customer's phone number for better conversion rates
-      },
-      notes: {
-        address: "Razorpay Corporate Office",
-      },
-      theme: {
-        color: "#EE6043",
-      },
-    };
-    var rzp1 = new window.Razorpay(options);
-    rzp1.on("payment.failed", function (response) {
-      alert(response.error.code);
-      alert(response.error.description);
-      alert(response.error.source);
-      alert(response.error.step);
-      alert(response.error.reason);
-      alert(response.error.metadata.order_id);
-      alert(response.error.metadata.payment_id);
-    });
-    rzp1.open();
-    e.preventDefault();
+        var rzp1 = new window.Razorpay(options);
+        rzp1.on("payment.failed", function (response) {
+          alert(response.error.code);
+          alert(response.error.description);
+          alert(response.error.source);
+          alert(response.error.step);
+          alert(response.error.reason);
+          alert(response.error.metadata.order_id);
+          alert(response.error.metadata.payment_id);
+        });
+        rzp1.open();
+      } catch (error) {
+        console.error("Order creation failed:", error);
+      }
+    }
+    // e.preventDefault();
   };
+
+  // const paymentHandler = async (e) => {
+  //   const product = items.map(({ _id, price, quantity }) => {
+  //     return { _id, quantity };
+  //   })
+  //   const body = {
+  //     amount,
+  //     currency,
+  //     receipt: receiptId,
+  //     userId: userId,
+  //     addressId: addressId,
+  //     items: product,
+  //     // totelamount: cartTotal,
+  //     razorpayOrderId: "",
+  //     status: "pending",
+  //     paymentMode: paymentMode,
+  //     order_message: ""
+  //   };
+
+  //   const response = await fetch("http://localhost:5001/api/order/", {
+  //     method: "POST",
+  //     body: JSON.stringify(body),
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //   });
+  //   const order = await response.json();
+  //   // console.log(`"order":${order}`);
+  //   console.log(order);
+
+  //   var options = {
+  //     key: "rzp_test_u5nxL1KN1AKLE0", // Enter the Key ID generated from the Dashboard
+  //     amount,
+  //     currency,
+  //     name: "PetPulse Hub",
+  //     description: "Test Transaction",
+  //     image: "./tshirt.jpg",
+  //     order_id: order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+  //     handler: async function (response) {
+  //       const body = {
+  //         ...response,
+  //       };
+  //       // console.log(body);
+
+  //       const validateRes = await fetch("http://localhost:5001/api/order/validate", {
+  //         method: "POST",
+  //         body: JSON.stringify(body),
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //       }
+  //       );
+  //       const jsonRes = await validateRes.json();
+  //       console.log(jsonRes);// validation response
+  //     },
+  //     prefill: {
+  //       //We recommend using the prefill parameter to auto-fill customer's contact information, especially their phone number
+  //       name: "Web Dev Matrix", //your customer's name
+  //       email: "webdevmatrix@example.com",
+  //       contact: "9000000099", //Provide the customer's phone number for better conversion rates
+  //     },
+  //     notes: {
+  //       address: "Razorpay Corporate Office",
+  //     },
+  //     theme: {
+  //       color: "#EE6043",
+  //     },
+  //   };
+  //   var rzp1 = new window.Razorpay(options);
+  //   rzp1.on("payment.failed", function (response) {
+  //     alert(response.error.code);
+  //     alert(response.error.description);
+  //     alert(response.error.source);
+  //     alert(response.error.step);
+  //     alert(response.error.reason);
+  //     alert(response.error.metadata.order_id);
+  //     alert(response.error.metadata.payment_id);
+  //   });
+  //   rzp1.open();
+  //   e.preventDefault();
+  // };
   //   const loginCredentials = JSON.parse(localStorage.getItem("loginCredentials"));
   //   const user_id = loginCredentials.user_id;
   // const navigate = useNavigate();

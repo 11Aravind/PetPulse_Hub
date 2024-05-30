@@ -49,7 +49,7 @@ const Blogs = () => {
                         {
                             blogs.map((blog, id) =>
                                 <tr key={id} scope="row">
-                                    <td>{blog._id}</td>
+                                    <td>{id+1}</td>
                                     <td>{blog.category}</td>
                                     <td>{blog.link}</td>
                                     <td>{blog.description}</td>

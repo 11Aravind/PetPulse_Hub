@@ -41,11 +41,8 @@ try{
     if (imagePath) {
         fs.unlink("uploads/"+imagePath, (err) => {
             if (err) {
-                console.error("Error deleting image file:", err);
-            } else {
-                console.log("Image file deleted successfully:", imagePath);
-                
-            }
+                    return  res.status(500).send({message:'Error deleting image file',error:err});
+            } 
         })
     }
 }catch(err){

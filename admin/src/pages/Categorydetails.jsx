@@ -4,7 +4,7 @@ import { httpRequest } from "../API/api"
 export const Categorydetails = () => {
     const inlineStyle = { left: "0%", width: "100%", top: "103%", }
     const tableHeadding = [{ th: "#id" }, { th: "Main category" }, { th: "Category" }, { th: "subCategory" }, { th: "image" }, { th: "Action" },];
-    const [categoryDetails, setCategoryDetails] = useState([]);
+    const [categorys, setCategoryDetails] = useState([]);
     const deleteCategory = (e) => {
         const category_id = e.target.id;
         const url = `api/category/${category_id}`;
@@ -49,14 +49,14 @@ export const Categorydetails = () => {
                     </thead>
                     <tbody>
                         {
-                            categoryDetails.map((eachValue, id) =>
+                            categorys.map((category, id) =>
                                 <tr key={id} scope="row">
-                                    <td>{eachValue._id}</td>
-                                    <td>{eachValue.mainCategory}</td>
-                                    <td>{eachValue.category}</td>
-                                    <td>{eachValue.subCategory}</td>
-                                    <td><img src={`http://localhost:5001/${eachValue.image}`} alt="banner" className="bannerImg" /></td>
-                                    <td>  <i className="bi bi-trash3-fill" id={eachValue._id} onClick={deleteCategory}></i>  </td>
+                                    <td>{category._id}</td>
+                                    <td>{category.mainCategory}</td>
+                                    <td>{category.category}</td>
+                                    <td>{category.subCategory}</td>
+                                    <td><img src={`http://localhost:5001/${category.image}`} alt="banner" className="bannerImg" /></td>
+                                    <td>  <i className="bi bi-trash3-fill" id={category._id} onClick={deleteCategory}></i>  </td>
                                     {/* <td><i className="bi bi-pencil-square"></i> </td> */}
                                 </tr>
                             )
@@ -87,7 +87,6 @@ export const AddCategory = () => {
         setImage("");
     }
     const saveCategory = (e) => {
-        // console.log(maincategory.current.value);
         const categoryData = new FormData();
         categoryData.append("mainCategory", maincategory.current.value);
         categoryData.append("category", category.current.value);

@@ -26,7 +26,7 @@ const Table = ({ tableCardHeadding, tableHeadding, tableValues ,inlineStyle}) =>
                     {
                         tableValues.map((eachValue, id) =>
                             <tr key={id} scope="row">
-                                <td>{eachValue._id}</td>
+                                <td>{id+1}</td>
                                 <td>{eachValue.name}</td>
                                 <td> <img src={`http://localhost:5001/${eachValue.image}`} alt="img" style={{"width": "100px"}} /> </td>
                                 <td>{eachValue.oldPrice}</td>

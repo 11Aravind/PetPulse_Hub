@@ -11,9 +11,6 @@ import orderRouteer from "./routes/order-router.js"
 import Razorpay from "razorpay"
 import crypto from "crypto"
 import cors from "cors";
-// const Razorpay = require("razorpay");
-// const crypto = require("crypto");
-// require("dotenv").config();
 import dotenv from "dotenv";
 dotenv.config();
 const app = express();
@@ -42,20 +39,18 @@ app.use("/api/category", categoryRouter);
 app.use("/api/product", productRouter);
 app.use("/api/admin", adminRouter);
 app.use("/api/order", orderRouteer);
+
 app.post("/order", async (req, res) => {
   try {
     const razorpay = new Razorpay({
       key_id: process.env.RAZORPAY_KEY_ID,
       key_secret: process.env.RAZORPAY_SECRET,
     });
-
     const options = req.body;
     const order = await razorpay.orders.create(options);
-
     if (!order) {
       return res.status(500).send("Error");
     }
-
     res.json(order);
   } catch (err) {
     console.log(err);

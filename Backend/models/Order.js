@@ -36,6 +36,10 @@ const Order = new Schema({
         type: String,
         required:true
     },
+    razorpayOrderId: {
+        type: String,
+        required: true
+      },
     order_message: {
         type: String,
     },

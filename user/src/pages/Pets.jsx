@@ -10,9 +10,8 @@ const Pets = () => {
     return (
        <>
        {
-          filteredProduct.length===0 ?"Pets was empty" :<Produtcard categorys={categorys} products={filteredProduct} headding="Our Pets"/> 
+          filteredProduct.length===0 ?"Pets was empty" :<Produtcard categorys={categorys} headding="Our Pets"/> 
         }
-       {/* <Produtcard categorys={categorys} products={filteredProduct}/>  */}
        </>
     )
 }

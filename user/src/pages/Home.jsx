@@ -27,12 +27,12 @@ const Home = () => {
     {
         url: "images/medi.png",
         name: "Medicine",
-        route:"/accessorys"
+        route:"/medicine"
     },
     {
         url: "images/blogs.png",
         name: "Blogs",
-         route:"/accessorys"
+         route:"/blogs"
     },
     {
         url: "images/care.png",

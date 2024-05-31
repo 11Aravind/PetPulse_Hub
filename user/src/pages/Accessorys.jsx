@@ -10,7 +10,7 @@ const Accessorys=()=>{
     const filteredProduct=products.filter(product=>categorys.some(category=>category._id===product.category_id && category.mainCategory==="Accessorys"));
     dispatch(filterAndStore(filteredProduct));
     return(
-        <Produtcard categorys={filterCategory} products={filteredProduct} headding="Our Accessorys"/>
+        <Produtcard categorys={filterCategory}  headding="Our Accessorys"/>
     );
 }
 export default Accessorys;

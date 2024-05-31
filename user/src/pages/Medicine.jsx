@@ -11,7 +11,7 @@ const Medicine=()=>{
     dispatch(filterAndStore(filteredProduct));
     return(
        <>
-        { filteredProduct.length===0?"Medicine was empty":<Produtcard categorys={filterCategory} products={filteredProduct} headding="Our Medicine"/>  }
+        { filteredProduct.length===0?"Medicine was empty":<Produtcard categorys={filterCategory} headding="Our Medicine"/>  }
        </>
     );
 }

@@ -1,70 +1,47 @@
-// import Searchbox from "./Searchbox"
+// Filter.js
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { filterAndStore } from "../Slice/productSlice";
 import ReactSearchBox from "react-search-box";
-import { useSelector, useDispatch } from "react-redux";
-import { filterAndStore } from "../Slice/productSlice"
-const Filter = ({ products }) => {
-    const data = [
-        {
-            key: "john",
-            value: "John Doe",
-        },
-        {
-            key: "jane",
-            value: "Jane Doe",
-        },
-        {
-            key: "mary",
-            value: "Mary Phillips",
-        },
-        {
-            key: "robert",
-            value: "Robert",
-        },
-        {
-            key: "karius",
-            value: "Karius",
-        },
-    ];
+
+const Filter = () => {
+    const dispatch = useDispatch();
+    // const[exp,setExp]=useState([])
     const product = useSelector((state) => state.products.filteredProduct);
-    const dispatch = useDispatch()
-    const applyFIlter = (e) => {
+    // setExp(product)
+    const [searchValue, setSearchValue] = useState("");
+
+    const applyFilter = (e) => {
         const currentFilter = e.target.value;
-        // console.log(currentFilter);
         let sortedData;
+
         if (currentFilter === "LOWtoHIGH") {
-            sortedData = product.map((v, i) => ({ i, value: v.newPrice }))
-                .sort((a, b) => a.value - b.value)
-                .map((v) => product[v.i]);
-            // console.log(sortedData);
+            sortedData = product.slice().sort((a, b) => a.newPrice - b.newPrice);
+        } else if (currentFilter === "HIGHtoLOW") {
+            sortedData = product.slice().sort((a, b) => b.newPrice - a.newPrice);
+        } else if (currentFilter === "AtoZ") {
+            sortedData = product.slice().sort((a, b) => a.name.localeCompare(b.name));
+        } else if (currentFilter === "ZtoA") {
+            sortedData = product.slice().sort((a, b) => b.name.localeCompare(a.name));
         }
-        else if (currentFilter === "HIGHtoLOW") {
-            sortedData = product.map((v, i) => ({ i, value: v.newPrice }))
-                .sort((a, b) => b.value - a.value) // Sort in descending order
-                .map((v) => product[v.i]);
-            // console.log(sortedData);           
-        }
-        else if (currentFilter === "AtoZ") {
-            const sortedData = product.map((v, i) => ({ i, value: v.name }))
-                .sort((a, b) => a.value.localeCompare(b.value))
-                .map((v) => product[v.i]);
+        // console.log(sortedData);
+        dispatch(filterAndStore(sortedData));
+    };
 
-            // console.log(sortedData);
-        }
-        else if (currentFilter === "ZtoA") {
-            sortedData = product.map((v, i) => ({ i, value: v.name }))
-                .sort((a, b) => b.value.localeCompare(a.value))
-                .map((v) => product[v.i]);
-            // console.log(sortedData);
-        }
-        dispatch(filterAndStore(sortedData))
+    const handleSearchChange = (value) => {
+        setSearchValue(value);
+    };
 
-    }
+    const filteredProducts = product.filter((prod) =>
+        prod.name.toLowerCase().includes(searchValue.toLowerCase())
+    );
+
     return (
         <>
-                <div className="col-12 subHeadding">Filters   </div>
-            <div className="col-12 row"  >
+            <div className="col-12 subHeadding">Filters</div>
+            <div className="col-12 row">
                 <div className="col-4">
-                    <select className="form-select" aria-label="Default select example" onChange={applyFIlter} defaultValue="none">
+                    <select className="form-select" aria-label="Default select example" onChange={applyFilter} defaultValue="none">
                         <option value="none">Featured</option>
                         <option value="AtoZ">Alphabetically, A-Z</option>
                         <option value="ZtoA">Alphabetically, Z-A</option>
@@ -74,24 +51,19 @@ const Filter = ({ products }) => {
                 </div>
                 <div className="col-4"></div>
                 <div className="col-4">
-                    {/* <Searchbox products={products} /> */}
                     <ReactSearchBox
                         placeholder="Start typing to filter..."
-                        value="Doe"
-                        data={products}
+                        value={searchValue}
                         leftIcon={<>🎨</>}
                         iconBoxSize="48px"
-                        onFocus={() => {
-                            console.log("This function is called when is focussed");
-                        }}
-                        onChange={(value) => console.log(value)}
+                        data={filteredProducts.map(prod => ({ key: prod._id, value: prod.name }))}
+                        onChange={handleSearchChange}
                         autoFocus
-                        callback={(record) => console.log(record)}
                     />
                 </div>
             </div>
         </>
+    );
+};
 
-    )
-}
 export default Filter;

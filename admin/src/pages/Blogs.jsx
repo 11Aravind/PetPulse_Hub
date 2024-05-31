@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from 'react-redux'
 import { httpRequest } from "../API/api";
 import { Link } from "react-router-dom";
 import Table from "../components/Table"
 const Blogs = () => {
     const [blogs, setBlogDetails] = useState([]);
+    const visibility=useSelector((state)=>state.visibility.visibility)
     useEffect(() => {
         httpRequest('get',"api/blog").then((data) => {
             // Check if the fetched data is an object and has 'categoryDetails' array
@@ -24,8 +26,9 @@ const Blogs = () => {
         {th: "Action"},
         {th: ""},
     ];
-    return (
-        <div className="content-div">
+    return ( 
+        // {visibility?"flat-container":"content-div"}
+        <div className={visibility?"flat-container":"content-div"}>
              <div className="card-header">
                 <div className="card-headding">Blogs
                     {/* <p className="errorMessage">{alertMessage}</p> */}

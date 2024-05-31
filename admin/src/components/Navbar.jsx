@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from 'react-redux'
+import {changeVisibility} from "../Slice/visibilitySlice"
 const Navbar = () => {
     const menuData = [
         {
@@ -40,16 +42,20 @@ const Navbar = () => {
             ],
         },
     ];
-    const[navbarShowOrHide,isToogleVisibility]=useState(false);
-    const navbarCallBack=(e)=>{
-        isToogleVisibility(!navbarShowOrHide);
-        console.log(navbarShowOrHide);
-    }
+    // const[navbarShowOrHide,isToogleVisibility]=useState(false);
+    // const navbarCallBack=(e)=>{
+    //     isToogleVisibility(!navbarShowOrHide);
+    //     console.log(navbarShowOrHide);
+    // }
+    const visibility=useSelector((state)=>state.visibility.visibility)
+
     return (
         <>
-            <Topnavbar  navbarShowOrHide={navbarShowOrHide} navbarCallBack={navbarCallBack}/>
-            
-            <div className={navbarShowOrHide?"content-container show":"hide"}>
+            <Topnavbar  
+            // navbarShowOrHide={navbarShowOrHide} 
+            // navbarCallBack={navbarCallBack}
+            />     
+            <div className={visibility?"content-container show":"hide"}>
                 <div className="side-nav-container" >
                     {menuData.map((menuItem, index) => (
                         <div className="menu-container" key={index}>
@@ -78,8 +84,10 @@ const Navbar = () => {
     );
 }
 export default Navbar;
-export const Topnavbar = ({navbarShowOrHide,navbarCallBack}) => {
-   
+export const Topnavbar = () => {
+    const dispatch=useDispatch();
+    const visibility=useSelector((state)=>state.visibility.visibility)
+// dispatch(changeVisibility(!visibility))
     return (
         <div className="topnav-container">
            
@@ -87,14 +95,14 @@ export const Topnavbar = ({navbarShowOrHide,navbarCallBack}) => {
             <div className="logo">
             <img src="https://img.freepik.com/premium-vector/dog-paw-animal-paws_77417-1636.jpg?w=740" alt="logo" style={{width:"40px"}}/>
             </div>
-            <div className="closingBtn" onClick={navbarCallBack}>
+            <div className="closingBtn" onClick={()=>dispatch(changeVisibility(!visibility))}>
                 <div className="bar"></div>
                 <div className="bar"></div>
                 <div className="bar"></div>
             </div>
             </div>
             <div className="admin-name">
-            {navbarShowOrHide}
+            {/* {navbarShowOrHide} */}
                 Admin
             </div>
         </div>

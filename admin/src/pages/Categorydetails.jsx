@@ -8,7 +8,7 @@ export const Categorydetails = () => {
     const deleteCategory = (e) => {
         const category_id = e.target.id;
         const url = `api/category/${category_id}`;
-        httpRequest('delete',url,)
+        httpRequest('delete',url)
         .then((data) =>{ 
             setCategoryDetails(prevDetails => prevDetails.filter(category => category._id !== category_id));
         });

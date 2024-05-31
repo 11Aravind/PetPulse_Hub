@@ -14,6 +14,8 @@ body {
   background-color: white;
   display: flex;
   justify-content: space-between;
+  padding: 10px 21px;
+  align-items: center;
   box-shadow: 0 0.46875rem 2.1875rem rgba(4, 9, 20, .03),
     0 0.9375rem 1.40625rem rgba(4, 9, 20, .03), 0 0.25rem 0.53125rem rgba(4, 9, 20, .05), 0 0.125rem 0.1875rem rgba(4, 9, 20, .03);
 }
@@ -41,10 +43,20 @@ body {
 
 .bar {
   background: black;
-  width: 31px;
-  border-radius: 2px;
-  height: 5px;
-  margin: 2px;
+  width: 24px;
+  border-radius: 1.5px;
+  height: 4.5px;
+  margin: 1.5px;
+}
+
+.flat-container {
+  position: absolute;
+  left: 5%;
+  top: 14%;
+  width: 92%;
+  transform: translateX(0%);
+  /* End position */
+  transition: transform 1.5s ease-in-out;
 }
 
 .closingBtn {
@@ -65,14 +77,19 @@ body {
 .content-div {
   position: absolute;
   left: 21%;
-  top: 23%;
+  top: 14%;
   width: 77%;
+  transform: translateX(0);
+  /* Start position */
+  transition: transform 1s ease-in-out;
 }
-.contentDiv{
+
+.contentDiv {
   left: 0%;
   width: 100%;
   top: 111%;
 }
+
 /* .content-div{
   margin-left: 2%;
   margin-top: 3%;

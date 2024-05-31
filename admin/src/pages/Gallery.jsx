@@ -43,6 +43,7 @@ const Gallery = () => {
     );
 }
 export default Gallery;
+
 export const Gallerylist = () => {
     const inlineStyle = {
         left: "0%",
@@ -50,15 +51,9 @@ export const Gallerylist = () => {
         top: "111%",
     }
     const tableHeadding = [
-        {
-            th: "#id"
-        },
-        {
-            th: "Image"
-        },
-        {
-            th: "Action"
-        },
+        { th: "#id" },
+        { th: "Image" },
+        { th: "Action" },
     ];
     const [gallerys, setGalleryDetails] = useState([]);
     useEffect(() => {
@@ -73,7 +68,11 @@ export const Gallerylist = () => {
         });
     }, []);
     const deleteGallery = (e) => {
-        console.log(e.target.id);
+       const galleryId=e.target.id;
+        httpRequest('delete',`api/gallery/${galleryId}`)
+        .then((res)=>{
+            setGalleryDetails((prvGallerys)=>prvGallerys.filter(gallery=>gallery._id !==galleryId))
+        })
     }
     return (
         <>

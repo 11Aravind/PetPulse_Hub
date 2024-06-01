@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from 'react-redux'
 import { httpRequest } from "../API/api";
 import { Link } from "react-router-dom";
-import Table from "../components/Table"
 const Blogs = () => {
     const [blogs, setBlogDetails] = useState([]);
     const visibility=useSelector((state)=>state.visibility.visibility)

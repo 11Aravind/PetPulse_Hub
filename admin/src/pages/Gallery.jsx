@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { httpRequest } from "../API/api";
-import Table from "../components/Table";
 import { useEffect } from "react";
 const Gallery = () => {
     const [file, setFile] = useState("");

@@ -8,15 +8,10 @@ const Foods = () => {
   const dispatch = useDispatch();
   const categorys = useSelector((state) => state.categorys.categoryList);
   const products = useSelector((state) => state.products.productList);
-  // console.log(products);
   const filteredProduct = products.filter(product =>
     categorys.some(category => category._id === product.category_id && category.mainCategory === "Food")
   );
   dispatch(filterAndStore(filteredProduct));
-  // useEffect(() => {
-  //     console.log(products);
-  // }, [dispatch, categorys]);
-
   const filterCategory = categorys.filter((itemCat) => itemCat.mainCategory === "Food");
 
   return (

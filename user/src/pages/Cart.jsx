@@ -55,9 +55,12 @@ const Cart = ({ callbackShowCart }) => {
   const navigate = useNavigate();
   const dispatch=useDispatch();
   // const imagePath = useSelector((state) => state.banner.imagePath);
-  const userId = useSelector((state) => state.user.userId);
+  // const userId = useSelector((state) => state.user.userId);
+// console.log();
   const imgPath = useSelector((state) => state.common.imagePath);
   const onCheckOut = () => {
+    const userId = JSON.parse(localStorage.getItem("userId"));
+    console.log(userId);
     dispatch(setRoute("/cart"));
     userId == null ? navigate("/login") : navigate("/Checkout");
   };

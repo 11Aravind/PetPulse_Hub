@@ -18,10 +18,13 @@ export const Checkout = () => {
   const [orderID, setOrderId] = useState([])
   const onCheckOut = () => {
     // dispatch(setRoute("/cart"));
+    const userId = JSON.parse(localStorage.getItem("userId"));
+console.log(userId);
     userId == null ? navigate("/login") : navigate("/Checkout");
+    return userId;
   };
   useEffect(() => {
-    onCheckOut();
+   const userId= onCheckOut();
     httpRequest('get', `api/user/getAddress?userId=${userId}`)
       .then((response) => {
         setAddress(response.data.addressList)

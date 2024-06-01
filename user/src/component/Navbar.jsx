@@ -4,22 +4,24 @@ import { useSelector } from "react-redux"
 import React, { useState, useEffect } from 'react';
 import "./CSS/Navbar.css";
 const Navbar = () => {
-    const userId = useSelector((state) => state.user.userId)
-    const [isOpen, setIsOpen] = useState(false);
+    // const userId = useSelector((state) => state.user.userId)
 
-    useEffect(() => {
+    const [isOpen, setIsOpen] = useState(false);
+const[userId,setId]=useState();
+// ;
+useEffect(() => {
+    setId(JSON.parse(localStorage.getItem("userId")))
         const handleClickOutside = (event) => {
             if (isOpen && !event.target.closest('.navbar-container')) {
                 setIsOpen(false);
             }
         };
-
         document.addEventListener('click', handleClickOutside);
-
         return () => {
             document.removeEventListener('click', handleClickOutside);
         };
-    }, [isOpen]);
+    }, [isOpen,userId]);
+    console.log(userId);
 
     const toggleNavbar = () => {
         setIsOpen(!isOpen);
@@ -54,7 +56,7 @@ const Navbar = () => {
     return (
         <nav className={`navbar ${isOpen ? 'open' : ''}`}>
             <div className="navbar-container crossBtn">
-                <input type="checkbox" name="" id=""checked={isOpen} onChange={toggleNavbar} />
+                <input type="checkbox" name="" id="" checked={isOpen} onChange={toggleNavbar} />
                 <div className="hamburger-lines" onClick={toggleNavbar}>
                     <span className="line line1"></span>
                     <span className="line line2"></span>
@@ -72,11 +74,12 @@ const Navbar = () => {
                             );
                         })
                     }
-                {/* </ul> */}
-               
-                {/* <ul className="menu-items"> */}
+                    {/* </ul> */}
+
+                    {/* <ul className="menu-items"> */}
                     {/* <li><Link to="/" className="menu">search</Link></li> */}
-                    {userId ? (<><li><Link to="/cart" className="menu"><i className="bi bi-bag-fill"></i></Link></li>
+                    {
+                    userId!==null ? (<><li><Link to="/cart" className="menu"><i className="bi bi-bag-fill"></i></Link></li>
                         <li><Link to="/cart" className="menu"><i className="bi bi-person-fill"></i></Link></li>   </>)
                         : (<li>
                             <Link to="/login">

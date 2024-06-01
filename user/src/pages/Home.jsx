@@ -73,7 +73,7 @@ const Home = () => {
       <Categoryslider categorys={categorys} />
       <h1 className="headding">Pet-tastic Deals</h1>
       {/* <MyCarousel  items={newProducts}/> */}
-      <Blogs/>
+      {/* <Blogs/> */}
       {/* <Cardslider /> */}
     </div>
   );

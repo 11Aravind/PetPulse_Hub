@@ -324,6 +324,7 @@ console.log(userId);
 
 
 const Address = ({ changeAddressVisibility }) => {
+  const navigate=useNavigate()
   const name = useRef("")
   const mobile = useRef("")
   const pincode = useRef("")

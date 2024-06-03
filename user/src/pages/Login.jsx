@@ -24,8 +24,8 @@ export const Login = () => {
     }
     httpRequest('post', 'api/user/login', loginData)
       .then((res) => {
-        // dispatch(fetchAndStore(res.user_id));
-        localStorage.setItem("userId", JSON.stringify(res.user_id));
+        const id=localStorage.setItem("userId", JSON.stringify(res.user_id));
+        dispatch(fetchAndStore(id));
        (previousRoute==="/" || previousRoute==="/signup")?navigate("/"):navigate("/cart")
       })
       .catch((error) =>

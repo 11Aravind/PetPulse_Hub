@@ -1,27 +1,35 @@
-import { Link } from "react-router-dom";
-import ButtonComponent from "./ButtonComponent";
-import { useSelector } from "react-redux"
 import React, { useState, useEffect } from 'react';
-import "./CSS/Navbar.css";
+import { Link } from 'react-router-dom';
+import ButtonComponent from './ButtonComponent';
+import './CSS/Navbar.css';
+import {fetchAndStore} from '../Slice/userSlice'
+import { useDispatch, useSelector } from 'react-redux';
 const Navbar = () => {
-    // const userId = useSelector((state) => state.user.userId)
-
+    const dispatch=useDispatch()
     const [isOpen, setIsOpen] = useState(false);
-const[userId,setId]=useState();
-// ;
-useEffect(() => {
-    setId(JSON.parse(localStorage.getItem("userId")))
+    // const [userId, setUserId] = useState(null);
+    const userId=JSON.parse(localStorage.getItem('userId'));
+
+    // useEffect(() => {
+    //     const id = JSON.parse(localStorage.getItem('userId'));
+    //     dispatch(fetchAndStore(id));
+    //     console.log('userId from localStorage:', id);
+    //     setUserId(id);
+    // }, [setUserId]);
+  
+    useEffect(() => {
         const handleClickOutside = (event) => {
             if (isOpen && !event.target.closest('.navbar-container')) {
                 setIsOpen(false);
             }
         };
+
         document.addEventListener('click', handleClickOutside);
+
         return () => {
             document.removeEventListener('click', handleClickOutside);
         };
-    }, [isOpen,userId]);
-    console.log(userId);
+    }, [isOpen]);
 
     const toggleNavbar = () => {
         setIsOpen(!isOpen);
@@ -30,27 +38,27 @@ useEffect(() => {
     const menus = [
         {
             menu: 'PETS',
-            to: "/Pets"
+            to: '/Pets',
         },
         {
             menu: 'FOOD',
-            to: "/foods"
+            to: '/foods',
         },
         {
             menu: 'ACCESSORYS',
-            to: "/accessorys"
+            to: '/accessorys',
         },
         {
             menu: 'MEDICINE',
-            to: "/medicine"
+            to: '/medicine',
         },
         {
             menu: 'BLOGS',
-            to: "/blogs"
+            to: '/blogs',
         },
         {
             menu: 'CARE TAKING',
-            to: "/productdetails"
+            to: '/productdetails',
         },
     ];
     return (
@@ -63,33 +71,33 @@ useEffect(() => {
                     <span className="line line3"></span>
                 </div>
                 <ul className="menu-items">
-                    {
-                        menus.map((menu, id) => {
-                            return (
-                                <li className="menuContainer" key={id}>
-                                    <Link to={menu.to} className="menu">
-                                        <span>{menu.menu}</span>
-                                    </Link>
-                                </li>
-                            );
-                        })
-                    }
-                    {/* </ul> */}
-
-                    {/* <ul className="menu-items"> */}
-                    {/* <li><Link to="/" className="menu">search</Link></li> */}
-                    {
-                    userId!==null ? (<><li><Link to="/cart" className="menu"><i className="bi bi-bag-fill"></i></Link></li>
-                        <li><Link to="/cart" className="menu"><i className="bi bi-person-fill"></i></Link></li>   </>)
-                        : (<li>
-                            <Link to="/login">
-                                <ButtonComponent
-                                    text="Login"
-                                    classs="addbtn smallBtn"
-                                />
+                    {menus.map((menu, id) => (
+                        <li className="menuContainer" key={id}>
+                            <Link to={menu.to} className="menu">
+                                <span>{menu.menu}</span>
                             </Link>
-                        </li>)
-                    }
+                        </li>
+                    ))}
+                    {userId !== null ? (
+                        <>
+                            <li>
+                                <Link to="/cart" className="menu">
+                                    <i className="bi bi-bag-fill"></i>
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to="/cart" className="menu">
+                                    <i className="bi bi-person-fill"></i>
+                                </Link>
+                            </li>
+                        </>
+                    ) : (
+                        <li>
+                            <Link to="/login">
+                               <button className="addbtn smallBtn">Login </button>
+                            </Link>
+                        </li>
+                    )}
                 </ul>
                 <h1 className="logo">
                     <Link to="/">
@@ -98,7 +106,7 @@ useEffect(() => {
                 </h1>
             </div>
         </nav>
-
     );
-}
-export default Navbar;  
+};
+
+export default Navbar;

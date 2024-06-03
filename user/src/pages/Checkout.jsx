@@ -11,7 +11,7 @@ export const Checkout = () => {
   const navigate = useNavigate()
   const [addressId, changeAddressid] = useState(false);
   const [paymentMode, setPaymentMode] = useState('cod');
-  const userId = useSelector((state) => state.user.userId)
+  // const userId = useSelector((state) => state.user.userId)
   const { isEmpty, items, cartTotal } = useCart();
   const [isAddressVisible, setAddressVisible] = useState(false);
   const [addressList, setAddress] = useState([])
@@ -19,12 +19,12 @@ export const Checkout = () => {
   const onCheckOut = () => {
     // dispatch(setRoute("/cart"));
     const userId = JSON.parse(localStorage.getItem("userId"));
-console.log(userId);
+    // console.log(userId);
     userId == null ? navigate("/login") : navigate("/Checkout");
     return userId;
   };
   useEffect(() => {
-   const userId= onCheckOut();
+    const userId = onCheckOut();
     httpRequest('get', `api/user/getAddress?userId=${userId}`)
       .then((response) => {
         setAddress(response.data.addressList)
@@ -324,7 +324,7 @@ console.log(userId);
 
 
 const Address = ({ changeAddressVisibility }) => {
-  const navigate=useNavigate()
+  const navigate = useNavigate()
   const name = useRef("")
   const mobile = useRef("")
   const pincode = useRef("")
@@ -332,7 +332,8 @@ const Address = ({ changeAddressVisibility }) => {
   const address = useRef("")
   const city = useRef("")
   const state = useRef("")
-  const userId = useSelector((state) => state.user.userId)
+  // const userId = useSelector((state) => state.user.userId)
+  const userId = JSON.parse(localStorage.getItem("userId"));
   useEffect(() => {
     userId === null && navigate("/login")
   }, [userId])

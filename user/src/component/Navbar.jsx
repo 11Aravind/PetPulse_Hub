@@ -86,7 +86,7 @@ const Navbar = () => {
                                 </Link>
                             </li>
                             <li>
-                                <Link to="/cart" className="menu">
+                                <Link to="/profile" className="menu">
                                     <i className="bi bi-person-fill"></i>
                                 </Link>
                             </li>

@@ -6,13 +6,11 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 
 const Produtcard = ({ categorys, headding }) => {
-    const imgPath = useSelector((state) => state.common.imagePath);
-    const products=useSelector((state)=>state.products.filteredProduct);
+
     return (
-        <div className="topSpacing">
-            {categorys && <Categoryslider categorys={categorys} headding={headding} />}
-            <Filter />
-            <div className="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-4 g-4" style={{ "marginTop": "40px" }}>
+        // <div className="topSpacing">
+          
+            <div className="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-4 g-4" style={{"margin": "0px 113px" }}>
                 {products.map((product, index) => (
                     <div className="col-6 col-sm-6 col-md-4 col-lg-3" key={index}>
                         <Link to={`/productdetails/${product._id}`} className="card-link">
@@ -34,7 +32,7 @@ const Produtcard = ({ categorys, headding }) => {
                     </div>
                 ))}
             </div>
-        </div>
+        // </div>
     );
 };
 

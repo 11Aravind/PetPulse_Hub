@@ -1,25 +1,24 @@
 import ButtonComponent from "../component/ButtonComponent";
 import { useEffect, useRef, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { useCart } from "react-use-cart";
 import { httpRequest } from "../API/api";
 import { useLocation } from "react-router"
+import {fetchAndStoreAddress} from "../Slice/addressSlice"
 import "./CSS/OrderConfirmation.css";
-
 export const Checkout = () => {
   const navigate = useNavigate()
   const [addressId, changeAddressid] = useState(false);
   const [paymentMode, setPaymentMode] = useState('cod');
-  // const userId = useSelector((state) => state.user.userId)
+  const addressList = useSelector((state) => state.address.addressList)
+  const dispatch=useDispatch()
   const { isEmpty, items, cartTotal } = useCart();
   const [isAddressVisible, setAddressVisible] = useState(false);
-  const [addressList, setAddress] = useState([])
+  const userId = JSON.parse(localStorage.getItem("userId"));
+console.log(userId);
   const [orderID, setOrderId] = useState([])
   const onCheckOut = () => {
-    // dispatch(setRoute("/cart"));
-    const userId = JSON.parse(localStorage.getItem("userId"));
-    // console.log(userId);
     userId == null ? navigate("/login") : navigate("/Checkout");
     return userId;
   };
@@ -27,10 +26,10 @@ export const Checkout = () => {
     const userId = onCheckOut();
     httpRequest('get', `api/user/getAddress?userId=${userId}`)
       .then((response) => {
-        setAddress(response.data.addressList)
+        dispatch(fetchAndStoreAddress(response.data.addressList))
       })
       .catch((err) => console.log(err));
-  }, [])
+  }, [dispatch])
   const changeAddressVisibility = () => {
     setAddressVisible(!isAddressVisible)
   }
@@ -122,125 +121,12 @@ export const Checkout = () => {
     // e.preventDefault();
   };
 
-  // const paymentHandler = async (e) => {
-  //   const product = items.map(({ _id, price, quantity }) => {
-  //     return { _id, quantity };
-  //   })
-  //   const body = {
-  //     amount,
-  //     currency,
-  //     receipt: receiptId,
-  //     userId: userId,
-  //     addressId: addressId,
-  //     items: product,
-  //     // totelamount: cartTotal,
-  //     razorpayOrderId: "",
-  //     status: "pending",
-  //     paymentMode: paymentMode,
-  //     order_message: ""
-  //   };
-
-  //   const response = await fetch("http://localhost:5001/api/order/", {
-  //     method: "POST",
-  //     body: JSON.stringify(body),
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //   });
-  //   const order = await response.json();
-  //   // console.log(`"order":${order}`);
-  //   console.log(order);
-
-  //   var options = {
-  //     key: "rzp_test_u5nxL1KN1AKLE0", // Enter the Key ID generated from the Dashboard
-  //     amount,
-  //     currency,
-  //     name: "PetPulse Hub",
-  //     description: "Test Transaction",
-  //     image: "./tshirt.jpg",
-  //     order_id: order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-  //     handler: async function (response) {
-  //       const body = {
-  //         ...response,
-  //       };
-  //       // console.log(body);
-
-  //       const validateRes = await fetch("http://localhost:5001/api/order/validate", {
-  //         method: "POST",
-  //         body: JSON.stringify(body),
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //       }
-  //       );
-  //       const jsonRes = await validateRes.json();
-  //       console.log(jsonRes);// validation response
-  //     },
-  //     prefill: {
-  //       //We recommend using the prefill parameter to auto-fill customer's contact information, especially their phone number
-  //       name: "Web Dev Matrix", //your customer's name
-  //       email: "webdevmatrix@example.com",
-  //       contact: "9000000099", //Provide the customer's phone number for better conversion rates
-  //     },
-  //     notes: {
-  //       address: "Razorpay Corporate Office",
-  //     },
-  //     theme: {
-  //       color: "#EE6043",
-  //     },
-  //   };
-  //   var rzp1 = new window.Razorpay(options);
-  //   rzp1.on("payment.failed", function (response) {
-  //     alert(response.error.code);
-  //     alert(response.error.description);
-  //     alert(response.error.source);
-  //     alert(response.error.step);
-  //     alert(response.error.reason);
-  //     alert(response.error.metadata.order_id);
-  //     alert(response.error.metadata.payment_id);
-  //   });
-  //   rzp1.open();
-  //   e.preventDefault();
-  // };
-  //   const loginCredentials = JSON.parse(localStorage.getItem("loginCredentials"));
-  //   const user_id = loginCredentials.user_id;
-  // const navigate = useNavigate();
-
+  
   let completeOrder = () => {
     if (!isEmpty) {
       const product = items.map(({ _id, price, quantity }) => {
         return { _id, quantity };
       });
-      // const data = {
-      //   userId: userId,
-      //   addressId: addressId,
-      //   items: product,
-      //   totelamount: cartTotal,
-      //   transactionId: "",
-      //   dateOfOrder: "",
-      //   status: "pending",
-      //   paymentMode: paymentMode,
-      //   order_message: ""
-      // };
-      // console.log(data);
-      // httpRequest('post', "api/order/checkout", data)
-      //   .then((res) => {
-      //     if (res && res.status && paymentMode === "cod") {
-      //       navigate("/Orderplaced")
-      //     } else if (res && res.status && paymentMode == "online") {
-      //       setOrderId(res.orderId);
-      //       paymentHandler();
-      //       //     navigate("/PayOnline", { state: data });
-      //     }
-      //   })
-      // httpRequest(data, "checkOut.php").then((respose) => {
-      //   if (respose && respose.status && paymentMode == "cod") {
-      //     navigate("/OrderPlaced");
-      //   } else if (respose && respose.status && paymentMode == "Online") {
-      //     data.orderID = respose.message;
-      //     navigate("/PayOnline", { state: data });
-      //   }
-      // });
     }
   };
 
@@ -307,7 +193,6 @@ export const Checkout = () => {
           <label htmlFor="online" className="radioPaymentLabels">Online Payment</label>
         </div>
       </div>
-      {/* <button className="checkOutBtn" onClick={paymentHandler}>Confirm</button> */}
       <ButtonComponent
         text="Confirm"
         classs={addressId == false ? "addbtn checkOutBtn disabled" : "addbtn checkOutBtn"}
@@ -333,7 +218,7 @@ const Address = ({ changeAddressVisibility }) => {
   const city = useRef("")
   const state = useRef("")
   // const userId = useSelector((state) => state.user.userId)
-  const userId = JSON.parse(localStorage.getItem("userId"));
+
   useEffect(() => {
     userId === null && navigate("/login")
   }, [userId])
@@ -345,8 +230,16 @@ const Address = ({ changeAddressVisibility }) => {
       "address": address.current.value + ",  " + locality.current.value + ",  " + city.current.value + ",  " + pincode.current.value + ", " + state.current.value,
       "order_id": null,
     }
+    const dispatch=useDispatch();
     httpRequest('post', "api/user/address", addressData)
-      .then((res) => console.log(res))
+      .then((res) => {
+        console.log(res)
+        const addressList = useSelector((state) => state.address.addressList);
+        dispatch(fetchAndStoreAddress(addressList));
+
+        changeAddressVisibility();
+
+      })
       .catch((error) => console.log(error));
   }
   return (

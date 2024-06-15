@@ -4,12 +4,14 @@ import categorySlice from "./Slice/categorySlice"
 import cartSlice from "./Slice/cartSlice"
 import userSlice from "./Slice/userSlice"
 import commonSlice from "./Slice/commonSlice"
+import addressSlice from "./Slice/addressSlice"
 export const store=configureStore({
     reducer:{
         products:productSlice, // sliceName: sliceFile
         categorys:categorySlice,
         carts:cartSlice,
         user:userSlice,
-        common:commonSlice
+        common:commonSlice,
+        address:addressSlice,
     },
 })

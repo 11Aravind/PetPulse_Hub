@@ -1,20 +1,42 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { httpRequest } from "../API/api";
+import "./CSS/orders.css"
 const Orders = () => {
-    const [orders,setOrders]=useState([]);
-    httpRequest('get',"api/order/")
-    .then((res)=>console.log(res))
-    .catch((err)=>console.log(err));
+
+  const [orders, setOrders] = useState([]);
+  const userId = JSON.parse(localStorage.getItem("userId"));
+  console.log(userId);
+  useEffect(() => {
+    httpRequest('get', `api/order?userId=${userId}`)
+      .then((res) => {
+        console.log(res.data);
+        setOrders(res.data);
+      })
+      .catch((err) => console.log(err));
+  }, []);
   return (
-    <div className="col-12 row" style={{ marginBottom: "10px" }}>
-              <div className="col-3" style={{ width: "100px" }}>
-                <img src="http://localhost:5001/1711434149628-1_f687340b-634e-41eb-a20d-975a29606913.webp" alt="" />
-              </div>
-              <div className="col-6" style={{ fontSize: "13px" }}>Maxi Dry Dog Food - Chicken and Liver (20kg)
-              2610
-              </div>
-              <div className="col-3" ><i class="bi bi-trash3"></i></div>
-            </div>
+    <div className="container">
+      <h1 className="headding">Our orders</h1>
+      {
+        orders.map((order,index)=>{
+          return(
+            <div className="order-row" key={index}>
+          <div className="img">
+            <img src="http://localhost:5001/1711434011193-71nlKZCnEqL._SL1500.webp" alt="img" />
+          </div>
+          <div className="order-desctiption">
+{order.totelamount}, {order.paymentMode} ,  {order.dateOfOrder}
+      </div>
+          <div className="cancel-order">
+            <button className="cancelBtn" id={order._id}>cancel</button>
+          </div>
+        </div>
+          )
+        })
+        
+      }
+     
+    </div>
   )
 }
 

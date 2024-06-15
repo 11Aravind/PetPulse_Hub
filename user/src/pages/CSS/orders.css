@@ -1,0 +1,28 @@
+.order-row{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 36px;
+}
+img{
+width: 100%;
+}
+.img{
+    width: 9%;
+}
+.order-desctiption{
+    width: 60%;
+    padding: 3px 25px;
+}
+.cancelBtn{
+    padding: 3px 6px;
+    border: none;
+    background: var(--primary);
+    color: white;
+}
+.cancel-order{
+    width: 30%;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}

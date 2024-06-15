@@ -104,8 +104,9 @@ export const validatePaymentStatus = async (req, res) => {
 }
 export const getOrder = async (req, res) => {
     let orderDetails;
+    const { userId } = req.query;
     try {
-        orderDetails = await Order.find()
+        orderDetails = await Order.find({userId})
     } catch (error) {
         console.log(error);
     }

@@ -5,7 +5,7 @@ import { useNavigate } from "react-router";
 import { useCart } from "react-use-cart";
 import { httpRequest } from "../API/api";
 import { useLocation } from "react-router"
-import {fetchAndStoreAddress} from "../Slice/addressSlice"
+import { fetchAndStoreAddress } from "../Slice/addressSlice"
 import "./CSS/OrderConfirmation.css";
 import Address from "../component/Address"
 export const Checkout = () => {
@@ -13,7 +13,7 @@ export const Checkout = () => {
   const [addressId, changeAddressid] = useState(false);
   const [paymentMode, setPaymentMode] = useState('cod');
   const addressList = useSelector((state) => state.address.addressList)
-  const dispatch=useDispatch()
+  const dispatch = useDispatch()
   const { isEmpty, items, cartTotal } = useCart();
   const [isAddressVisible, setAddressVisible] = useState(false);
   const userId = JSON.parse(localStorage.getItem("userId"));
@@ -21,7 +21,7 @@ export const Checkout = () => {
   const onCheckOut = () => {
     const userId = JSON.parse(localStorage.getItem("userId"));
     console.log(userId);
-    userId === null && navigate("/login") ;
+    userId === null && navigate("/login");
     return userId;
   };
   useEffect(() => {
@@ -123,14 +123,14 @@ export const Checkout = () => {
     // e.preventDefault();
   };
 
-  
-  let completeOrder = () => {
-    if (!isEmpty) {
-      const product = items.map(({ _id, price, quantity }) => {
-        return { _id, quantity };
-      });
-    }
-  };
+
+  // let completeOrder = () => {
+  //   if (!isEmpty) {
+  //     const product = items.map(({ _id, price, quantity }) => {
+  //       return { _id, quantity };
+  //     });
+  //   }
+  // };
 
   return (
     <div className="container  col-10">
@@ -153,20 +153,20 @@ export const Checkout = () => {
       )
       } */}
       {addressList.length !== 0 && (
-  addressList.map((address, key) => {
-    return (
-      <div className="form-check" key={key} onClick={() => changeAddressid(address._id)}>
-        <input className="radioBtn" type="radio" name="flexRadioDefault" id={`address_${key}`} />
-        <label className="form-check-label" htmlFor={`address_${key}`}>
-          <b>{address.name}</b> {address.address}
-        </label>
-        <div className="remove" onClick={(e) => handleRemoveAddress(e, address._id)}>
-          <i className="bi bi-trash3"></i>
-        </div>
-      </div>
-    )
-  })
-)}
+        addressList.map((address, key) => {
+          return (
+            <div className="form-check" key={key} onClick={() => changeAddressid(address._id)}>
+              <input className="radioBtn" type="radio" name="flexRadioDefault" id={`address_${key}`} />
+              <label className="form-check-label" htmlFor={`address_${key}`}>
+                <b>{address.name}</b> {address.address}
+              </label>
+              <div className="remove" onClick={(e) => handleRemoveAddress(e, address._id)}>
+                <i className="bi bi-trash3"></i>
+              </div>
+            </div>
+          )
+        })
+      )}
 
       <div className="col-12 ">
         <button className="addAddressBtn headdingSpace " onClick={() => setAddressVisible(!isAddressVisible)}>+ Add Address</button>

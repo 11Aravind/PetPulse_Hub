@@ -12,6 +12,7 @@ import {Checkout} from "./pages/Checkout";
 import Blogs from "./pages/Blogs";
 import Cart from "./pages/Cart";
 import Orderplaced from "./pages/Orderplaced";
+import Orders from "./pages/Orders";
 const routerInfo = [
     {
         path: "/",
@@ -60,6 +61,10 @@ const routerInfo = [
     {
         path: "/Orderplaced",
         component: <Orderplaced />
+    },
+    {
+        path: "/orders",
+        component: <Orders />
     },
     {
         path: "*",

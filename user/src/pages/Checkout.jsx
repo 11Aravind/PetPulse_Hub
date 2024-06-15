@@ -17,8 +17,7 @@ export const Checkout = () => {
   const { isEmpty, items, cartTotal } = useCart();
   const [isAddressVisible, setAddressVisible] = useState(false);
   const userId = JSON.parse(localStorage.getItem("userId"));
-console.log(addressList);
-  const [orderID, setOrderId] = useState([])
+  // const [orderID, setOrderId] = useState([])
   const onCheckOut = () => {
     const userId = JSON.parse(localStorage.getItem("userId"));
     console.log(userId);

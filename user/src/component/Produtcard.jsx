@@ -6,7 +6,8 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 
 const Produtcard = ({ categorys, headding }) => {
-
+const products=useSelector(state=>state.products.filteredProduct);
+const imgPath=useSelector(state=>state.common.imagePath);
     return (
         // <div className="topSpacing">
           

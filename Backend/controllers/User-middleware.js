@@ -68,9 +68,9 @@ export const storeAddress = async (req, res) => {
     });
     try {
         await userAddress.save();
-        return res.status(200).json({ message: "successfuly stored", status: "success" });
+        return res.status(200).json({ message: "successfuly stored", status: "success" ,data:userAddress});
     } catch (err) {
-        return res.status(200).json({ status: "failed", message: `address not saved ${err}` });
+        return res.status(200).json({ status: "failed", message: `address not saved ${err}`,data:[]});
     }
 }
 export const getAddress = async (req, res) => {

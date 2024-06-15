@@ -7,6 +7,7 @@ import { httpRequest } from "../API/api";
 import { useLocation } from "react-router"
 import {fetchAndStoreAddress} from "../Slice/addressSlice"
 import "./CSS/OrderConfirmation.css";
+import Address from "../component/Address"
 export const Checkout = () => {
   const navigate = useNavigate()
   const [addressId, changeAddressid] = useState(false);
@@ -16,10 +17,12 @@ export const Checkout = () => {
   const { isEmpty, items, cartTotal } = useCart();
   const [isAddressVisible, setAddressVisible] = useState(false);
   const userId = JSON.parse(localStorage.getItem("userId"));
-console.log(userId);
+console.log(addressList);
   const [orderID, setOrderId] = useState([])
   const onCheckOut = () => {
-    userId == null ? navigate("/login") : navigate("/Checkout");
+    const userId = JSON.parse(localStorage.getItem("userId"));
+    console.log(userId);
+    userId === null && navigate("/login") ;
     return userId;
   };
   useEffect(() => {
@@ -133,20 +136,39 @@ console.log(userId);
   return (
     <div className="container  col-10">
       <h5 className="headdingSpace">DELIVERY ADDRESS</h5>
-      {addressList.length !== 0 && (
+      {/* {addressList.length !== 0 && (
         addressList.map((address, key) => {
           return (
             <div className="form-check" key={key}>
-              <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2"
+              <input className=" radioBtn" type="radio" name="flexRadioDefault" id={key}
                 onChange={() => changeAddressid(address._id)} />
-              <label className="form-check-label" htmlFor="flexRadioDefault2">
+              <label className="form-check-label" htmlFor={key}>
                 <b>{address.name}</b> {address.address}
               </label>
+              <div className="remove">
+              <i class="bi bi-trash3"></i>
+              </div>
             </div>
           )
         })
       )
-      }
+      } */}
+      {addressList.length !== 0 && (
+  addressList.map((address, key) => {
+    return (
+      <div className="form-check" key={key} onClick={() => changeAddressid(address._id)}>
+        <input className="radioBtn" type="radio" name="flexRadioDefault" id={`address_${key}`} />
+        <label className="form-check-label" htmlFor={`address_${key}`}>
+          <b>{address.name}</b> {address.address}
+        </label>
+        <div className="remove" onClick={(e) => handleRemoveAddress(e, address._id)}>
+          <i className="bi bi-trash3"></i>
+        </div>
+      </div>
+    )
+  })
+)}
+
       <div className="col-12 ">
         <button className="addAddressBtn headdingSpace " onClick={() => setAddressVisible(!isAddressVisible)}>+ Add Address</button>
         {isAddressVisible && <Address changeAddressVisibility={changeAddressVisibility} />}
@@ -208,80 +230,3 @@ console.log(userId);
 
 
 
-const Address = ({ changeAddressVisibility }) => {
-  const navigate = useNavigate()
-  const name = useRef("")
-  const mobile = useRef("")
-  const pincode = useRef("")
-  const locality = useRef("")
-  const address = useRef("")
-  const city = useRef("")
-  const state = useRef("")
-  // const userId = useSelector((state) => state.user.userId)
-
-  useEffect(() => {
-    userId === null && navigate("/login")
-  }, [userId])
-  const saveAddress = () => {
-    const addressData = {
-      "userId": userId,
-      "name": name.current.value,
-      "mobileNo": mobile.current.value,
-      "address": address.current.value + ",  " + locality.current.value + ",  " + city.current.value + ",  " + pincode.current.value + ", " + state.current.value,
-      "order_id": null,
-    }
-    const dispatch=useDispatch();
-    httpRequest('post', "api/user/address", addressData)
-      .then((res) => {
-        console.log(res)
-        const addressList = useSelector((state) => state.address.addressList);
-        dispatch(fetchAndStoreAddress(addressList));
-
-        changeAddressVisibility();
-
-      })
-      .catch((error) => console.log(error));
-  }
-  return (
-    <>
-      <form className=" container row g-3">
-        <div className="col-md-6">
-          <label htmlFor="inputEmail4" className="form-label">Name</label>
-          <input type="text" className="form-control" ref={name} id="inputEmail4" />
-        </div>
-        <div className="col-md-6">
-          <label htmlFor="inputPassword4" className="form-label">Mobile No</label>
-          <input type="Number" className="form-control" ref={mobile} id="inputPassword4" />
-        </div>
-        <div className="col-md-6">
-          <label htmlFor="inputEmail4" className="form-label">Pincode</label>
-          <input type="text" className="form-control" ref={pincode} id="inputEmail4" />
-        </div>
-        <div className="col-md-6">
-          <label htmlFor="inputPassword4" className="form-label">Locality</label>
-          <input type="text" className="form-control" ref={locality} id="inputPassword4" />
-        </div>
-        <div className="col-12">
-          <label htmlFor="inputAddress" className="form-label">Address</label>
-          <input type="text" className="form-control" ref={address} id="inputAddress" placeholder="" />
-        </div>
-        <div className="col-md-6">
-          <label htmlFor="inputEmail4" className="form-label">City</label>
-          <input type="text" className="form-control" ref={city} id="inputEmail4" />
-        </div>
-        <div className="col-md-6">
-          <label htmlFor="inputPassword4" className="form-label">State</label>
-          <input type="text" className="form-control" ref={state} id="inputPassword4" />
-        </div>
-        <div className="row">
-          <div className="col-md-6">
-            <button type="button" className="checkOutBtn cancelBtn" onClick={changeAddressVisibility}>CANCEL</button>
-          </div>
-          <div className="col-md-6">
-            <button type="button" className="checkOutBtn" onClick={saveAddress}>Confirm</button>
-          </div>
-        </div>
-      </form>
-    </>
-  );
-}

@@ -5,16 +5,31 @@
     align-items: center;
     gap: 20px;
     flex-wrap: wrap;
+}
+.form-check{
+    display: flex;
+    min-height: 2.5rem;
+    padding-left: 1.5em;
+    margin-bottom: 1.125rem;
+    border: 1px solid;
+    border-radius: 7px;
+    align-items: center;
+    cursor: pointer;
+    /* justify-content: space-around; */
+    line-height: 2.2rem;
 
-    .CashOnDelivery,
-    .Online {
+}
+
+    /* .CashOnDelivery,.Online {
         border: 1px solid var(--primary);
         padding: 1% 4%;
         cursor: pointer;
-    }
+    } */
 
+    .radioBtn{
+        margin: 0px 12px;
+    }
     .selected {
         background-color: var(--primary);
         color: white;
     }
-}

@@ -29,6 +29,14 @@
     box-shadow: 1px -1px 11px -5px rgba(0, 0, 0, 0.5);
     transition: color 0.3s ease-in-out;
 }
+.hideCart{
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+}
+.showCart{
+    transform: translateX(0);
+    transition: transform 0.3s ease;
+}
 .cart-row{
     display: flex;
     margin: 11px 0px;

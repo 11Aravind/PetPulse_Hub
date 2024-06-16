@@ -40,28 +40,28 @@ const Home = () => {
          route:"/accessorys"
     },
 ];
-  const dogCategorys = [
-    {
-        url: "https://www.petsy.online/cdn/shop/files/Dog-Food.jpg?v=1710755622&width=194",
-        name: "Food",
-         route:"/routenotadded"
-    },
-    {
-        url: "https://www.petsy.online/cdn/shop/files/Dog-Toys_12ce7fa5-1cdc-4b31-b0e5-8f57a863fcca.jpg?v=1710755622&width=194",
-        name: "Toys",
-         route:"/routenotadded"
-    },
-    {
-        url: "https://www.petsy.online/cdn/shop/files/Dog-Accessories_ae912f34-23a9-42f1-b52c-ba0394b05ced.jpg?v=1710755622&width=194",
-        name: "Accessorys",
-         route:"/routenotadded"
-    },
-    {
-        url: "https://www.petsy.online/cdn/shop/files/Dog-Treats_6294ba49-0864-41bc-953d-7fa1eafb7e1c.jpg?v=1710755622&width=194",
-        name: "Medicine",
-         route:"/routenotadded"
-    },
-];
+//   const dogCategorys = [
+//     {
+//         url: "https://www.petsy.online/cdn/shop/files/Dog-Food.jpg?v=1710755622&width=194",
+//         name: "Food",
+//          route:"/routenotadded"
+//     },
+//     {
+//         url: "https://www.petsy.online/cdn/shop/files/Dog-Toys_12ce7fa5-1cdc-4b31-b0e5-8f57a863fcca.jpg?v=1710755622&width=194",
+//         name: "Toys",
+//          route:"/routenotadded"
+//     },
+//     {
+//         url: "https://www.petsy.online/cdn/shop/files/Dog-Accessories_ae912f34-23a9-42f1-b52c-ba0394b05ced.jpg?v=1710755622&width=194",
+//         name: "Accessorys",
+//          route:"/routenotadded"
+//     },
+//     {
+//         url: "https://www.petsy.online/cdn/shop/files/Dog-Treats_6294ba49-0864-41bc-953d-7fa1eafb7e1c.jpg?v=1710755622&width=194",
+//         name: "Medicine",
+//          route:"/routenotadded"
+//     },
+// ];
 
   return (
     <div className="container">

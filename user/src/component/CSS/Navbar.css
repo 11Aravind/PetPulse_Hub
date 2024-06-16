@@ -7,6 +7,15 @@
     width: 90%;
     margin: auto;
 }
+.cartNumber{
+    background: red;
+    color: #fff;
+    padding: 0px 3px;
+    border-radius: 50%;
+    position: relative;
+    top: 8px;
+    right: 8px;
+}
 .navbar {
     width: 100%;
     background: #fff;

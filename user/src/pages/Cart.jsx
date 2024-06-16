@@ -1,47 +1,5 @@
 import "./CSS/Cart.css";
 import "./CSS/ButtonComponent.css"
-// import Quantitybtn from "../component/Quantitybtn"
-// import { useSelector} from "react-redux";
-// const Cart = ({ callbackShowCart }) => {
-//   const closeCart = () => {
-//     callbackShowCart()
-//   }
-//   const cartList=useSelector((state)=>state.carts.cartList);
-//   console.log(cartList);
-//   return (
-//     <>
-//       <div className="cart-container">
-//         <div className="closeBtn" onClick={closeCart}><i className="bi bi-x"></i></div>
-//         <h3 className="headding">Shopping Bag</h3>
-
-//         {cartList.map((product,key)=>{
-//           return(
-//           <div className="cart-row"  key={key}>
-//           <div className="cart-img">
-//             <img src={`http://localhost:5001/${product.image}`} alt="" />
-//           </div>
-//           <div className="cart-details">
-//             <div className="cart-description">
-//              {product.name}
-//               <div className="cart-price">₹{product.newPrice}</div>
-//             </div>
-//             <div className="quantitybtn">
-//               <Quantitybtn />
-//             </div>
-//           </div>
-//         </div>
-//           )
-//         })
-//         }
-//         <div className="txtBox-spacing">
-//           <button className="addToCartBtn" style={{ width: "100%", "color": "black", "border-radius": "10px" }}>Proceed to Checkout -  ₹789</button>
-//         </div>
-//       </div>
-//     </>
-//   )
-// }
-// export default Cart;
-// // Quantitybtn
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { useCart } from "react-use-cart";
@@ -49,14 +7,15 @@ import ButtonComponent from "../component/ButtonComponent";
 import Quantitybtn from "../component/Quantitybtn";
 import { useDispatch } from "react-redux"
 import {setRoute} from "../Slice/commonSlice"
-
+import { useState } from "react";
+import { useHistory } from 'react-router-dom';
 const Cart = ({ callbackShowCart }) => {
   const { isEmpty, items, cartTotal } = useCart();
   const navigate = useNavigate();
   const dispatch=useDispatch();
-  // const imagePath = useSelector((state) => state.banner.imagePath);
-  // const userId = useSelector((state) => state.user.userId);
-// console.log();
+  const history = useHistory();
+  console.log(history);
+const[cartIsVisible,setCartVisible]=useState(true)
   const imgPath = useSelector((state) => state.common.imagePath);
   const onCheckOut = () => {
     const userId = JSON.parse(localStorage.getItem("userId"));
@@ -67,6 +26,10 @@ const Cart = ({ callbackShowCart }) => {
   const closeCart = () => {
     callbackShowCart()
   }
+  const handleShow=()=>{
+    setCartVisible(!cartIsVisible)
+    history.goBack();
+  }
   return (
     <>
       {isEmpty ? (
@@ -74,9 +37,14 @@ const Cart = ({ callbackShowCart }) => {
           Your cart is empty
         </div>
       ) : (
-        <div className="cart-container">
+        <div className= {cartIsVisible?"cart-container showshowCart":"cart-container hideCart"}     
+           onClick={handleShow}>
           <div className="cart-body">
-            <div className="closeBtn" onClick={closeCart} ><i className="bi bi-x"></i></div>
+            <div className="closeBtn"
+            //  onClick={closeCart}
+             >
+              <i className="bi bi-x"></i>
+            </div>
             <h3 className="headding">Shopping Bag</h3>
             {items.map((product, key) => {
               return (
@@ -96,7 +64,6 @@ const Cart = ({ callbackShowCart }) => {
                         <Quantitybtn item={product} />
                       </div>
                     </div>
-
                   </div>
                 </div>
               );

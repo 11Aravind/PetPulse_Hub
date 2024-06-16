@@ -2,30 +2,21 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import ButtonComponent from './ButtonComponent';
 import './CSS/Navbar.css';
+import { useCart } from "react-use-cart";
 import {fetchAndStore} from '../Slice/userSlice'
 import { useDispatch, useSelector } from 'react-redux';
 const Navbar = () => {
+    const { totalItems } = useCart();
     const dispatch=useDispatch()
     const [isOpen, setIsOpen] = useState(false);
-    // const [userId, setUserId] = useState(null);
-    const userId=JSON.parse(localStorage.getItem('userId'));
-
-    // useEffect(() => {
-    //     const id = JSON.parse(localStorage.getItem('userId'));
-    //     dispatch(fetchAndStore(id));
-    //     console.log('userId from localStorage:', id);
-    //     setUserId(id);
-    // }, [setUserId]);
-  
+    const userId=JSON.parse(localStorage.getItem('userId'));  
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (isOpen && !event.target.closest('.navbar-container')) {
                 setIsOpen(false);
             }
         };
-
         document.addEventListener('click', handleClickOutside);
-
         return () => {
             document.removeEventListener('click', handleClickOutside);
         };
@@ -83,6 +74,7 @@ const Navbar = () => {
                             <li>
                                 <Link to="/cart" className="menu">
                                     <i className="bi bi-bag-fill"></i>
+                                    <small className='cartNumber'>{totalItems}</small>
                                 </Link>
                             </li>
                             <li>

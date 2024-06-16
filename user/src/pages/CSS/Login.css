@@ -13,6 +13,9 @@
 #supportCheckbox:checked ~ div span {
   opacity: 1;
 }
+.disabled{
+  background: #f2d1c9;
+}
 
 .formbold-main-wrapper {
   display: flex;

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { filterAndStore } from "../Slice/productSlice";
 import Produtcard from "../component/Produtcard";
+import Categoryslider from "../component/Categoryslider";
 
 const Foods = () => {
   // const dispatch = useDispatch();
@@ -28,7 +29,10 @@ const Foods = () => {
   // Filter categories separately (outside useEffect)
   const filterCategory = categorys.filter((itemCat) => itemCat.mainCategory === "Food");
   return (
-    <Produtcard categorys={filterCategory}  headding="Our Top Food Items" />
+    <>
+      <Categoryslider categorys={filterCategory} />
+      <Produtcard categorys={filterCategory} headding="Our Top Food Items" />
+    </>
   );
 };
 

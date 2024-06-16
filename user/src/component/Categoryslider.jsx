@@ -44,6 +44,10 @@ const Categoryslider = ({ categorys,headding }) => {
       behavior: 'smooth'
     });
   };
+  const checkCategory=(e)=>{
+    const id=e.currentTarget.id
+    console.log(id);
+  }
   return (
     <div className="container">
       <div className="main-slider">
@@ -58,13 +62,8 @@ const Categoryslider = ({ categorys,headding }) => {
         </div>
         <div className="card-slider-main" ref={containerRef}>
           {
-
             categorys.map((category, index) => (
-              <div className="card-wrapper" key={index} id={category._id}>
-                {/* <img
-                src={`https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_288,h_360/v1674029856/PC_Creative%20refresh/3D_bau/banners_new/Pizza.png`}
-                alt=""
-              /> */}
+              <div className="card-wrapper" key={index} id={category._id} onClick={checkCategory}>
                 <div className="mainContainer">
                   <div className="image">
                     <img src={imgPath+category.image} alt="" />

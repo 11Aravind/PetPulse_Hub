@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { useCart } from "react-use-cart";
 import { httpRequest } from "../API/api";
-import { useLocation } from "react-router"
 import { fetchAndStoreAddress } from "../Slice/addressSlice"
 import "./CSS/OrderConfirmation.css";
 import Address from "../component/Address"

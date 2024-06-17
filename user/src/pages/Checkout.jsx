@@ -19,7 +19,6 @@ export const Checkout = () => {
   // const [orderID, setOrderId] = useState([])
   const onCheckOut = () => {
     const userId = JSON.parse(localStorage.getItem("userId"));
-    console.log(userId);
     userId === null && navigate("/login");
     return userId;
   };
@@ -27,7 +26,10 @@ export const Checkout = () => {
     const userId = onCheckOut();
     httpRequest('get', `api/user/getAddress?userId=${userId}`)
       .then((response) => {
-        dispatch(fetchAndStoreAddress(response.data.addressList))
+        if (response.data.length === 0)
+          dispatch(fetchAndStoreAddress([]))
+        else
+          dispatch(fetchAndStoreAddress(response.data.addressList))
       })
       .catch((err) => console.log(err));
   }, [dispatch])

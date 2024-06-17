@@ -12,15 +12,8 @@ const Productdetails = () => {
     const { id } = useParams();
     const recomentedProduct = useSelector((state) => state.products.filteredProduct.filter(product => product._id !== id));
     const product = useSelector((state) => state.products.productList.find(product => product._id === id));
-    const [showCart, setShowCart] = useState(false);
     const imgPath = useSelector((state) => state.common.imagePath)
 
-    const addProduct = () => {
-        setShowCart(!showCart)
-    }
-    const callbackShowCart = () => {
-        setShowCart(!showCart);
-    }
     const productFeature = [
         {
             url: "../images/delivary.png",
@@ -52,13 +45,14 @@ const Productdetails = () => {
                                 <div className="newprice">₹ {product && product.newPrice}</div>
                             </div>
                             <div className="addToCart fixedBtn">
+                                <Link to="/cart">
                                 <ButtonComponent
                                     text="ADD TO CART"
                                     classs="addbtn smallBtn checkOut"
                                     product={product}
-                                    onClick={addProduct}
+                                    // onClick={addProduct}
                                 />
-                                {showCart && <Cart callbackShowCart={callbackShowCart} />}
+                                </Link>
                             </div>
                             <div className="sub-headding">
                                 Description
@@ -83,8 +77,6 @@ const Productdetails = () => {
             }
             <h1 className="headding">Related products</h1>
             <Produtcard products={recomentedProduct} headding="Our Top Food Items" />
-
-
         </div>
     );
 }

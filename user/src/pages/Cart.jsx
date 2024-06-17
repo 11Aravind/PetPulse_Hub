@@ -30,11 +30,8 @@ const[cartIsVisible,setCartVisible]=useState(true)
   }
   return (
     <>
-      {isEmpty ? (
-        <div className="emptyCartContainer product-headding">
-          Your cart is empty
-        </div>
-      ) : (
+     
+      
         <div className= {cartIsVisible?"cart-container showCart":"cart-container hideCart"}     
            >
           <div className="cart-body">
@@ -44,6 +41,12 @@ const[cartIsVisible,setCartVisible]=useState(true)
               <i className="bi bi-x"></i>
             </div>
             <h3 className="headding">Shopping Bag</h3>
+            {
+               isEmpty &&
+              ( <div className="emptyCartContainer product-headding">
+                 Your cart is empty
+               </div>)
+}
             {items.map((product, key) => {
               return (
                 <div className="body-tr" key={key}>
@@ -66,15 +69,18 @@ const[cartIsVisible,setCartVisible]=useState(true)
                 </div>
               );
             })}
+          
           </div>
-          <ButtonComponent
+         {  
+               !isEmpty && ( <ButtonComponent
             text={"Checkout- ₹" + cartTotal}
             classs="addbtn checkOutBtn"
             checkOut={true}
           onClick={onCheckOut}
-          />
+          />)
+          }
         </div>
-      )}
+      
     </>
   );
 };

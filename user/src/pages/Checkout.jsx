@@ -133,7 +133,12 @@ export const Checkout = () => {
   //     });
   //   }
   // };
-
+// const handleRemoveAddress=(addressId)=>{
+//   console.log(addressId);
+//   httpRequest('delete',`api/address/${addressId}`)
+//   .then((res)=>console.log(res))
+//   .catch((err)=>console.log(err))
+// }
   return (
     <div className="container  col-10">
       <h5 className="headdingSpace">DELIVERY ADDRESS</h5>
@@ -145,7 +150,9 @@ export const Checkout = () => {
               <label className="form-check-label" htmlFor={`address_${key}`}>
                 <b>{address.name}</b> {address.address}
               </label>
-              <div className="remove" onClick={(e) => handleRemoveAddress(e, address._id)}>
+              <div className="remove" id={address._id}
+              //  onClick={e=>handleRemoveAddress(address._id)}
+               >
                 <i className="bi bi-trash3"></i>
               </div>
             </div>

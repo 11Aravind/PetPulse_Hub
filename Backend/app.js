@@ -7,6 +7,7 @@ import categoryRouter from "./routes/category-routers.js";
 import adminRouter from "./routes/admin-router.js";
 import productRouter from "./routes/product-routers.js";
 import orderRouteer from "./routes/order-router.js"
+import addressRouter from "./routes/address-routers.js"
 import Razorpay from "razorpay"
 // import crypto from "crypto"
 import cors from "cors";
@@ -38,6 +39,7 @@ app.use("/api/category", categoryRouter);
 app.use("/api/product", productRouter);
 app.use("/api/admin", adminRouter);
 app.use("/api/order", orderRouteer);
+app.use("/api/address", addressRouter);
 
 
 mongoose.connect('mongodb://localhost:27017/petsworlds', {

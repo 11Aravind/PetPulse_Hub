@@ -41,9 +41,6 @@ export const deleteGallery = async (req, res, next) => {
                 } 
             })
         }
-    // } catch (error) {
-        // console.log(error);
-    // }
     if (!deleteFlag) {
         return res.status(404).json({ message: 'gallery not found' ,id:galleryId});
     }

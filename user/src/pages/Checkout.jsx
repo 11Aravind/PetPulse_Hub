@@ -9,14 +9,13 @@ import "./CSS/OrderConfirmation.css";
 import Address from "../component/Address"
 export const Checkout = () => {
   const navigate = useNavigate()
-  const [addressId, changeAddressid] = useState(false);
-  const [paymentMode, setPaymentMode] = useState('cod');
-  const addressList = useSelector((state) => state.address.addressList)
   const dispatch = useDispatch()
   const { isEmpty, items, cartTotal } = useCart();
+  const [addressId, changeAddressid] = useState(false);
+  const [paymentMode, setPaymentMode] = useState('cod');
   const [isAddressVisible, setAddressVisible] = useState(false);
+  const addressList = useSelector((state) => state.address.addressList)
   const userId = JSON.parse(localStorage.getItem("userId"));
-  // const [orderID, setOrderId] = useState([])
   const onCheckOut = () => {
     const userId = JSON.parse(localStorage.getItem("userId"));
     userId === null && navigate("/login");
@@ -37,7 +36,7 @@ export const Checkout = () => {
     setAddressVisible(!isAddressVisible)
   }
 
-
+//payment section
   const amount = cartTotal * 100;
   const currency = "INR";
   const receiptId = "qwsaq1";
@@ -87,7 +86,9 @@ export const Checkout = () => {
 
             try {
               const jsonRes = await httpRequest("POST", "api/order/validate", body);
-              console.log(jsonRes); // validation response
+              // console.log("validation status:",jsonRes); // validation response
+              if(jsonRes.msg==='success')
+                navigate("/Orderplaced")
             } catch (error) {
               console.error("Validation request failed:", error);
             }
@@ -136,23 +137,6 @@ export const Checkout = () => {
   return (
     <div className="container  col-10">
       <h5 className="headdingSpace">DELIVERY ADDRESS</h5>
-      {/* {addressList.length !== 0 && (
-        addressList.map((address, key) => {
-          return (
-            <div className="form-check" key={key}>
-              <input className=" radioBtn" type="radio" name="flexRadioDefault" id={key}
-                onChange={() => changeAddressid(address._id)} />
-              <label className="form-check-label" htmlFor={key}>
-                <b>{address.name}</b> {address.address}
-              </label>
-              <div className="remove">
-              <i class="bi bi-trash3"></i>
-              </div>
-            </div>
-          )
-        })
-      )
-      } */}
       {addressList.length !== 0 && (
         addressList.map((address, key) => {
           return (
@@ -223,7 +207,6 @@ export const Checkout = () => {
         disableValue={addressId == false ? true : false}
       />
     </div>
-
   );
 };
 

@@ -5,7 +5,7 @@ const Orders = () => {
 
   const [orders, setOrders] = useState([]);
   const userId = JSON.parse(localStorage.getItem("userId"));
-  console.log(userId);
+  // console.log(userId);
   useEffect(() => {
     httpRequest('get', `api/order?userId=${userId}`)
       .then((res) => {

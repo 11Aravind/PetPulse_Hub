@@ -47,7 +47,6 @@ export const storeOrder = async (req, res) => {
             res.json(order);
         } catch (err) {
             console.log(err);
-
             res.status(500).send({ message: "data not stored in db", error: err });
         }
     } catch (err) {

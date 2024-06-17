@@ -10,7 +10,6 @@ const Orderplaced = () => {
         setItems([]);
         const redirectTimeout = setTimeout(() => {
             navigate("/orders")
-            console.log("gotoorders");
         }, 4000); // Adjust the delay (in milliseconds) as needed
     
         // Clean up the timeout on component unmount (optional)
@@ -18,7 +17,7 @@ const Orderplaced = () => {
       }, [history]);
     return (
         <div className="containerDiv">
-            <i class="bi bi-check2-circle" style={{ fontSize: "100px", color: "green" }}></i>
+            <i className="bi bi-check2-circle" style={{ fontSize: "100px", color: "green" }}></i>
             <h3>PAYMENT SUCCESS</h3>
         </div>
     )

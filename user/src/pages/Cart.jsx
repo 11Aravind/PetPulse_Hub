@@ -8,13 +8,11 @@ import Quantitybtn from "../component/Quantitybtn";
 import { useDispatch } from "react-redux"
 import {setRoute} from "../Slice/commonSlice"
 import { useState } from "react";
-import { useHistory } from 'react-router-dom';
 const Cart = ({ callbackShowCart }) => {
   const { isEmpty, items, cartTotal } = useCart();
   const navigate = useNavigate();
   const dispatch=useDispatch();
-  const history = useHistory();
-  console.log(history);
+  const history = useNavigate();
 const[cartIsVisible,setCartVisible]=useState(true)
   const imgPath = useSelector((state) => state.common.imagePath);
   const onCheckOut = () => {
@@ -28,7 +26,7 @@ const[cartIsVisible,setCartVisible]=useState(true)
   }
   const handleShow=()=>{
     setCartVisible(!cartIsVisible)
-    history.goBack();
+    history(-1);
   }
   return (
     <>
@@ -37,12 +35,12 @@ const[cartIsVisible,setCartVisible]=useState(true)
           Your cart is empty
         </div>
       ) : (
-        <div className= {cartIsVisible?"cart-container showshowCart":"cart-container hideCart"}     
-           onClick={handleShow}>
+        <div className= {cartIsVisible?"cart-container showCart":"cart-container hideCart"}     
+           >
           <div className="cart-body">
             <div className="closeBtn"
-            //  onClick={closeCart}
-             >
+           onClick={handleShow}
+           >
               <i className="bi bi-x"></i>
             </div>
             <h3 className="headding">Shopping Bag</h3>

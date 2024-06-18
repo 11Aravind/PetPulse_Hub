@@ -7,6 +7,7 @@ import { httpRequest } from "../API/api";
 import { fetchAndStoreAddress } from "../Slice/addressSlice"
 import "./CSS/OrderConfirmation.css";
 import Address from "../component/Address"
+import Notfound from "../pages/Notfound"
 export const Checkout = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -140,6 +141,7 @@ export const Checkout = () => {
 //   .catch((err)=>console.log(err))
 // }
   return (
+    isEmpty ?<Notfound/>:
     <div className="container  col-10">
       <h5 className="headdingSpace">DELIVERY ADDRESS</h5>
       {addressList.length !== 0 && (

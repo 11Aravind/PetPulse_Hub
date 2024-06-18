@@ -15,7 +15,9 @@ const Pets = () => {
    },[])
     return (
        <>
+               <Categoryslider categorys={categorys} />
        {
+
           filteredProduct.length===0 ?"Pets was empty" :<Produtcard categorys={categorys} headding="Our Pets"/> 
         }
        </>

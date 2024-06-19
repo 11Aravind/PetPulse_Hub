@@ -2,7 +2,6 @@
 import { Link } from "react-router-dom";
 import Categoryslider from "./Categoryslider";
 import Filter from "./Filter";
-import { useEffect } from "react";
 import { useSelector } from "react-redux";
 
 const Produtcard = ({ categorys, headding }) => {

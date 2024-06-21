@@ -29,7 +29,10 @@ export const Checkout = () => {
         if (response.data.length === 0)
           dispatch(fetchAndStoreAddress([]))
         else
+         {
           dispatch(fetchAndStoreAddress(response.data.addressList))
+          console.log(response.data.addressList);
+         }
       })
       .catch((err) => console.log(err));
   }, [dispatch])

@@ -8,9 +8,10 @@ const Produtcard = ({ categorys, headding }) => {
 const products=useSelector(state=>state.products.filteredProduct);
 const imgPath=useSelector(state=>state.common.imagePath);
     return (
-        // <div className="topSpacing">
-          
+        <div className="topSpacing">
+            <Filter/>
             <div className="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-4 g-4" style={{"margin": "0px 42px" }}>
+              
                 {products.map((product, index) => (
                     <div className="col-6 col-sm-6 col-md-4 col-lg-3" key={index}>
                         <Link to={`/productdetails/${product._id}`} className="card-link">
@@ -32,7 +33,7 @@ const imgPath=useSelector(state=>state.common.imagePath);
                     </div>
                 ))}
             </div>
-        // </div>
+         </div>
     );
 };
 

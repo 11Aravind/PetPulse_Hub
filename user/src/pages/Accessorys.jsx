@@ -11,7 +11,7 @@ const Accessorys=()=>{
     dispatch(filterAndStore(filteredProduct));
     return(
        <>
-        <Categoryslider categorys={filterCategory} />
+        {/* <Categoryslider categorys={filterCategory} /> */}
         <Produtcard categorys={filterCategory}  headding="Our Accessorys"/>
        </>
     );

@@ -66,12 +66,12 @@ const Home = () => {
   return (
     <div className="container">
       <ImageSlider />
-      <h1 className="headding">Our Services</h1>
+      <h1 className="headding headding-margin">Our Services</h1>
       <Categorylist categorys={mainCategorys}/>
-      <h1 className="headding">Top Categories For Your Dog</h1>
+      <h1 className="headding" headding-margin>Top Categories For Your Dog</h1>
       {/* <Categorylist categorys={dogCategorys}/> */}
       <Categoryslider categorys={categorys} />
-      <h1 className="headding">Pet-tastic Deals</h1>
+      <h1 className="headding headding-margin">Pet-tastic Deals</h1>
       {/* <MyCarousel  items={newProducts}/> */}
       {/* <Blogs/> */}
       {/* <Cardslider /> */}

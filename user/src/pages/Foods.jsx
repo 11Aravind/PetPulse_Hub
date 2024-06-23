@@ -30,8 +30,8 @@ const Foods = () => {
   const filterCategory = categorys.filter((itemCat) => itemCat.mainCategory === "Food");
   return (
     <>
-      <Categoryslider categorys={filterCategory} />
-      <Produtcard categorys={filterCategory} headding="Our Top Food Items" />
+      {/* <Categoryslider categorys={filterCategory} /> */}
+      <Produtcard categorys={filterCategory}   headding="Our Top Food Items" />
     </>
   );
 };

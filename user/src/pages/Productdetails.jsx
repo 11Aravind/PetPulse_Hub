@@ -29,6 +29,7 @@ const Productdetails = () => {
         },
     ];
     return (
+        <>
         <div className="topSpacing">
             {
                 product ?
@@ -41,8 +42,8 @@ const Productdetails = () => {
                                 {product && product.name}
                             </div>
                             <div className="price productdetails-price">
-                                <div className="oldPrice"> ₹ {product && product.oldPrice}</div>
                                 <div className="newprice">₹ {product && product.newPrice}</div>
+                                <div className="oldPrice"> ₹ {product && product.oldPrice}</div>
                             </div>
                             <div className="addToCart fixedBtn">
                                 <Link to="/cart">
@@ -75,9 +76,10 @@ const Productdetails = () => {
                         </div>
                     </div>) : <Notfound />
             }
+        </div>
             <h1 className="headding">Related products</h1>
             <Produtcard products={recomentedProduct} headding="Our Top Food Items" />
-        </div>
+        </>
     );
 }
 export default Productdetails;

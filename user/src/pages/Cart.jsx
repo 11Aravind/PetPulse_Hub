@@ -40,7 +40,7 @@ const[cartIsVisible,setCartVisible]=useState(true)
            >
               <i className="bi bi-x"></i>
             </div>
-            <h3 className="headding">Shopping Bag</h3>
+            <h3 className="headding headding-margin">Shopping Bag</h3>
             {
                isEmpty &&
               ( <div className="emptyCartContainer product-headding">

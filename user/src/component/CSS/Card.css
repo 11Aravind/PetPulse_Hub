@@ -11,8 +11,9 @@
 .oldPrice{
     text-decoration-line: line-through;
     text-decoration-color: red;
-    color: #666 !important;
-    font-size: 15px;
+    font-size: 14px;
+    color: #878787;
+    margin-left: 8px;
 }
 
 .product-image{
@@ -20,9 +21,10 @@
     height: 227px;
 }
 .newprice{
-    font-weight: 600;
-    font-size: 23px;
-    padding: 10px 6px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #212121;
+    line-height: 3rem;
 }
 .sellingPrice{
     font-size: 18px;
@@ -32,6 +34,10 @@
     font-weight: 400;
     font-size: 14px;
     color: #333;
+    line-height: 1.5;
+}
+.card-title:hover{
+color: var(--primary);
 }
 .card.h-100 {
     border-radius: 6px;

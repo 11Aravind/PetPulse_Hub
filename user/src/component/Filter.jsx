@@ -30,9 +30,9 @@ const Filter = () => {
     );
     return (
         <>
-            <div className="col-12 subHeadding" style={{"margin":" 0px 42px"}}>Filters</div>
-            <div className="col-12 row" style={{"margin":" 0px 42px"}}>
-                <div className="col-4">
+            <div className="col-12 subHeadding" >Filters</div>
+            <div className="filter-container" >
+                <div className="filter">
                     <select className="form-select" aria-label="Default select example" onChange={applyFilter} defaultValue="none">
                         <option value="none">Featured</option>
                         <option value="AtoZ">Alphabetically, A-Z</option>
@@ -41,8 +41,7 @@ const Filter = () => {
                         <option value="HIGHtoLOW">Price, high to low</option>
                     </select>
                 </div>
-                <div className="col-4"></div>
-                <div className="col-4">
+                <div className="search">
                     <ReactSearchBox
                         placeholder="Start typing to filter..."
                         value={searchValue}

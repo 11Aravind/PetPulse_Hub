@@ -1,6 +1,6 @@
 import AllRouter from "./AllRoutes";
 import Navbar from "./component/Navbar";
-import Navbartop from "./component/Navbartop";
+// import Navbartop from "./component/Navbartop";
 import { useDispatch } from "react-redux"
 import { fetchAndStore } from "./Slice/productSlice"
 import { useEffect } from "react";

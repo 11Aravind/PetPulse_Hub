@@ -6,15 +6,11 @@ import ReactSearchBox from "react-search-box";
 
 const Filter = () => {
     const dispatch = useDispatch();
-    // const[exp,setExp]=useState([])
     const product = useSelector((state) => state.products.filteredProduct);
-    // setExp(product)
     const [searchValue, setSearchValue] = useState("");
-
     const applyFilter = (e) => {
         const currentFilter = e.target.value;
         let sortedData;
-
         if (currentFilter === "LOWtoHIGH") {
             sortedData = product.slice().sort((a, b) => a.newPrice - b.newPrice);
         } else if (currentFilter === "HIGHtoLOW") {
@@ -24,18 +20,14 @@ const Filter = () => {
         } else if (currentFilter === "ZtoA") {
             sortedData = product.slice().sort((a, b) => b.name.localeCompare(a.name));
         }
-        // console.log(sortedData);
         dispatch(filterAndStore(sortedData));
     };
-
     const handleSearchChange = (value) => {
         setSearchValue(value);
     };
-
     const filteredProducts = product.filter((prod) =>
         prod.name.toLowerCase().includes(searchValue.toLowerCase())
     );
-
     return (
         <>
             <div className="col-12 subHeadding" style={{"margin":" 0px 42px"}}>Filters</div>

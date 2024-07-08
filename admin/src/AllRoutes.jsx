@@ -5,6 +5,7 @@ import Order from "./pages/Order.jsx"
 import Blogs from "./pages/Blogs"
 import Addblog from "./pages/Addblog"
 import Gallery from "./pages/Gallery"
+import Notfound from "./pages/Notfound.jsx"
 import {Categorydetails,AddCategory} from "./pages/Categorydetails"
 import {  Route, Routes } from 'react-router-dom';
 const routerInfo = [
@@ -43,6 +44,10 @@ const routerInfo = [
     {
         path:"/gallery",
         component:<Gallery />
+    },
+    {
+        path:"*",
+        component:<Notfound />
     },
     
 ];

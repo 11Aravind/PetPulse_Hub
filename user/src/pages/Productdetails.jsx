@@ -9,7 +9,8 @@ import Notfound from "./Notfound";
 import "./CSS/productdetails.css"
 import Cart from "./Cart";
 const Productdetails = () => {
-    const { id } = useParams();
+    const { productId } = useParams();
+  const id = atob(productId);
     const recomentedProduct = useSelector((state) => state.products.filteredProduct.filter(product => product._id !== id));
     const product = useSelector((state) => state.products.productList.find(product => product._id === id));
     const imgPath = useSelector((state) => state.common.imagePath)

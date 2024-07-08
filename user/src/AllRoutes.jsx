@@ -40,7 +40,7 @@ const routerInfo = [
         component: <Medicine />
     },
     {
-        path: "/productdetails/:id",
+        path: "/productdetails/:productId",
         component: <Productdetails />
     },
     {

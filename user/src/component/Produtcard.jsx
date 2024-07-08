@@ -14,7 +14,7 @@ const imgPath=useSelector(state=>state.common.imagePath);
             <div className="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-4 g-4" style={{    "margin": "10px 0px"}}>
                 {products.map((product, index) => (
                     <div className="col-6 col-sm-6 col-md-4 col-lg-3" key={index}>
-                        <Link to={`/productdetails/${product._id}`} className="card-link">
+                        <Link to={`/productdetails/${btoa(product._id.toString())}`} className="card-link">
                             <div className="shadowbox card h-100 ">
                                 <div className="img-container">
                                     <img src={imgPath + product.image} className="card-img-top product-image" alt="..." />

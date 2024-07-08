@@ -39,4 +39,4 @@ const caretakingSchema = new Schema({
         require:true
     },
 })
-export default mongoose.model("Address",caretakingSchema);
+export default mongoose.model("Caretaker",caretakingSchema);

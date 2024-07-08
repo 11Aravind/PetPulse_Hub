@@ -2,8 +2,10 @@ import React, { useRef, useState } from "react";
 
 const Caretaker = () => {
   const [isPetType, setPetType] = useState(false);
+  const userId = JSON.parse(localStorage.getItem("userId"));
 
   // Refs for input fields
+  const dropRef = useRef(null)
   const typeRef = useRef(null);
   const ownerNameRef = useRef(null);
   const proofRef = useRef(null);
@@ -19,8 +21,6 @@ const Caretaker = () => {
   // Function to handle pet type selection
   const handlePetTypeChange = (e) => {
     const currentValue = e.target.value;
-    typeRef.current.value = currentValue;
-console.log(typeRef.current.value);
     if (currentValue === "other") {
       setPetType(true);
     } else {
@@ -31,8 +31,14 @@ console.log(typeRef.current.value);
   // Function to handle form submission
   const handleSubmit = (e) => {
     // Collect form data
+    let type;
+    if (dropRef.current.value === "other")
+      type = typeRef.current.value
+    else
+      type = dropRef.current.value
     const formData = {
-      petType: typeRef.current.value,
+      userId:userId,
+      petType: type,
       ownerName: ownerNameRef.current.value,
       proof: proofRef.current.files[0], // Access files for file input
       phoneNo: phoneNoRef.current.value,
@@ -67,6 +73,7 @@ console.log(typeRef.current.value);
             <select
               id="inputState"
               className="form-select"
+              ref={dropRef}
               onChange={handlePetTypeChange}
             >
               <option value="">--select--</option>
@@ -141,7 +148,9 @@ console.log(typeRef.current.value);
             </label>
             <select id="hostelInput" className="form-select" ref={hostelRef}>
               <option value="">Choose...</option>
-              <option>...</option>
+              <option>Kollam</option>
+              <option>Kottayam</option>
+              <option>sasthamcotta</option>
             </select>
           </div>
           <div className="col-md-3">

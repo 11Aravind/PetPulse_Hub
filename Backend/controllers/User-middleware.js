@@ -1,5 +1,6 @@
 import User from "../models/User.js";
 import Address from "../models/Address.js"
+import Caretaking from "../models/Caretaking.js"
 import bcrypt from 'bcryptjs';
 
 export const getUserDetails = async (req, res, next) => {
@@ -85,4 +86,26 @@ export const getAddress = async (req, res) => {
         return res.status(200).json({ status: "failed", message: "Address list empty", data:[] });
     }
     return res.status(200).json({ status: "success", message: "Success", data: { addressList } });
+}
+
+export const storeCaretaking=async()=>{
+    const { userId,type,owner_name,proof,phone_no,alt_phone_no,hostel,pickup,deliver,address } = req.body;
+    let caretakingData = new Caretaking({
+        userId,
+        type,
+        owner_name,
+        proof,
+        phone_no,
+        alt_phone_no,
+        hostel,
+        pickup,
+        deliver,
+        address
+    });
+    try {
+        await caretakingData.save();
+        return res.status(200).json({ message: "successfuly stored", status: "success" ,data:caretakingData});
+    } catch (err) {
+        return res.status(200).json({ status: "failed", message: `address not saved ${err}`,data:[]});
+    }
 }

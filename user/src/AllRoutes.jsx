@@ -13,6 +13,7 @@ import Blogs from "./pages/Blogs";
 import Cart from "./pages/Cart";
 import Orderplaced from "./pages/Orderplaced";
 import Orders from "./pages/Orders";
+import Caretaker from "./pages/Caretaker";
 const routerInfo = [
     {
         path: "/",
@@ -65,6 +66,10 @@ const routerInfo = [
     {
         path: "/orders",
         component: <Orders />
+    },
+    {
+        path: "/caretaking",
+        component: <Caretaker />
     },
     {
         path: "*",

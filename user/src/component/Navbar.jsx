@@ -49,7 +49,7 @@ const Navbar = () => {
         },
         {
             menu: 'CARE TAKING',
-            to: '/productdetails',
+            to: '/caretaking',
         },
     ];
     return (

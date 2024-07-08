@@ -89,7 +89,7 @@ export const getAddress = async (req, res) => {
 }
 
 export const storeCaretaking=async(req,res)=>{
-    const { userId,type,owner_name,phone_no,alt_phone_no,hostel,pickup,deliver,address } = req.body;
+    const { userId,type,owner_name,phone_no,alt_phone_no,hostel,pickup,deliver,use } = req.body;
     const proof = req.file.filename;
 
     let caretakingData = new Caretaking({
@@ -110,4 +110,29 @@ export const storeCaretaking=async(req,res)=>{
     } catch (err) {
         return res.status(200).json({ status: "failed", message: `caretaking not saved ${err}`,data:[]});
     }
+}
+export const getCaretakingService=async(req,res)=>{
+    let careTakingList;
+    try {
+        const { userId } = req.query;
+        careTakingList = await Caretaking.find({ userId }); // Corrected here
+    } catch (error) {
+        return res.status(404).json({ status: "failed", message: `Something went wrong: ${error}`, data: [] });
+    }
+    if (careTakingList.length === 0) {
+        return res.status(200).json({ status: "failed", message: "caretaking list empty", data:[] });
+    }
+    return res.status(200).json({ status: "success", message: "Success", data:  careTakingList  });
+}
+export const getAllCaretakingService=async(req,res)=>{
+    let careTakingList;
+    try {
+        careTakingList = await Caretaking.find(); // Corrected here
+    } catch (error) {
+        return res.status(404).json({ status: "failed", message: `Something went wrong: ${error}`, data: [] });
+    }
+    if (careTakingList.length === 0) {
+        return res.status(200).json({ status: "failed", message: "caretaking list empty", data:[] });
+    }
+    return res.status(200).json({ status: "success", message: "Success", data:  careTakingList  });
 }

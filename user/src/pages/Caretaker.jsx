@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-
+import { httpRequest } from "../API/api";
 const Caretaker = () => {
   const [isPetType, setPetType] = useState(false);
   const userId = JSON.parse(localStorage.getItem("userId"));
@@ -8,7 +8,7 @@ const Caretaker = () => {
   const dropRef = useRef(null)
   const typeRef = useRef(null);
   const ownerNameRef = useRef(null);
-  const proofRef = useRef(null);
+  const [proof, setProof] = useState(null);
   const phoneNoRef = useRef(null);
   const altPhoneNoRef = useRef(null);
   const hostelRef = useRef(null);
@@ -36,23 +36,24 @@ const Caretaker = () => {
       type = typeRef.current.value
     else
       type = dropRef.current.value
-    const formData = {
-      userId:userId,
-      petType: type,
-      ownerName: ownerNameRef.current.value,
-      proof: proofRef.current.files[0], // Access files for file input
-      phoneNo: phoneNoRef.current.value,
-      altPhoneNo: altPhoneNoRef.current.value,
-      hostel: hostelRef.current.value,
-      pickupDate: pickupDateRef.current.value,
-      pickupTime: pickupTimeRef.current.value,
-      deliverDate: deliverDateRef.current.value,
-      deliverTime: deliverTimeRef.current.value,
-      address: addressRef.current.value,
-    };
-
-    console.log(formData);
-    // Handle form submission logic here (e.g., send data to server)
+    const formData =new FormData()
+     formData.append("userId", userId);
+     formData.append("type", type);
+     formData.append("owner_name", ownerNameRef.current.value);
+     formData.append("image", proof);// Access files for file inpu);
+     formData.append("phone_no", phoneNoRef.current.value);
+     formData.append("alt_phone_no", altPhoneNoRef.current.value);
+     formData.append("hostel", hostelRef.current.value);
+     formData.append("pickup", pickupDateRef.current.value);
+    //  formData.append("pickupTime", pickupTimeRef.current.value);
+     formData.append("deliver", deliverDateRef.current.value);
+    //  formData.append("deliverTime", deliverTimeRef.current.value);
+     formData.append("address", addressRef.current.value);
+    
+    // console.log(proof);
+    httpRequest("post", "api/user/caretaking", formData)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err))
   };
 
   return (
@@ -116,7 +117,7 @@ const Caretaker = () => {
               type="file"
               className="form-control"
               id="proofInput"
-              ref={proofRef}
+              onChange={(e)=>setProof(e.target.files[0])}
             />
           </div>
           <div className="col-md-4">

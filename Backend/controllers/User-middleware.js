@@ -88,8 +88,10 @@ export const getAddress = async (req, res) => {
     return res.status(200).json({ status: "success", message: "Success", data: { addressList } });
 }
 
-export const storeCaretaking=async()=>{
-    const { userId,type,owner_name,proof,phone_no,alt_phone_no,hostel,pickup,deliver,address } = req.body;
+export const storeCaretaking=async(req,res)=>{
+    const { userId,type,owner_name,phone_no,alt_phone_no,hostel,pickup,deliver,address } = req.body;
+    const proof = req.file.filename;
+
     let caretakingData = new Caretaking({
         userId,
         type,
@@ -106,6 +108,6 @@ export const storeCaretaking=async()=>{
         await caretakingData.save();
         return res.status(200).json({ message: "successfuly stored", status: "success" ,data:caretakingData});
     } catch (err) {
-        return res.status(200).json({ status: "failed", message: `address not saved ${err}`,data:[]});
+        return res.status(200).json({ status: "failed", message: `caretaking not saved ${err}`,data:[]});
     }
 }

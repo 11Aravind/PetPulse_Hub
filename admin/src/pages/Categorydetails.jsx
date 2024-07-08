@@ -35,7 +35,8 @@ export const Categorydetails = () => {
                     <Link to="/addcategory"> <button className="btn-primary"> +Add</button></Link>
                 </div>
             </div>
-            <div className="content-div">
+            {/* <div className="content-div"> */}
+            <div className="">
                 <table className="table-container table">
                     <thead>
                         <tr className="table-headding">

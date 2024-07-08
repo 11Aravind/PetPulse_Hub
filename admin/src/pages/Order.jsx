@@ -19,7 +19,6 @@ const visibility=useSelector((state)=>state.visibility.visibility)
     useEffect(()=>{
         httpRequest('get','api/order/')
         .then((res)=>{
-            console.log(res)
             setOrders(res.data)
         })
         .catch((err)=>console.log(err));

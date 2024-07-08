@@ -6,6 +6,7 @@ import Blogs from "./pages/Blogs"
 import Addblog from "./pages/Addblog"
 import Gallery from "./pages/Gallery"
 import Notfound from "./pages/Notfound.jsx"
+import Caretaker from "./pages/Caretaker.jsx"
 import {Categorydetails,AddCategory} from "./pages/Categorydetails"
 import {  Route, Routes } from 'react-router-dom';
 const routerInfo = [
@@ -44,6 +45,10 @@ const routerInfo = [
     {
         path:"/gallery",
         component:<Gallery />
+    },
+    {
+        path:"/caretaking",
+        component:<Caretaker />
     },
     {
         path:"*",

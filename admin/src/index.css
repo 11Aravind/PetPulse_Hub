@@ -33,19 +33,38 @@ body {
 .main-menu-headding {
   font-size: medium;
   font-weight: 700;
-  color: #3f6ad8;
+  color: #d8262c;
 }
 
 .submenu {
   margin-left: 12px;
   padding: 12px;
 }
+.submenu:hover{
+  color:#d8262c;
+}
+.option{
+  display: flex;
+  /* display: none; */
+  position: absolute;
+    right: 1px;
+    margin-top: 11px;
+    background: #fff;
+    width: 83px;
+    padding: 6px 10px;
+}
+.admin-name{
+  cursor: pointer;
+}
+.admin-name:hover + .option{
+  display: block;
 
+}
 .bar {
   background: black;
-  width: 24px;
-  border-radius: 1.5px;
-  height: 4.5px;
+  width: 21px;
+  border-radius: 5.5px;
+  height: 3.5px;
   margin: 1.5px;
 }
 

@@ -39,7 +39,7 @@ export const storeOrder = async (req, res) => {
             dateOfOrder: date,
             status,
             paymentMode,
-            order_message
+            order_message:"Order placed"
         })
         try {
             await newOrder.save();
@@ -67,7 +67,7 @@ export const storeCodOrder = async (req, res) => {
         dateOfOrder: date,
         status: "success",
         paymentMode,
-        order_message
+        order_message:"Order placed"
     })
     try {
         await newOrder.save();
@@ -106,6 +106,19 @@ export const getOrder = async (req, res) => {
     const { userId } = req.query;
     try {
         orderDetails = await Order.find({userId})
+    } catch (error) {
+        console.log(error);
+    }
+    if (orderDetails.length !== 0)
+        res.status(200).json({ status: "success", message: "", data: orderDetails })
+    else
+        res.status(400).json({ status: "success", messgae: "order was empty", data: orderDetails })
+}
+// get all order ezuthanam  for admin panel
+export const getAllOrder = async (req, res) => {
+    let orderDetails;
+    try {
+        orderDetails = await Order.find()
     } catch (error) {
         console.log(error);
     }

@@ -43,6 +43,7 @@ const Order = new Schema({
     //   },
     order_message: {
         type: String,
+        default:"Order placed"
     },
 })
 export default mongoose.model("Order", Order)

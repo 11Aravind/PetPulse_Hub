@@ -93,7 +93,7 @@ export const Topnavbar = () => {
            
             <div className="top-leftContainer">
             <div className="logo">
-            <img src="https://img.freepik.com/premium-vector/dog-paw-animal-paws_77417-1636.jpg?w=740" alt="logo" style={{width:"40px"}}/>
+            <img src="./logo.png" alt="logo" style={{width:"40px"}}/>
             </div>
             <div className="closingBtn" onClick={()=>dispatch(changeVisibility(!visibility))}>
                 <div className="bar"></div>
@@ -104,6 +104,7 @@ export const Topnavbar = () => {
             <div className="admin-name">
             {/* {navbarShowOrHide} */}
                 Admin
+                <div className="option"><i className="bi bi-box-arrow-left"></i>Logout</div>
             </div>
         </div>
     );

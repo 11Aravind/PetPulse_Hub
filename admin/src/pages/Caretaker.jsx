@@ -5,12 +5,10 @@ const Caretaker = () => {
     useEffect(() => {
         httpRequest('get', "api/user/getallCaretaking").then((res) => {
             setCaretakingList(res.data);
-            console.log(caretakingList);
         }).catch(error => {
             console.error("Error fetching data:", error);
         });
     }, []);
-    console.log(caretakingList);
     const tableHeadding = [{ th: "#id" }, { th: "owner_name" }, { th: "phone_no" }, { th: "id_proof" }, { th: "pickup" }, { th: "deliver" }, { th: "hostel" }, { th: "address" }, { th: "Action" },];
     return (
         <div className="flat-container content-div">
@@ -35,7 +33,7 @@ const Caretaker = () => {
                                     <td>{index+1}</td>
                                     <td>{caretaker.owner_name}</td>
                                     <td>{caretaker.phone_no},{caretaker.alt_phone_no}</td>
-                                    <td>{caretaker.proof}</td>
+                                    <td><img src={`http://localhost:5001/${caretaker.proof}` } alt="img" style={{"width": "100px"}} /></td>
                                     <td>{caretaker.pickup}</td>
                                     <td>{caretaker.deliver}</td>
                                     <td>{caretaker.hostel}</td>

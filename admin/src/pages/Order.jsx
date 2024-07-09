@@ -17,7 +17,7 @@ const[orders,setOrders]=useState([])
 const visibility=useSelector((state)=>state.visibility.visibility)
 
     useEffect(()=>{
-        httpRequest('get','api/order/')
+        httpRequest('get','api/order/all')
         .then((res)=>{
             setOrders(res.data)
         })

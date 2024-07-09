@@ -93,7 +93,7 @@ const Navbar = () => {
                 </ul>
                 <h1 className="logo">
                     <Link to="/">
-                        <img src="https://static.freshtohome.com/images/logo/2021/logo-medium.png" alt="" />
+                        <img src="./images/logo.png" alt="" />
                     </Link>
                 </h1>
             </div>

@@ -17,7 +17,6 @@ const[cartIsVisible,setCartVisible]=useState(true)
   const imgPath = useSelector((state) => state.common.imagePath);
   const onCheckOut = () => {
     const userId = JSON.parse(localStorage.getItem("userId"));
-    console.log(userId);
     dispatch(setRoute("/cart"));
     userId == null ? navigate("/login") : navigate("/Checkout");
   };

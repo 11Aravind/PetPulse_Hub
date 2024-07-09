@@ -63,6 +63,26 @@ width: 100%;
 .order-container{
     margin-bottom: 8px;
 }
+.main{
+    display: flex;
+    justify-content: space-between;
+}
+.filter-ul{
+    list-style: none;
+    margin-bottom: 0;
+    padding-left: 0;
+}
+.checkbox{
+    margin-right: 8px;
+}
+.left-filter{
+    width: 20%;
+    border: 1px solid #dbdbdb;
+    padding: 25px 32px;
+}
+.right-order{
+    width: 79%;
+}
 .flag-conatiner{
     display: flex;
     justify-content: center;

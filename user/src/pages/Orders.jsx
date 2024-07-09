@@ -9,7 +9,10 @@ const Orders = () => {
   const addressArray = useSelector(state => state.address.addressList);
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true); // Add loading state
-
+  const [selectedRow,setSelectedRow]=useState(null);
+  const toggleAddress=(id)=>{
+    setSelectedRow(selectedRow===id ? null : id);
+  }
   useEffect(() => {
     httpRequest('get', `api/order?userId=${userId}`)
       .then((res) => {
@@ -58,7 +61,7 @@ const Orders = () => {
                 <div key={index}>
                   {order.items.map((item, key) => (
                    <div className="order-container">
-                     <div className="order-row" key={key}>
+                     <div className="order-row" key={key} onClick={()=>toggleAddress(order._id)}>
                       <div className="img">
                         <img src={imgPath + item.image} alt="img" />
                       </div>
@@ -80,10 +83,11 @@ const Orders = () => {
                         <span>Your item has been delivered</span>
                       </div>
                     </div>
-                      <div className="deliver-address">
+                    {selectedRow===order._id &&(  <div className="deliver-address">
                         <div className="address-left">
                           <div className="address-headding mediumfont">Delivery Address</div>
-                          <div className="desc">Sreenandanam, Muthupilakkad kizhakku Kunnathur Subdistrict, Kollam District - 690520, Kerala</div>
+                          {/* <div className="desc">Sreenandanam, Muthupilakkad kizhakku Kunnathur Subdistrict, Kollam District - 690520, Kerala</div> */}
+                          <div className="desc"> {address ? address.address : 'Address not found'} </div>
                           <div className="head mediumfont">Phone number</div>
                           <span>8848310248, 8129365304</span>
                         </div>
@@ -91,7 +95,8 @@ const Orders = () => {
                      <div className="address-headding mediumfont">More actions</div>   
                      <div className="desc">Download Invoice</div>
                         </div>
-                      </div>
+                      </div>)   }
+                    
                     </div>
                   ))}
                 </div>

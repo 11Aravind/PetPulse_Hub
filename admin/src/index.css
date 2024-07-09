@@ -132,8 +132,33 @@ a {
   transition: transform 1s ease-in-out;
 }
 
-.show {
+.shows {
   transform: translateX(-100%);
   /* End position */
   transition: transform 1.5s ease-in-out;
+}
+.update-status{
+  position: absolute;
+  width: 50%;
+  padding: 20px 28px;
+  background-color: #c1d3f1;
+  top: -30px;
+  left: 25%;
+  z-index: 4;
+  border-radius: 6px;
+
+}
+button.footer-btn {
+  border: none;
+  padding: 5px 5px;
+  color: white;
+  margin: 4px;
+  background: #da2028;
+}
+.footer{
+  display: flex;
+  justify-content: flex-end;
+}
+.gray-btn{
+  background-color: #6c757d;
 }

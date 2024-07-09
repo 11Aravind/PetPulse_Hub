@@ -55,7 +55,7 @@ const Navbar = () => {
             // navbarShowOrHide={navbarShowOrHide} 
             // navbarCallBack={navbarCallBack}
             />     
-            <div className={visibility?"content-container show":"hide"}>
+            <div className={visibility?"content-container shows":"hide"}>
                 <div className="side-nav-container" >
                     {menuData.map((menuItem, index) => (
                         <div className="menu-container" key={index}>

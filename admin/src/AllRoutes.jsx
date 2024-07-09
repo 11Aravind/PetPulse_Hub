@@ -7,12 +7,17 @@ import Addblog from "./pages/Addblog"
 import Gallery from "./pages/Gallery"
 import Notfound from "./pages/Notfound.jsx"
 import Caretaker from "./pages/Caretaker.jsx"
+import { Login } from "./pages/Login.jsx"
 import {Categorydetails,AddCategory} from "./pages/Categorydetails"
 import {  Route, Routes } from 'react-router-dom';
 const routerInfo = [
     {
         path:"/",
         component:<Home />
+    },
+    {
+        path:"/login",
+        component:<Login />
     },
     {
         path:"/productdetails",

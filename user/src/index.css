@@ -144,6 +144,7 @@ img {
   box-shadow: 0 3px 16px 0 rgba(0, 0, 0, .11);
 }
 
+
 @media (max-width:768px) {
   .topSpacing {
     padding: 0px 8px;

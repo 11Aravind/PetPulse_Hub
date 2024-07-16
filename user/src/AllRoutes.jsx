@@ -14,6 +14,7 @@ import Cart from "./pages/Cart";
 import Orderplaced from "./pages/Orderplaced";
 import Orders from "./pages/Orders";
 import Caretaker from "./pages/Caretaker";
+import Profile from "./pages/Profile";
 const routerInfo = [
     {
         path: "/",
@@ -70,6 +71,10 @@ const routerInfo = [
     {
         path: "/caretaking",
         component: <Caretaker />
+    },
+    {
+        path: "/profile",
+        component: <Profile />
     },
     {
         path: "*",

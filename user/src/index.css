@@ -20,10 +20,12 @@
   padding: 17px 11px;
   text-align: center;
 }
-.headding-margin{
-    margin: 41px 0px;
+
+.headding-margin {
+  margin: 41px 0px;
 
 }
+
 .headding {
 
   /* text-align: center; 
@@ -137,13 +139,38 @@ img {
   padding: 10px 0px;
 
 }
-.card.h-100{
+
+.card.h-100 {
   border: none;
 }
-.shadowbox:hover{
+
+.shadowbox:hover {
   box-shadow: 0 3px 16px 0 rgba(0, 0, 0, .11);
 }
 
+.form-container {
+  padding: 35px 45px;
+}
+
+.form-container {
+  .row {
+    margin-bottom: 10px;
+  }
+  .boxBtn{
+    border-radius: 0;
+    margin: 17px 12px;
+  }
+  .form-label {
+    font-size: 13px;
+     margin-bottom: 0; 
+  }
+}
+.aboutPetcare{
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 14px;
+  color: #df3e44;
+}
 
 @media (max-width:768px) {
   .topSpacing {

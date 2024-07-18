@@ -36,7 +36,7 @@ const Navbar = () => {
             to: '/foods',
         },
         {
-            menu: 'ACCESSORYS',
+            menu: 'ACCESSORIES',
             to: '/accessorys',
         },
         {

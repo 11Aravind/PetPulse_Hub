@@ -15,6 +15,7 @@ import Orderplaced from "./pages/Orderplaced";
 import Orders from "./pages/Orders";
 import Caretaker from "./pages/Caretaker";
 import Profile from "./pages/Profile";
+import Address from "./component/Address";
 const routerInfo = [
     {
         path: "/",
@@ -59,6 +60,10 @@ const routerInfo = [
     {
         path: "/Checkout",
         component: <Checkout />
+    },
+    {
+        path: "/manageaddress",
+        component: <Address />
     },
     {
         path: "/Orderplaced",

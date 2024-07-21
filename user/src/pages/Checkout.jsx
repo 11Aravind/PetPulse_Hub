@@ -6,7 +6,7 @@ import { useCart } from "react-use-cart";
 import { httpRequest } from "../API/api";
 import { fetchAndStoreAddress } from "../Slice/addressSlice"
 import "./CSS/OrderConfirmation.css";
-import Address from "../component/Address"
+import Address, {Addaddress} from "../component/Address"
 import Notfound from "../pages/Notfound"
 export const Checkout = () => {
   const navigate = useNavigate()
@@ -147,27 +147,11 @@ export const Checkout = () => {
     isEmpty ?<Notfound/>:
     <div className="container  col-10">
       <h5 className="headdingSpace">DELIVERY ADDRESS</h5>
-      {addressList.length !== 0 && (
-        addressList.map((address, key) => {
-          return (
-            <div className="form-check" key={key} onClick={() => changeAddressid(address._id)}>
-              <input className="radioBtn" type="radio" name="flexRadioDefault" id={`address_${key}`} />
-              <label className="form-check-label" htmlFor={`address_${key}`}>
-                <b>{address.name}</b> {address.address}
-              </label>
-              <div className="remove" id={address._id}
-              //  onClick={e=>handleRemoveAddress(address._id)}
-               >
-                <i className="bi bi-trash3"></i>
-              </div>
-            </div>
-          )
-        })
-      )}
+     <Address changeAddressid={changeAddressid}/>
 
       <div className="col-12 ">
         <button className="addAddressBtn headdingSpace " onClick={() => setAddressVisible(!isAddressVisible)}>+ Add Address</button>
-        {isAddressVisible && <Address changeAddressVisibility={changeAddressVisibility} />}
+        {isAddressVisible && <Addaddress changeAddressVisibility={changeAddressVisibility} />}
       </div>
       <h5 className="headdingSpace">ORDER SUMMARY</h5>
       {

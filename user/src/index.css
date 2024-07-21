@@ -113,7 +113,9 @@ img {
 .headdingSpace {
   line-height: 47px;
 }
-
+.error-message{
+  color: red;
+}
 .topNavBar {
   height: 28px;
   background: var(--primary);

@@ -58,9 +58,7 @@ const Caretaker = () => {
 
   return (
     <div className="container">
-      <div className="banner">
-        <img src="http://localhost:5173/images/banner3.webp" alt="" />
-      </div>
+ 
       <h3>Petcare Service</h3>
       <p className="aboutPetcare">
         The ID proof address and pickup address must be the same

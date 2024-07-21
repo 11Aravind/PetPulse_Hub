@@ -51,7 +51,7 @@ const Categoryslider = ({ categorys,headding }) => {
   return (
     <div className="container">
       <div className="main-slider">
-        {/* <h1 className='category-headding'>{headding}</h1> */}
+        <h1 className='category-headding'>{headding}</h1>
         <div className="label-container">
           <button className="arrow-left" onClick={scrollLeft}>
             <i className="bi bi-arrow-left"></i>

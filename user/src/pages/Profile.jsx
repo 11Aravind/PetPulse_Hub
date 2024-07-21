@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-
+import Rightnavbar from "../component/Rightnavbar"
 const Profile = () => {
   return (
     <div className="container ">
@@ -12,27 +12,12 @@ const Profile = () => {
 								<img src="	https://static-assets-web.flixcart.com/fk-p-linchpin-web/fk-cp-zion/img/profile-pic-male_4811a1.svg" alt="Admin" className="rounded-circle p-1 " style={{"width":"50px" ,"height":"50px", "background":"#fff"}}/>
 								<div className="mt-3" style={{"marginLeft": "24px"}}>
 									<p className="text-muted font-size-sm">Hello,
-                                    <h6>Aravind</h6>
                                     </p>
+                                    <h6>Aravind</h6>
 								</div>
 							</div>
 							<hr className="my-4"/>
-							<ul className="list-group list-group-flush">
-								
-								<li className="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-									<h6 className="mb-0">My Orders</h6>
-									<span className="text-secondary"> <i className="bi bi-chevron-right"></i></span>
-								</li>
-                                <hr className="my-4" />
-								<li className="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-									<h6 className="mb-0">Manage Address</h6>
-									<span className="text-secondary"><i className="bi bi-chevron-right"></i></span>
-								</li>
-                                <hr className="my-4" />
-								<li className="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-									<h6 className="mb-0"><i className="bi bi-power"></i>Logout</h6>
-								</li>
-							</ul>
+							<Rightnavbar/>
 						</div>
 					</div>
 				</div>

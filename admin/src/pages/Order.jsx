@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { httpRequest } from "../API/api"
 import { useSelector } from "react-redux"
 const Order = () => {
@@ -15,7 +15,9 @@ const Order = () => {
     ];
     const [orders, setOrders] = useState([])
     const visibility = useSelector((state) => state.visibility.visibility)
-
+    const [orderUpdate, setOrderUpdate] = useState(false)
+    const [orderId, setOrderId] = useState()
+    const messsageRef = useRef(null)
     useEffect(() => {
         httpRequest('get', 'api/order/all')
             .then((res) => {
@@ -23,7 +25,21 @@ const Order = () => {
             })
             .catch((err) => console.log(err));
     }, [])
-const [orderUpdate,setOrderUpdate]=useState(false)
+    const updateOrderStatus = () => {
+        const data = {
+            "id": orderId,
+            "order_message":messsageRef.current.value
+        }
+        // console.log(data);
+        httpRequest('post', 'api/order/updateStatus',data)
+        .then((res)=>setOrderUpdate(!orderUpdate))
+        .catch((err)=>console.log(err))
+    }
+    const handleEditing = (id) => {
+        setOrderId(id)
+        setOrderUpdate(!orderUpdate)
+
+    }
     return (
         <div className={visibility ? "flat-container" : "content-div"} >
             <div className="card-header">
@@ -52,7 +68,7 @@ const [orderUpdate,setOrderUpdate]=useState(false)
                                 <td>{order.dateOfOrder}</td>
                                 <td>{order.order_message}</td>
                                 <td>{order.status}</td>
-                                <td   onClick={()=>setOrderUpdate(!orderUpdate)}>  <i class="bi bi-pencil-square"></i> </td>
+                                <td onClick={(e) => handleEditing(order._id)} id={order._id}>  <i class="bi bi-pencil-square"></i> </td>
                                 {/* <td><i className="bi bi-pencil-square"></i> </td> */}
                             </tr>
                         )
@@ -60,22 +76,23 @@ const [orderUpdate,setOrderUpdate]=useState(false)
                 </tbody>
             </table>
             {orderUpdate &&
-            <div className="update-status">
-                <div className="box-title"><h5 class="modal-title">Update Order</h5>
-                </div> <hr />
-                <div className="body">
-                    <select >
-                        <option value="On the way">Order placed</option>
-                        <option value="On the way">On the way</option>
-                        <option value="Delivered">Delivered</option>
-                    </select>
-                </div> <hr />
-                <div className="footer">
-                    <button className="gray-btn footer-btn " onClick={()=>setOrderUpdate(!orderUpdate)}>cancel</button>
-                    <button className="footer-btn">Update</button>
+                <div className="update-status">
+                    <div className="box-title"><h5 class="modal-title">Update Order</h5>
+                    </div> <hr />
+                    <div className="body">
+                        <select ref={messsageRef} >
+                            <option value="Order Placed">Order Placed</option>
+                            <option value="Shipped">Shipped</option>
+                            <option value="Out For Deliver">Out For Deliver</option>
+                            <option value="Delivered">Delivered</option>
+                        </select>
+                    </div> <hr />
+                    <div className="footer">
+                        <button className="gray-btn footer-btn " onClick={() => setOrderUpdate(!orderUpdate)}>cancel</button>
+                        <button className="footer-btn" onClick={updateOrderStatus}>Update</button>
+                    </div>
                 </div>
-            </div>
-}
+            }
         </div>
     );
 }

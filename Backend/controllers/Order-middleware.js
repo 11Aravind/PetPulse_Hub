@@ -39,7 +39,7 @@ export const storeOrder = async (req, res) => {
             dateOfOrder: date,
             status,
             paymentMode,
-            order_message:"Order placed"
+            order_message: "Order placed"
         })
         try {
             await newOrder.save();
@@ -67,7 +67,7 @@ export const storeCodOrder = async (req, res) => {
         dateOfOrder: date,
         status: "success",
         paymentMode,
-        order_message:"Order placed"
+        order_message: "Order placed"
     })
     try {
         await newOrder.save();
@@ -105,7 +105,7 @@ export const getOrder = async (req, res) => {
     let orderDetails;
     const { userId } = req.query;
     try {
-        orderDetails = await Order.find({userId})
+        orderDetails = await Order.find({ userId })
     } catch (error) {
         console.log(error);
     }
@@ -126,4 +126,23 @@ export const getAllOrder = async (req, res) => {
         res.status(200).json({ status: "success", message: "", data: orderDetails })
     else
         res.status(400).json({ status: "success", messgae: "order was empty", data: orderDetails })
+}
+export const updateStatus = async (req, res) => {
+    try {
+        const { id, order_message } = req.body
+        const order = await Order.findByIdAndUpdate(
+            id,
+            { order_message },
+        );
+        if (order) {
+            res.status(200).json({ message: "Order updated successfully" });
+        } else {
+            res.status(404).json({ message: "Order not found" });
+        }
+    } catch (error) {
+        res.status(500).json({ message: "Error updating order", error });
+
+    }
+
+
 }

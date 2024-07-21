@@ -83,8 +83,8 @@ width: 100%;
 .right-order{
     width: 79%;
 }
-.flag-conatiner{
+.flag-container{
     display: flex;
-    justify-content: center;
+    /* justify-content: center; */
     align-items: center;
 }

@@ -146,3 +146,21 @@ export const updateStatus = async (req, res) => {
 
 
 }
+export const cancelOrder=async (req, res) => {
+    try {
+        const orderId = req.params.orderId;
+        console.log(orderId);
+        const updatedUser = await Order.findByIdAndUpdate(
+            orderId,
+            { $set: { order_message: "Order Canceled" } },
+            { new: true } // return the updated document
+        );
+        if (!updatedUser) {
+            return res.status(404).send({ message: `order not found ${updatedUser}` });
+        }
+        res.status(200).send({ status: "success", message: "order was canceled" });
+    } catch (err) {
+        res.status(400).json({ status: "failed", messgae: `something went wrong ${err}` })
+
+    }
+}

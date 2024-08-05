@@ -1,17 +1,17 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { httpRequest } from "../API/api"
-import {useSelector} from "react-redux"
+import { useSelector } from "react-redux"
 export const Categorydetails = () => {
     const [categorys, setCategoryDetails] = useState([]);
-    const visibility=useSelector((state)=>state.visibility.visibility)
+    const visibility = useSelector((state) => state.visibility.visibility)
     const deleteCategory = (e) => {
         const category_id = e.target.id;
         const url = `api/category/${category_id}`;
-        httpRequest('delete',url)
-        .then((data) =>{ 
-            setCategoryDetails(prevDetails => prevDetails.filter(category => category._id !== category_id));
-        });
+        httpRequest('delete', url)
+            .then((data) => {
+                setCategoryDetails(prevDetails => prevDetails.filter(category => category._id !== category_id));
+            });
     }
     useEffect(() => {
         httpRequest('get', "api/category").then((data) => {
@@ -27,7 +27,7 @@ export const Categorydetails = () => {
     }, []);
     const tableHeadding = [{ th: "#id" }, { th: "Main category" }, { th: "Category" }, { th: "subCategory" }, { th: "image" }, { th: "Action" },];
     return (
-        <div className={visibility?"flat-container":"content-div"}>
+        <div className={visibility ? "flat-container" : "content-div"}>
             <div className="card-header">
                 <div className="card-headding">Category</div>
                 {/* <div className="errorMessage">{alertMessage}</div> */}
@@ -57,6 +57,11 @@ export const Categorydetails = () => {
                                     <td>{category.subCategory}</td>
                                     <td><img src={`http://localhost:5001/${category.image}`} alt="banner" className="bannerImg" /></td>
                                     <td>  <i className="bi bi-trash3-fill" id={category._id} onClick={deleteCategory}></i>  </td>
+                                    <td>
+                                        <Link to={`/categoryupdate/${category._id}`}>
+                                            <i className="bi bi-pencil-square"  ></i>
+                                        </Link>
+                                    </td>
                                     {/* <td><i className="bi bi-pencil-square"></i> </td> */}
                                 </tr>
                             )
@@ -131,7 +136,7 @@ export const AddCategory = () => {
                     <div className="col">
                         <label htmlFor="image">Image</label>
                         <input type="file" onChange={(e) => setImage(e.target.files[0])} className="form-control" id="image" />
-                        <small style={{color:"red"}}>{image===""?"Please select an image":""}</small>
+                        <small style={{ color: "red" }}>{image === "" ? "Please select an image" : ""}</small>
                     </div>
                 </div>
 

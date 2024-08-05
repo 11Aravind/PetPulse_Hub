@@ -15,7 +15,25 @@ const Product = () => {
     ];
     const [products, setProductList] = useState([]);
     const visibility=useSelector((state)=>state.visibility.visibility)
-
+    const deleteProduct = (e) => {
+        const product_id = e.target.id;
+        httpRequest('delete',`api/product/${product_id}`)
+            .then((res) => {
+                console.log(res.data);
+                if (res.data.status == "success") {
+                    toast.success(res.data.message, {
+                        position: 'top-right',
+                        autoClose: 3000,
+                    });
+                    setProductList(prevDetails => prevDetails.filter(product => product._id !== product_id));
+                } else {
+                    toast.error(res.data.message, {
+                        position: 'top-right',
+                        autoClose: 3000,
+                    });
+                }
+            });
+    }
     useEffect(() => {
         httpRequest('get', "api/product").then((data) => {
             // Check if the fetched data is an object and has 'productDetails' array
@@ -59,8 +77,13 @@ const Product = () => {
                             <td>{product.oldPrice}</td>
                             <td>{product.newPrice}</td>
                             <td>{product.description}</td>
-                            <td>  <i className="bi bi-trash3-fill"></i>  </td>
+                            <td>  <i className="bi bi-trash3-fill" id={product._id} onClick={e => deleteProduct(e)}></i>  </td>
                             {/* <td><i className="bi bi-pencil-square"></i> </td> */}
+                            <td>
+                                        <Link to={`/update/${product._id}`}>
+                                            <i className="bi bi-pencil-square"  ></i>
+                                        </Link>
+                                    </td>
                         </tr>
                     )
                 }

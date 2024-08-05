@@ -32,6 +32,33 @@ export const saveCategory = async (req, res, next) => {
         res.status(400).json({ message: "Something went wrong,Please try again" ,error:err});
     }
 };
+export const updateCategory = async (req, res, next) => {
+    try {
+        const { mainCategory, category, subCategory, categoryId } = req.body;
+        let updateData = { mainCategory, category, subCategory };
+
+        // Check if a new image is provided
+        if (req.file) {
+            updateData.image = req.file.filename;
+        }
+
+        // Find the category by ID and update its properties
+        const updatedCategory = await Category.findByIdAndUpdate(
+            categoryId,
+            updateData,
+            { new: true } // Option to return the updated document
+        );
+
+        if (!updatedCategory) {
+            return res.status(404).json({ message: "Category not found" });
+        }
+
+        res.status(200).json({ message: "Category was updated successfully", updatedCategory });
+    } catch (err) {
+        res.status(400).json({ message: "Something went wrong, please try again", error: err });
+    }
+};
+
 export const deleteCategory=async(req,res)=>{
 const category_id=req.params.category_id;
 let deleteFlag;

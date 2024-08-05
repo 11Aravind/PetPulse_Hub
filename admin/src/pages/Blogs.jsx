@@ -6,9 +6,9 @@ import { httpRequest } from "../API/api";
 import { Link } from "react-router-dom";
 const Blogs = () => {
     const [blogs, setBlogDetails] = useState([]);
-    const visibility=useSelector((state)=>state.visibility.visibility)
+    const visibility = useSelector((state) => state.visibility.visibility)
     useEffect(() => {
-        httpRequest('get',"api/blog").then((data) => {
+        httpRequest('get', "api/blog").then((data) => {
             // Check if the fetched data is an object and has 'categoryDetails' array
             if (data && Array.isArray(data.blogDetails)) {
                 setBlogDetails(data.blogDetails);
@@ -20,16 +20,16 @@ const Blogs = () => {
         });
     }, []);
     const tableHeadding = [
-        {th: "#id"},
-        {th: "category"},
-        {th: "Link"},
-        {th: "Description"},
-        {th: "Action"},
-        {th: ""},
+        { th: "#id" },
+        { th: "category" },
+        { th: "Link" },
+        { th: "Description" },
+        { th: "Action" },
+        { th: "" },
     ];
     const deleteBlog = (e) => {
         const blogId = e.target.id;
-        httpRequest('delete',`api/blog/${blogId}`)
+        httpRequest('delete', `api/blog/${blogId}`)
             .then((res) => {
                 console.log(res);
                 if (res.status == "success") {
@@ -46,11 +46,11 @@ const Blogs = () => {
                 }
             });
     }
-    return ( 
+    return (
         // {visibility?"flat-container":"content-div"}
-        <div className={visibility?"flat-container":"content-div"}>
-             <ToastContainer />
-             <div className="card-header">
+        <div className={visibility ? "flat-container" : "content-div"}>
+            <ToastContainer />
+            <div className="card-header">
                 <div className="card-headding">Blogs
                     {/* <p className="errorMessage">{alertMessage}</p> */}
                 </div>
@@ -73,12 +73,16 @@ const Blogs = () => {
                         {
                             blogs.map((blog, id) =>
                                 <tr key={id} scope="row">
-                                    <td>{id+1}</td>
+                                    <td>{id + 1}</td>
                                     <td>{blog.category}</td>
                                     <td>{blog.link}</td>
                                     <td>{blog.description}</td>
                                     <td>  <i className="bi bi-trash3-fill" id={blog._id} onClick={e => deleteBlog(e)}></i>  </td>
-                                    <td><i className="bi bi-pencil-square"></i> </td>
+                                    <td>
+                                        <Link to={`/updateblog/${blog._id}`}>
+                                            <i className="bi bi-pencil-square"  ></i>
+                                        </Link>
+                                    </td>
                                 </tr>
                             )
                         }

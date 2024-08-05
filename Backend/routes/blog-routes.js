@@ -8,5 +8,5 @@ blogRouter.post("/add",addBlog)//addBlog
 blogRouter.delete('/:blogId',deleteBlog);
 
 // blogRouter.post("/add",upload.single('image'),addBlog)//addBlog
-blogRouter.put("/update/:id", updateBlog)
+blogRouter.post("/update", updateBlog)
 export default blogRouter;

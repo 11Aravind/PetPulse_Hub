@@ -47,3 +47,20 @@ export const updateBlog = async (req, res, next) => {
         return res.status(500).json({ message: "Unable to update" })
     return res.status(200).json({ blog })
 }
+
+
+export const deleteBlog = async (req, res) => {
+    const blogId = req.params.blogId;
+    let deleteFlag;
+    try {
+      deleteFlag = await Blog.findByIdAndDelete(blogId);
+  
+    } catch (err) {
+      return res.status(500).send({ status: "failed", message: 'deletion failed', error: err, id: blogId });
+    }
+    if (!deleteFlag) {
+      return res.status(404).json({ status: "failed", message: 'Blog not found', id: blogId });
+    }
+    return res.status(200).json({ status: "success", message: 'Blog deleted successfully', deleteFlag });
+  
+  }

@@ -101,9 +101,9 @@ export const deleteProduct = async (req, res) => {
     return res.status(500).send({ status: "failed", message: 'deletion failed', error: err, id: product_id });
   }
   if (!deleteFlag) {
-    return res.status(404).json({ status: "failed", message: 'Category not found', id: product_id });
+    return res.status(404).json({ status: "failed", message: 'Product not found', id: product_id });
   }
-  return res.status(200).json({ status: "success", message: 'Category deleted successfully', deleteFlag });
+  return res.status(200).json({ status: "success", message: 'Product deleted successfully', deleteFlag });
 
 }
 

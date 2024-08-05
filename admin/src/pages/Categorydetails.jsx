@@ -2,17 +2,53 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { httpRequest } from "../API/api"
 import { useSelector } from "react-redux"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 export const Categorydetails = () => {
     const [categorys, setCategoryDetails] = useState([]);
     const visibility = useSelector((state) => state.visibility.visibility)
+    // const deleteCategory = (e) => {
+    //     const category_id = e.target.id;
+    //     const url = `api/category/${category_id}`;
+    //     httpRequest('delete', url)
+    //         .then((data) => {
+    //             setCategoryDetails(prevDetails => prevDetails.filter(category => category._id !== category_id));
+    //         });
+    // }
     const deleteCategory = (e) => {
         const category_id = e.target.id;
-        const url = `api/category/${category_id}`;
-        httpRequest('delete', url)
-            .then((data) => {
-                setCategoryDetails(prevDetails => prevDetails.filter(category => category._id !== category_id));
-            });
-    }
+
+        // Ask for confirmation
+        const isConfirmed = window.confirm("Are you sure you want to delete this category?");
+
+        if (isConfirmed) {
+            // User confirmed, proceed with deletion
+            const url = `api/category/${category_id}`;
+            httpRequest('delete', url)
+                .then((data) => {
+                    // Update state after successful deletion
+                    // console.log(data);
+                    if (data.status==="success") {
+                        toast.success(data.message, {
+                            position: 'top-right',
+                            autoClose: 2000,
+                        });
+                    }
+                    else {
+                        toast.error(data.message, {
+                            position: 'top-right',
+                            autoClose: 2000,
+                        });
+                    }
+                    setCategoryDetails(prevDetails => prevDetails.filter(category => category._id !== category_id));
+                })
+                .catch(error => {
+                    // Optionally, handle the error
+                    console.error("Error deleting category:", error);
+                });
+        }
+    };
+
     useEffect(() => {
         httpRequest('get', "api/category").then((data) => {
             // Check if the fetched data is an object and has 'categoryDetails' array
@@ -28,6 +64,7 @@ export const Categorydetails = () => {
     const tableHeadding = [{ th: "#id" }, { th: "Main category" }, { th: "Category" }, { th: "subCategory" }, { th: "image" }, { th: "Action" },];
     return (
         <div className={visibility ? "flat-container" : "content-div"}>
+            <ToastContainer />
             <div className="card-header">
                 <div className="card-headding">Category</div>
                 {/* <div className="errorMessage">{alertMessage}</div> */}
@@ -78,13 +115,13 @@ export const AddCategory = () => {
     const category = useRef('');
     const subcategory = useRef('');
     const [image, setImage] = useState("");
-    const [message, setMessage] = useState("");
-    const showMessage = (msg) => {
-        setMessage(msg);
-        setTimeout(() => {
-            setMessage("")
-        }, 3000);
-    }
+    // const [message, setMessage] = useState("");
+    // const showMessage = (msg) => {
+    //     setMessage(msg);
+    //     setTimeout(() => {
+    //         setMessage("")
+    //     }, 3000);
+    // }
     const resetValue = () => {
         maincategory.current.value = "";
         category.current.value = "";
@@ -100,16 +137,21 @@ export const AddCategory = () => {
         // console.log(categoryData);
         httpRequest('post', 'api/category/add', categoryData)
             .then((data) => {
-                resetValue();
-                showMessage(data.message);
+                // showMessage();
+                toast.success(data.message, {
+                    position: 'top-right',
+                    autoClose: 2000,
+                    onClose: () => resetValue()// Redirect after toast is closed
+                });
             })
             .catch((error) => console.log(error));
     }
     return (
         <div className="content-div">
+            <ToastContainer />
             <div className="card-header">
                 <div className="card-headding">Add Category</div>
-                <div className="errorMessage">{message}</div>
+                {/* <div className="errorMessage">{message}</div> */}
             </div>
             <div className="table-container">
                 <div className="row " style={{ padding: "37px" }}>

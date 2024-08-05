@@ -50,12 +50,12 @@ export const updateCategory = async (req, res, next) => {
         );
 
         if (!updatedCategory) {
-            return res.status(404).json({ message: "Category not found" });
+            return res.status(404).json({ message: "Category not found" ,status:"failed"});
         }
 
-        res.status(200).json({ message: "Category was updated successfully", updatedCategory });
+        res.status(200).json({ message: "Category was updated successfully", updatedCategory,status:"success" });
     } catch (err) {
-        res.status(400).json({ message: "Something went wrong, please try again", error: err });
+        res.status(400).json({ message: "Something went wrong, please try again", error: err ,status:"failed"});
     }
 };
 
@@ -68,16 +68,16 @@ try{
     if (imagePath) {
         fs.unlink("uploads/"+imagePath, (err) => {
             if (err) {
-                    return  res.status(500).send({message:'Error deleting image file',error:err});
+                    return  res.status(500).send({message:'Error deleting image file',error:err,status:"failed"});
             } 
         })
     }
 }catch(err){
-    return  res.status(500).send({message:'deletion failed',error:err,id:category_id});
+    return  res.status(500).send({message:'deletion failed',error:err,id:category_id,status:"failed"});
 }
 if (!deleteFlag) {
-    return res.status(404).json({ message: 'Product not found' ,id:category_id});
+    return res.status(404).json({ message: 'Product not found' ,id:category_id,status:"failed"});
 }
-return  res.status(200).json({ message: 'Product deleted successfully', deleteFlag });
+return  res.status(200).json({ message: 'Product deleted successfully', deleteFlag ,status:"success"});
 
 }

@@ -97,32 +97,33 @@
 //         </div>
 //     )
 // }
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useRef, useState, useEffect } from "react";
 import { httpRequest } from "../API/api";
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 export const UpdateCategory = () => {
     const { categoryId } = useParams(); // Correct way to extract params
     const maincategory = useRef(null); // Initialize refs with null
     const category = useRef(null);
     const subcategory = useRef(null);
     const [image, setImage] = useState("");
-    const [message, setMessage] = useState("");
+    // const [message, setMessage] = useState("");
     const [currentCategory, setCurrentCategory] = useState(null); // Initialize with null
+    const navigate = useNavigate()
+    // const showMessage = (msg) => {
+    //     setMessage(msg);
+    //     setTimeout(() => {
+    //         setMessage("");
+    //     }, 3000);
+    // };
 
-    const showMessage = (msg) => {
-        setMessage(msg);
-        setTimeout(() => {
-            setMessage("");
-        }, 3000);
-    };
-
-    const resetValue = () => {
-        if (maincategory.current) maincategory.current.value = "";
-        if (category.current) category.current.value = "";
-        if (subcategory.current) subcategory.current.value = "";
-        setImage("");
-    };
+    // const resetValue = () => {
+    //     if (maincategory.current) maincategory.current.value = "";
+    //     if (category.current) category.current.value = "";
+    //     if (subcategory.current) subcategory.current.value = "";
+    //     setImage("");
+    // };
 
     useEffect(() => {
         httpRequest('get', `api/category`)
@@ -160,17 +161,37 @@ export const UpdateCategory = () => {
 
         httpRequest('post', 'api/category/update', categoryData)
             .then((data) => {
-                resetValue();
-                showMessage(data.message);
+                console.log(data);
+                if (data.status==="success") {
+                    toast.success(data.message, {
+                        position: 'top-right',
+                        autoClose: 2000,
+                        onClose: () => navigate('/category')
+                    });
+                }
+                else {
+                    toast.error(data.message, {
+                        position: 'top-right',
+                        autoClose: 2000,
+                    });
+                }
+                // toast.success("Logout Successfully", {
+                //     position: 'top-right',
+                //     autoClose: 3000,
+                //     onClose: () => navigate('/login') // Redirect after toast is closed
+                // });
+                // resetValue();
+                // showMessage(data.message);
             })
             .catch((error) => console.log(error));
     };
 
     return (
         <div className="content-div">
+            <ToastContainer/>
             <div className="card-header">
                 <div className="card-heading">Update Category</div>
-                <div className="errorMessage">{message}</div>
+                {/* <div className="errorMessage">{message}</div> */}
             </div>
             <div className="table-container">
                 <div className="row" style={{ padding: "37px" }}>

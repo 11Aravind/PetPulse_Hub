@@ -51,12 +51,7 @@ td {
 .bannerImg{
     width:100px;
 }
-.bannerImg:hover{
-    width: 80%;
-    position: fixed;
-    top: 24%;
-    left: 18%;
-}
+
 table tbody tr {
     height: 100px;
     overflow: hidden;

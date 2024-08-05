@@ -1,12 +1,13 @@
 import React, { useEffect, useState, useRef } from 'react';
 import './CSS/categoryslider.css'; // Import CSS file
-import { useSelector } from 'react-redux';
-const Categoryslider = ({ categorys,headding }) => {
+import { useDispatch, useSelector } from 'react-redux';
+import {setCategoryId} from "../Slice/categorySlice"
+const Categoryslider = ({ categorys, headding }) => {
   const containerRef = useRef(null);
   const [scrollPosition, setScrollPosition] = useState(0);
 
-  const imgPath=useSelector((state)=>state.common.imagePath);
-
+  const imgPath = useSelector((state) => state.common.imagePath);
+  const dispatch = useDispatch()
   useEffect(() => {
     const updateScrollPosition = () => {
       if (containerRef.current) {
@@ -44,10 +45,10 @@ const Categoryslider = ({ categorys,headding }) => {
       behavior: 'smooth'
     });
   };
-  const checkCategory=(e)=>{
-    const id=e.currentTarget.id
-    console.log(id);
-  }
+  // const checkCategory=(e)=>{
+  //   const id=e.currentTarget.id
+  //   console.log(id);
+  // }
   return (
     <div className="container">
       <div className="main-slider">
@@ -61,15 +62,25 @@ const Categoryslider = ({ categorys,headding }) => {
           </button>
         </div>
         <div className="card-slider-main" ref={containerRef}>
-          {
-            categorys.map((category, index) => (
-              <div className="card-wrapper" key={index} id={category._id} onClick={checkCategory}>
+        <div className="card-wrapper"  onClick={() => dispatch(setCategoryId(null))}>
                 <div className="mainContainer">
                   <div className="image">
-                    <img src={imgPath+category.image} alt="" />
+                    <img src="{imgPath + category.image}" alt="all img" />
                   </div>
                   <div className="categoryName">
-                  {category.subCategory}
+                   All
+                  </div>
+                </div>
+              </div>
+          {
+            categorys.map((category, index) => (
+              <div className="card-wrapper" key={index} id={category._id} onClick={() => dispatch(setCategoryId(category._id))}>
+                <div className="mainContainer">
+                  <div className="image">
+                    <img src={imgPath + category.image} alt="" />
+                  </div>
+                  <div className="categoryName">
+                    {category.subCategory}
                   </div>
                 </div>
               </div>

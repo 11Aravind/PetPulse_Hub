@@ -110,83 +110,188 @@ export const Categorydetails = () => {
     );
 }
 // export default Categorydetails;
-export const AddCategory = () => {
+// export const AddCategory = () => {
+//     const maincategory = useRef('');
+//     const category = useRef('');
+//     const subcategory = useRef('');
+//     const [image, setImage] = useState("");
+//     const resetValue = () => {
+//         maincategory.current.value = "";
+//         category.current.value = "";
+//         subcategory.current.value = "";
+//         setImage("");
+//     }
+//     const saveCategory = (e) => {
+//         const categoryData = new FormData();
+//         categoryData.append("mainCategory", maincategory.current.value);
+//         categoryData.append("category", category.current.value);
+//         categoryData.append("subCategory", subcategory.current.value);
+//         categoryData.append("image", image);
+//         // console.log(categoryData);
+//         httpRequest('post', 'api/category/add', categoryData)
+//             .then((data) => {
+//                 // showMessage();
+//                 toast.success(data.message, {
+//                     position: 'top-right',
+//                     autoClose: 2000,
+//                     onClose: () => resetValue()// Redirect after toast is closed
+//                 });
+//             })
+//             .catch((error) => console.log(error));
+//     }
+//     return (
+//         <div className="content-div">
+//             <ToastContainer />
+//             <div className="card-header">
+//                 <div className="card-headding">Add Category</div>
+//                 {/* <div className="errorMessage">{message}</div> */}
+//             </div>
+//             <div className="table-container">
+//                 <div className="row " style={{ padding: "37px" }}>
+//                     <div className="col">
+//                         <label htmlFor="maincat">Main Category</label>
+//                         <select className="form-select" id="maincat" ref={maincategory} aria-label="Default select example">
+//                             <option defaultValue="Select" selected>--Select--</option>
+//                             <option value="Pet">Pet</option>
+//                             <option value="Food">Food</option>
+//                             <option value="Accessorys">Accessorys</option>
+//                             <option value="Medicine">Medicine</option>
+//                         </select>
+//                     </div>
+//                     <div className="col">
+//                         <label htmlFor="category">Category</label>
+//                         <input type="text" id="category" ref={category} className="form-control" />
+//                     </div>
+//                 </div>
+//                 <div className="row" style={{ padding: "16px 37px" }}>
+//                     <div className="col">
+//                         <label htmlFor="sub_cat">Sub category</label>
+//                         <input type="text" ref={subcategory} className="form-control" id="sub_cat" />
+//                     </div>
+//                     <div className="col">
+//                         <label htmlFor="image">Image</label>
+//                         <input type="file" onChange={(e) => setImage(e.target.files[0])} className="form-control" id="image" />
+//                         <small style={{ color: "red" }}>{image === "" ? "Please select an image" : ""}</small>
+//                     </div>
+//                 </div>
+
+//                 <div className="row" style={{ padding: "16px 37px" }}>
+//                     <button className="btn btn-primary" onClick={saveCategory}>Save</button>
+//                 </div>
+//             </div>
+
+//         </div>
+//     )
+// }
+// import React, { useRef, useState } from 'react';
+// import { ToastContainer, toast } from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
+
+const AddCategory = () => {
     const maincategory = useRef('');
     const category = useRef('');
     const subcategory = useRef('');
-    const [image, setImage] = useState("");
-    // const [message, setMessage] = useState("");
-    // const showMessage = (msg) => {
-    //     setMessage(msg);
-    //     setTimeout(() => {
-    //         setMessage("")
-    //     }, 3000);
-    // }
+    const [image, setImage] = useState(null);
+    const [errors, setErrors] = useState({});
+
     const resetValue = () => {
         maincategory.current.value = "";
         category.current.value = "";
         subcategory.current.value = "";
-        setImage("");
-    }
+        setImage(null);
+        setErrors({});
+    };
+
+    const validateForm = () => {
+        const newErrors = {};
+
+        if (!maincategory.current.value) {
+            newErrors.mainCategory = "Main category is required";
+        }
+        if (!category.current.value.trim()) {
+            newErrors.category = "Category is required";
+        }
+        if (!subcategory.current.value.trim()) {
+            newErrors.subCategory = "Sub category is required";
+        }
+        if (!image) {
+            newErrors.image = "Image is required";
+        }
+
+        setErrors(newErrors);
+
+        return Object.keys(newErrors).length === 0;
+    };
+
     const saveCategory = (e) => {
+        e.preventDefault();
+
+        if (!validateForm()) {
+            return;
+        }
+
         const categoryData = new FormData();
         categoryData.append("mainCategory", maincategory.current.value);
         categoryData.append("category", category.current.value);
         categoryData.append("subCategory", subcategory.current.value);
         categoryData.append("image", image);
-        // console.log(categoryData);
+
         httpRequest('post', 'api/category/add', categoryData)
             .then((data) => {
-                // showMessage();
                 toast.success(data.message, {
                     position: 'top-right',
                     autoClose: 2000,
-                    onClose: () => resetValue()// Redirect after toast is closed
+                    onClose: () => resetValue()
                 });
             })
             .catch((error) => console.log(error));
-    }
+    };
+
     return (
         <div className="content-div">
             <ToastContainer />
             <div className="card-header">
-                <div className="card-headding">Add Category</div>
-                {/* <div className="errorMessage">{message}</div> */}
+                <div className="card-heading">Add Category</div>
             </div>
             <div className="table-container">
-                <div className="row " style={{ padding: "37px" }}>
-                    <div className="col">
-                        <label htmlFor="maincat">Main Category</label>
-                        <select className="form-select" id="maincat" ref={maincategory} aria-label="Default select example">
-                            <option defaultValue="Select" selected>--Select--</option>
-                            <option value="Pet">Pet</option>
-                            <option value="Food">Food</option>
-                            <option value="Accessorys">Accessorys</option>
-                            <option value="Medicine">Medicine</option>
-                        </select>
+                <form onSubmit={saveCategory}>
+                    <div className="row" style={{ padding: "37px" }}>
+                        <div className="col">
+                            <label htmlFor="maincat">Main Category</label>
+                            <select className="form-select" id="maincat" ref={maincategory} aria-label="Default select example">
+                                <option value="">--Select--</option>
+                                <option value="Pet">Pet</option>
+                                <option value="Food">Food</option>
+                                <option value="Accessorys">Accessorys</option>
+                                <option value="Medicine">Medicine</option>
+                            </select>
+                            {errors.mainCategory && <small style={{ color: "red" }}>{errors.mainCategory}</small>}
+                        </div>
+                        <div className="col">
+                            <label htmlFor="category">Category</label>
+                            <input type="text" id="category" ref={category} className="form-control" />
+                            {errors.category && <small style={{ color: "red" }}>{errors.category}</small>}
+                        </div>
                     </div>
-                    <div className="col">
-                        <label htmlFor="category">Category</label>
-                        <input type="text" id="category" ref={category} className="form-control" />
+                    <div className="row" style={{ padding: "16px 37px" }}>
+                        <div className="col">
+                            <label htmlFor="sub_cat">Sub category</label>
+                            <input type="text" ref={subcategory} className="form-control" id="sub_cat" />
+                            {errors.subCategory && <small style={{ color: "red" }}>{errors.subCategory}</small>}
+                        </div>
+                        <div className="col">
+                            <label htmlFor="image">Image</label>
+                            <input type="file" onChange={(e) => setImage(e.target.files[0])} className="form-control" id="image" />
+                            {errors.image && <small style={{ color: "red" }}>{errors.image}</small>}
+                        </div>
                     </div>
-                </div>
-                <div className="row" style={{ padding: "16px 37px" }}>
-                    <div className="col">
-                        <label htmlFor="sub_cat">Sub category</label>
-                        <input type="text" ref={subcategory} className="form-control" id="sub_cat" />
+                    <div className="row" style={{ padding: "16px 37px" }}>
+                        <button type="submit" className="btn btn-primary">Save</button>
                     </div>
-                    <div className="col">
-                        <label htmlFor="image">Image</label>
-                        <input type="file" onChange={(e) => setImage(e.target.files[0])} className="form-control" id="image" />
-                        <small style={{ color: "red" }}>{image === "" ? "Please select an image" : ""}</small>
-                    </div>
-                </div>
-
-                <div className="row" style={{ padding: "16px 37px" }}>
-                    <button className="btn btn-primary" onClick={saveCategory}>Save</button>
-                </div>
+                </form>
             </div>
-
         </div>
-    )
-}
+    );
+};
+
+export default AddCategory;

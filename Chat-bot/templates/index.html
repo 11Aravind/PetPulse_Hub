@@ -1,22 +1,43 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Gemini Chatbot</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PetPulse Hub Assistant</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/static/css/styles.css">
 </head>
 <body>
     <!-- Toggle button -->
-    <button id="toggle-chatbot">Toggle Chatbot</button>
+    <button id="toggle-chatbot" aria-label="Toggle Chatbot">
+        <i class="fas fa-comment-dots"></i>
+    </button>
 
     <!-- Chatbot container -->
     <div class="chatbot-container" id="chatbot-container">
         <div class="chatbot-header">
-            <h2>Chat with Gemini</h2>
+            <h2>PetPulse Hub Assistant</h2>
+            <button id="minimize-chat" class="header-button" aria-label="Minimize Chat">
+                <i class="fas fa-minus"></i>
+            </button>
         </div>
-        <div id="chat-history" class="chatbot-history"></div>
-        <div class="chatbot-input">
-            <input type="text" id="user-message" placeholder="Type your message">
-            <button id="send-button">Send</button>
+        
+        <div id="chat-history" class="chatbot-history">
+            <!-- Messages will be inserted here by JavaScript -->
+        </div>
+        
+        <div class="chatbot-input-container">
+            <input 
+                type="text" 
+                id="user-message" 
+                placeholder="Ask me about PetPulse Hub..."
+                aria-label="Type your message"
+                autocomplete="off"
+            >
+            <button id="send-button" aria-label="Send message">
+                <i class="fas fa-paper-plane"></i>
+            </button>
         </div>
     </div>
 

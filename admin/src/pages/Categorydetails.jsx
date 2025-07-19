@@ -99,7 +99,7 @@ export const Categorydetails = () => {
                 <div className="card-heading main-menu-heading">Category</div>
                 <div className="top-button">
                     <Link to="/addcategory">
-                        <button className="btn-primary"> +Add</button>
+                    <button className="btn-primary px-4">Add +</button>
                     </Link>
                 </div>
             </div>
@@ -172,113 +172,6 @@ export const Categorydetails = () => {
         </div>
     );
 };
-
-// export const Categorydetails = () => {
-//     const [categorys, setCategoryDetails] = useState([]);
-//     const visibility = useSelector((state) => state.visibility.visibility)
-//     // const deleteCategory = (e) => {
-//     //     const category_id = e.target.id;
-//     //     const url = `api/category/${category_id}`;
-//     //     httpRequest('delete', url)
-//     //         .then((data) => {
-//     //             setCategoryDetails(prevDetails => prevDetails.filter(category => category._id !== category_id));
-//     //         });
-//     // }
-//     const deleteCategory = (e) => {
-//         const category_id = e.target.id;
-
-//         // Ask for confirmation
-//         const isConfirmed = window.confirm("Are you sure you want to delete this category?");
-
-//         if (isConfirmed) {
-//             // User confirmed, proceed with deletion
-//             const url = `api/category/${category_id}`;
-//             httpRequest('delete', url)
-//                 .then((data) => {
-//                     // Update state after successful deletion
-//                     // console.log(data);
-//                     if (data.status==="success") {
-//                         toast.success(data.message, {
-//                             position: 'top-right',
-//                             autoClose: 2000,
-//                         });
-//                     }
-//                     else {
-//                         toast.error(data.message, {
-//                             position: 'top-right',
-//                             autoClose: 2000,
-//                         });
-//                     }
-//                     setCategoryDetails(prevDetails => prevDetails.filter(category => category._id !== category_id));
-//                 })
-//                 .catch(error => {
-//                     // Optionally, handle the error
-//                     console.error("Error deleting category:", error);
-//                 });
-//         }
-//     };
-
-//     useEffect(() => {
-//         httpRequest('get', "api/category").then((data) => {
-//             // Check if the fetched data is an object and has 'categoryDetails' array
-//             if (data && Array.isArray(data.categoryDetails)) {
-//                 setCategoryDetails(data.categoryDetails);
-//             } else {
-//                 console.error("Fetched data does not contain 'categoryDetails' array:", data);
-//             }
-//         }).catch(error => {
-//             console.error("Error fetching data:", error);
-//         });
-//     }, []);
-//     const tableHeadding = [{ th: "#id" }, { th: "Main category" }, { th: "Category" }, { th: "subCategory" }, { th: "image" }, { th: "Action" },];
-//     return (
-//         <div className={visibility ? "flat-container" : "content-div"}>
-//             <ToastContainer />
-//             <div className="card-header">
-//                 <div className="card-headding main-menu-headding">Category</div>
-//                 {/* <div className="errorMessage">{alertMessage}</div> */}
-//                 <div className="top-button">
-//                     <Link to="/addcategory"> <button className="btn-primary"> +Add</button></Link>
-//                 </div>
-//             </div>
-//             {/* <div className="content-div"> */}
-//             <div className="">
-//                 <table className="table-container table">
-//                     <thead>
-//                         <tr className="table-headding">
-//                             {
-//                                 tableHeadding.map((eachHeadding, id) =>
-//                                     <td key={id}>{eachHeadding.th}</td>
-//                                 )
-//                             }
-//                         </tr>
-//                     </thead>
-//                     <tbody>
-//                         {
-//                             categorys.map((category, id) =>
-//                                 <tr key={id} scope="row">
-//                                     <td>{category._id}</td>
-//                                     <td>{category.mainCategory}</td>
-//                                     <td>{category.category}</td>
-//                                     <td>{category.subCategory}</td>
-//                                     <td><img src={`http://localhost:5001/${category.image}`} alt="banner" className="bannerImg" /></td>
-//                                     <td>  <i className="bi bi-trash3-fill" id={category._id} onClick={deleteCategory}></i>  </td>
-//                                     <td>
-//                                         <Link to={`/categoryupdate/${category._id}`}>
-//                                             <i className="bi bi-pencil-square"  ></i>
-//                                         </Link>
-//                                     </td>
-//                                     {/* <td><i className="bi bi-pencil-square"></i> </td> */}
-//                                 </tr>
-//                             )
-//                         }
-//                     </tbody>
-//                 </table>
-//             </div>
-//         </div>
-//     );
-// }
-
 export const AddCategory = () => {
     const maincategory = useRef('');
     const category = useRef('');

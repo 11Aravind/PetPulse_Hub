@@ -29,20 +29,24 @@ export const getGallery = async (req, res, next) => {
     return res.status(200).json({ message: "Success", data: galleryList });
 }
 export const deleteGallery = async (req, res, next) => {
-    const galleryId = req.params.galleryId;
-    let deleteFlag
-    // try {
-        deleteFlag=await Gallery.findById(galleryId);
-        const imagePath=deleteFlag.image
-        if (imagePath) {
-            fs.unlink("uploads/"+imagePath, (err) => {
-                if (err) {
-                        return  res.status(500).send({message:'Error deleting image file',error:err});
-                } 
-            })
+    try {
+        const galleryId = req.params.galleryId;
+        let deleteFlag
+        // try {
+            deleteFlag=await Gallery.findById(galleryId);
+            const imagePath=deleteFlag.image
+            if (imagePath) {
+                fs.unlink("uploads/"+imagePath, (err) => {
+                    if (err) {
+                            return  res.status(500).send({message:'Error deleting image file',error:err});
+                    } 
+                })
+            }
+        if (!deleteFlag) {
+            return res.status(404).json({ message: 'gallery not found' ,id:galleryId});
         }
-    if (!deleteFlag) {
-        return res.status(404).json({ message: 'gallery not found' ,id:galleryId});
+        return  res.status(200).json({ message: 'Product deleted successfully', deleteFlag });
+    } catch (error) {
+        return res.status(500).json({ message: "image was not deleted", status: "failed" })
     }
-    return  res.status(200).json({ message: 'Product deleted successfully', deleteFlag });
 }

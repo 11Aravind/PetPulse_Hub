@@ -1,91 +1,144 @@
-/* CSS/chatbot.css */
 .mains {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 300px;
-    /* Set width as desired */
-    height: 400px;
-    /* Set height as desired */
-    background-color: #f5f5f5;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    z-index: 1001;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 381px;
+  height: 480px;
+  background-color: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  z-index: 1001;
+  overflow: hidden;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.chatbot-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.chatbot-header {
+  background: #5420e5;
+  color: white;
+  padding: 15px;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  text-align: center;
+  position: relative;
+}
+
+.chatbot-header h6 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.chatbot-close {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: white;
+}
+
+.chatbot-history {
+  flex: 1;
+  padding: 10px;
+  overflow-y: auto;
+  background-color: #f9f9f9;
+}
+
+.chat-message {
+  margin: 6px 0;
+  padding: 10px 12px;
+  max-width: 80%;
+  border-radius: 10px;
+  word-wrap: break-word;
+  line-height: 1.4;
+}
+
+.user-message {
+  align-self: flex-end;
+  background-color: #e0eaff;
+  color: #000;
+  text-align: right;
+  margin-left: auto;
+}
+
+.bot-message {
+  align-self: flex-start;
+  background-color: #e6f4ea;
+  color: #000;
+  margin-right: auto;
+}
+
+.chatbot-input {
+  display: flex;
+  padding: 12px;
+  border-top: 1px solid #ddd;
+  background: #fff;
+}
+
+.chatbot-input input {
+  flex: 1;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  height: 44px;
+  font-size: 14px;
+  outline: none;
+}
+
+.chatbot-input button {
+  margin-left: 10px;
+  background: #5420e5;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  height: 44px;
+  width: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.chatbot-input button:disabled {
+  background: #aaa;
+  cursor: not-allowed;
+}
+
+/* Loading spinner */
+.loading-spinner {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.dot {
+  height: 8px;
+  width: 8px;
+  background-color: #5420e5;
+  border-radius: 50%;
+  display: inline-block;
+  animation: bounce 1.2s infinite ease-in-out both;
+}
+
+.dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes bounce {
+  0%, 80%, 100% {
+    transform: scale(0);
   }
-  
-  .chatbot-container {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
+  40% {
+    transform: scale(1);
   }
-  
-  .chatbot-header {
-    /* background-color: #4CAF50; */
-    background:#5420e5;
-    color: white;
-    padding: 10px;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    text-align: center;
-  }
-  
-  .chatbot-history {
-    flex: 1;
-    padding: 10px;
-    overflow-y: auto;
-    background-color: white;
-  }
-  
-  .chatbot-input {
-    display: flex;
-    padding: 10px;
-    border-top: 1px solid #ddd;
-  }
-  
-  .chatbot-input input {
-    outline: none;
-    flex: 1;
-    padding: 12px 13px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    height: 50px;
-  }
-  
-  .chatbot-input button {
-    margin-left: 10px;
-    border-radius: 50%;
-    padding: 5px 10px;
-    background: #5420e5;
-    color: white;
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-    height: 50px;
-    width: 50px;
-  }
-  
-  .chat-message {
-    margin: 5px 0;
-  }
-  
-  .user-message {
-    text-align: right;
-    color: blue;
-  }
-  
-  .bot-message {
-    text-align: left;
-    color: green;
-  }
-  
-  .chatbot-close {
-    position: absolute;
-    top: 0px;
-    right: 10px;
-    background: none;
-    border: none;
-    font-size: 28px;
-    cursor: pointer;
-    color: white;
-    border-radius: 50%;
-  }
+}

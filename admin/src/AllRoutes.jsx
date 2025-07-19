@@ -1,103 +1,153 @@
-import { useEffect } from "react";
-import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
-import auth from "../auth.js";
-import Navbar from "./components/Navbar.jsx";
-import Home from "./pages/Home";
-import Product from "./pages/Product.jsx";
-import AddProduct from "./pages/AddProduct.jsx";
-import Order from "./pages/Order.jsx";
-import Blogs from "./pages/Blogs";
-import { UpdateCategory } from "./pages/UpdateCategory.jsx";
-import Addblog from "./pages/Addblog";
-import Gallery from "./pages/Gallery";
-import Notfound from "./pages/Notfound.jsx";
-import Caretaker from "./pages/Caretaker.jsx";
-import UpdateProduct from "./pages/UpdateProduct.jsx";
-import UpdateBlog from "./pages/UpdateBlog.jsx";
-import { Login } from "./pages/Login.jsx";
-import Address from "./pages/Address.jsx";
-import { Categorydetails, AddCategory } from "./pages/Categorydetails";
+import React, { useEffect } from 'react';
+import { Route, Routes, useLocation, useNavigate, Navigate } from 'react-router-dom';
+import { LayoutWrapper } from './components/layout/LayoutWrapper';
+import { Loader } from './components/ui/Loader';
+import auth from '../auth';
 
-// Define your routes
-const routerInfo = [
-    { path: "/", component: <Home /> },
-    { path: "/login", component: <Login /> },
-    { path: "/productdetails", component: <Product /> },
-    { path: "/addproduct", component: <AddProduct /> },
-    { path: "/orderdetails", component: <Order /> },
-    { path: "/addresses/:id", component: <Address /> },
-    // <Route path="/addresses/:id" element={<Address />} /> 
-    { path: "/blogs", component: <Blogs /> },
-    { path: "/categoryupdate/:categoryId", component: <UpdateCategory /> },
-    { path: "/update/:productId", component: <UpdateProduct /> },
-    { path: "/updateblog/:blogId", component: <UpdateBlog /> },
-    { path: "/addblog", component: <Addblog /> },
-    { path: "/category", component: <Categorydetails /> },
-    { path: "/addcategory", component: <AddCategory /> },
-    { path: "/gallery", component: <Gallery /> },
-    { path: "/caretaking", component: <Caretaker /> },
-    { path: "*", component: <Notfound /> },
+// Direct imports for all components
+import Home from './pages/Home';
+import Login from './pages/Login';
+import Product from './pages/Product';
+import AddProduct from './pages/AddProduct';
+import Order from './pages/Order';
+import Blogs from './pages/Blogs';
+import UpdateCategory from './pages/UpdateCategory';
+import Addblog from './pages/Addblog';
+import Gallery from './pages/Gallery';
+import Notfound from './pages/Notfound';
+import Caretaker from './pages/Caretaker';
+import UpdateProduct from './pages/UpdateProduct';
+import UpdateBlog from './pages/UpdateBlog';
+import Address from './pages/Address';
+import CategoryList from './pages/CategoryList';
+
+// Define public routes (no authentication required)
+const publicRoutes = [
+  { path: '/login', component: Login },
 ];
 
-// Define the PrivateRoute component
-const PrivateRoute = ({ children }) => {
-    const navigate = useNavigate();
-    const adminId = auth.onCheckOut();
+// Define private routes (authentication required)
+const privateRoutes = [
+  { path: '/', component: Home },
+  { path: '/productdetails', component: Product },
+  { path: '/addproduct', component: AddProduct },
+  { path: '/orderdetails', component: Order },
+  { path: '/addresses/:id', component: Address },
+  { path: '/blogs', component: Blogs },
+  // Product routes
+  { path: '/update/:productId', component: UpdateProduct },
+  
+  // Blog routes
+  { path: '/updateblog/:blogId', component: UpdateBlog },
+  { path: '/addblog', component: Addblog },
+  
+  // Category routes
+  { path: '/categories', component: CategoryList },
+  { path: '/add-category', component: UpdateCategory },
+  { path: '/update-category/:categoryId', component: UpdateCategory },
+  
+  // Legacy category routes (redirects)
+  { path: '/category', element: <Navigate to="/categories" replace /> },
+  { path: '/addcategory', element: <Navigate to="/add-category" replace /> },
+  { path: '/categoryupdate/:categoryId', element: <Navigate to="/update-category/:categoryId" replace /> },
+  { path: '/gallery', component: Gallery },
+  { path: '/caretaking', component: Caretaker },
+  { path: '*', component: Notfound },
+];
 
-    useEffect(() => {
-        if (!adminId) {
-            navigate("/login");
-        }
-    }, [adminId, navigate]);
+// Authentication wrapper component
+const RequireAuth = ({ children }) => {
+  const isAuthenticated = auth.onCheckOut();
+  const location = useLocation();
 
-    if (!adminId) {
-        return null;
-    }
+  if (!isAuthenticated) {
+    return <Navigate to="/login" state={{ from: location }} replace />;
+  }
 
-    return children;
+  // Just return the children - LayoutWrapper is now handled at the route level
+  return children;
 };
 
-// Define the AllRoutes component
+// Public route wrapper
+const PublicRoute = ({ children }) => {
+  const isAuthenticated = auth.onCheckOut();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || '/';
+
+  if (isAuthenticated) {
+    return <Navigate to={from} replace />;
+  }
+
+  return children;
+};
+
+// Main routes component
 export const AllRoutes = () => {
-    const noCommonComponents = ['/login'];
-    const location = useLocation();
-    const adminId = auth.onCheckOut();
-    const navigate = useNavigate();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const isAuthenticated = auth.onCheckOut();
 
-    useEffect(() => {
-        if (!adminId && location.pathname !== '/login') {
-            navigate("/login");
-        }
-    }, [adminId, location.pathname, navigate]);
+  // Redirect to login if not authenticated and trying to access protected route
+  useEffect(() => {
+    if (!isAuthenticated && !publicRoutes.some(route => location.pathname === route.path)) {
+      navigate('/login', { state: { from: location }, replace: true });
+    }
+  }, [isAuthenticated, location, navigate]);
 
-    console.log("adminId", adminId);
+  // Loading fallback component
+  const LoadingFallback = () => (
+    <div className="flex items-center justify-center min-h-screen">
+      <Loader size="lg" />
+    </div>
+  );
 
+  // Create route elements with proper layout
+  const renderRouteElement = (route, isPublic = false) => {
+    // Handle both component and element properties
+    let element;
+    if (route.element) {
+      element = route.element;
+    } else if (route.component) {
+      element = <route.component />;
+    } else {
+      console.error('Route is missing both element and component properties:', route);
+      return null;
+    }
+    
+    if (isPublic) {
+      return <PublicRoute>{element}</PublicRoute>;
+    }
+    
     return (
-        <div className="nav-container">
-            {/* Conditionally render Navbar only if adminId is not null and not on the login page */}
-            {adminId && !noCommonComponents.includes(location.pathname) && <Navbar />}
-            <Routes>
-                {routerInfo.map((eachRoute, id) => {
-                    if (noCommonComponents.includes(eachRoute.path)) {
-                        return (
-                            <Route key={id} path={eachRoute.path} element={eachRoute.component} />
-                        );
-                    }
-
-                    return (
-                        <Route
-                            key={id}
-                            path={eachRoute.path}
-                            element={
-                                <PrivateRoute>
-                                    {eachRoute.component}
-                                </PrivateRoute>
-                            }
-                        />
-                    );
-                })}
-            </Routes>
-        </div>
+      <RequireAuth>
+        <LayoutWrapper>
+          {element}
+        </LayoutWrapper>
+      </RequireAuth>
     );
+  };
+
+  return (
+    <Routes>
+      {/* Public routes */}
+      {publicRoutes.map((route, index) => (
+        <Route
+          key={`public-${index}`}
+          path={route.path}
+          element={renderRouteElement(route, true)}
+        />
+      ))}
+
+      {/* Protected routes */}
+      {privateRoutes.map((route, index) => (
+        <Route
+          key={`private-${index}`}
+          path={route.path}
+          element={renderRouteElement(route, false)}
+        />
+      ))}
+    </Routes>
+  );
 };
 
+export default AllRoutes;

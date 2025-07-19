@@ -1,169 +1,126 @@
+/* Import Tailwind CSS */
+@import './styles/tailwind.css';
+
+/* Custom global styles */
+:root {
+  --primary: #4f46e5;
+  --primary-hover: #4338ca;
+  --secondary: #6b7280;
+  --success: #10b981;
+  --danger: #ef4444;
+  --warning: #f59e0b;
+  --info: #3b82f6;
+  --light: #f9fafb;
+  --dark: #111827;
+}
+
+/* Base styles */
 body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  background: #dfdede4f;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.topnav-container {
-  z-index: 1;
-  width: 100%;
-  position: sticky;
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 0.5rem;
+  height: 0.5rem;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #f3f4f6;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #d1d5db;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #9ca3af;
+}
+
+/* Hamburger menu styles */
+.hamburger,
+.closingBtn {
+  width: 50px;
   height: 50px;
-  background-color: white;
-  display: flex;
-  justify-content: space-between;
-  padding: 10px 21px;
-  align-items: center;
-  box-shadow: 0 0.46875rem 2.1875rem rgba(4, 9, 20, .03),
-    0 0.9375rem 1.40625rem rgba(4, 9, 20, .03), 0 0.25rem 0.53125rem rgba(4, 9, 20, .05), 0 0.125rem 0.1875rem rgba(4, 9, 20, .03);
-}
-
-.side-nav-container {
-  width: 17%;
-  height: 542px;
-  background-color: white;
-  display: flex;
-  /* justify-content: center; */
-  padding: 36px 0px 0px 26px;
-  flex-direction: column;
-}
-
-.main-menu-headding {
-  font-size: medium;
-  font-weight: 700;
-  color: #d8262c;
-}
-
-.submenu {
-  margin-left: 12px;
-  padding: 12px;
-}
-.submenu:hover{
-  color:#d8262c;
-}
-.option{
-  display: flex;
-  /* display: none; */
-  position: absolute;
-    right: 1px;
-    margin-top: 11px;
-    background: #fff;
-    width: 83px;
-    padding: 6px 10px;
-}
-.admin-name{
   cursor: pointer;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
 }
-.admin-name:hover + .option{
-  display: block;
 
-}
-.bar {
+.bar1,
+.bar2,
+.bar3 {
   background: black;
   width: 21px;
   border-radius: 5.5px;
   height: 3.5px;
   margin: 1.5px;
+  transition: all 0.3s ease-in-out;
 }
 
+/* Hamburger open state */
+.hamburger .bar1 {
+  transform: translateY(-6px);
+}
+
+.hamburger .bar3 {
+  transform: translateY(6px);
+}
+
+/* Close button state */
+.closingBtn .bar1 {
+  transform: rotate(45deg) translate(4px, 4px);
+}
+
+.closingBtn .bar2 {
+  opacity: 0;
+}
+
+.closingBtn .bar3 {
+  transform: rotate(-45deg) translate(4px, -4px);
+}
+
+/* Flat container for sidebar */
 .flat-container {
   position: absolute;
   left: 5%;
   top: 14%;
   width: 92%;
   transform: translateX(0%);
-  /* End position */
-  transition: transform 1.5s ease-in-out;
+  transition: transform 0.5s ease-in-out;
 }
 
-.closingBtn {
-  width: 50px;
-  height: 50px;
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Admin specific styles */
+.admin-name {
   cursor: pointer;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  padding: 6px 10px;
 }
 
-.content-container {
-  display: flex;
+.admin-name:hover + .option {
+  display: block;
 }
 
-.content-div {
-  position: absolute;
-  left: 21%;
-  top: 14%;
-  width: 77%;
-  transform: translateX(0);
-  /* Start position */
-  transition: transform 1s ease-in-out;
-}
-
-.contentDiv {
-  left: 0%;
-  width: 100%;
-  top: 111%;
-}
-
-/* .content-div{
-  margin-left: 2%;
-  margin-top: 3%;
-  width: 77%;
-} */
-a {
-  text-decoration: none;
-  color: black;
-}
-
-.top-leftContainer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex: .2;
-}
-
-.hide {
-  transform: translateX(0);
-  /* Start position */
-  transition: transform 1s ease-in-out;
-}
-
-.shows {
-  transform: translateX(-100%);
-  /* End position */
-  transition: transform 1.5s ease-in-out;
-}
-.update-status{
-  position: absolute;
-  width: 50%;
-  padding: 20px 28px;
-  background-color: #c1d3f1;
-  top: -30px;
-  left: 25%;
-  z-index: 4;
-  border-radius: 6px;
-
-}
-button.footer-btn {
-  border: none;
-  padding: 5px 5px;
-  color: white;
-  margin: 4px;
-  background: #da2028;
-}
-.footer{
-  display: flex;
-  justify-content: flex-end;
-}
-.gray-btn{
-  background-color: #6c757d;
-}
-
-/* // */
+/* Utility classes */
 .flex {
   display: flex;
 }
@@ -178,4 +135,74 @@ button.footer-btn {
 
 .ml-2 {
   margin-left: 0.5rem; /* Adjust as needed */
+}
+
+/* Other styles */
+.content-container {
+  display: flex;
+}
+
+.content-div {
+  position: absolute;
+  left: 21%;
+  top: 14%;
+  width: 77%;
+  transform: translateX(0);
+  transition: transform 1s ease-in-out;
+}
+
+.contentDiv {
+  left: 0%;
+  width: 100%;
+  top: 111%;
+}
+
+.top-leftContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex: .2;
+}
+
+.hide {
+  transform: translateX(0);
+  transition: transform 1s ease-in-out;
+}
+
+.shows {
+  transform: translateX(-100%);
+  transition: transform 1.5s ease-in-out;
+}
+
+.update-status{
+  position: absolute;
+  width: 50%;
+  padding: 20px 28px;
+  background-color: #c1d3f1;
+  top: -30px;
+  left: 25%;
+  z-index: 4;
+  border-radius: 6px;
+}
+
+button.footer-btn {
+  border: none;
+  padding: 5px 5px;
+  color: white;
+  margin: 4px;
+  background: #da2028;
+}
+
+.footer{
+  display: flex;
+  justify-content: flex-end;
+}
+
+.gray-btn{
+  background-color: #6c757d;
+}
+
+a {
+  text-decoration: none;
+  color: black;
 }

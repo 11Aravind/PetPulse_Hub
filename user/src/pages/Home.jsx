@@ -61,7 +61,7 @@ const Home = () => {
     );
     setcatFood(catFilterFood);
     const accessorys = products.filter(product =>
-      categorys.some(category => category._id === product.category_id && category.mainCategory === "Accessorys" && category.category==="Dog")
+      categorys.some(category => category._id === product.category_id && category.mainCategory === "Accessorys" && category.category.includes("Dog"))
     );
     setallAccessorys(accessorys);
 

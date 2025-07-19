@@ -31,7 +31,7 @@ const Gallery = () => {
                     <div className="col">
                         <input type="file" onChange={(e) => setFile(e.target.files[0])} className="form-control" id="Tittle" />
                     </div>
-                    <div className="col">
+                    <div className="col col-3">
                         <button className="btn btn-primary form-control" onClick={uploadImage}>Upload</button>
                     </div>
                 </div>

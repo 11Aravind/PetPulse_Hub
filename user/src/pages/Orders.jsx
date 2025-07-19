@@ -161,12 +161,12 @@ const Orders = () => {
             const product = products.find((product) => product._id === item._id);
             return {
               ...item,
-              "name": product.name,
-              image: product.image,
-              description: product.description,
-              newPrice: product.newPrice,
-              order_message: order.order_message, // Add order_message here
-              paymentMode: order.paymentMode
+              "name": product?.name,
+              image: product?.image,
+              description: product?.description,
+              newPrice: product?.newPrice,
+              order_message: order?.order_message, // Add order_message here
+              paymentMode: order?.paymentMode
             };
           });
           return { ...order, items: itemsWithProductNames };

@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import Order from "../models/Order.js"
 import Razorpay from "razorpay";
 import crypto from "crypto"
+import { createNotification } from "./notification-controller.js";
 export const storeOrder = async (req, res) => {
     try {
         const razorpay = new Razorpay({
@@ -86,8 +87,9 @@ export const validatePaymentStatus = async (req, res) => {
     if (digest !== razorpay_signature) {
         return res.status(400).json({ msg: "Transaction is not legit!" });
     }
+    let isSuccess = false
     try {
-        await Order.findOneAndUpdate(
+        isSuccess = await Order.findOneAndUpdate(
             { razorpayOrderId: razorpay_order_id },// condition,
             {
                 $set: {
@@ -100,6 +102,17 @@ export const validatePaymentStatus = async (req, res) => {
     } catch (err) {
         console.log(err);
     }
+            
+    if (isSuccess) {
+        // Create a notification for successful payment
+        await createNotification(
+            'Payment Received',
+            `Payment of ₹${(isSuccess?.totelamount / 100).toFixed(2)} received for order #${isSuccess?._id}`,
+            'payment',
+            isSuccess?._id.toString()
+        );
+    }
+
     res.json({
         msg: "success",
         orderId: razorpay_order_id,

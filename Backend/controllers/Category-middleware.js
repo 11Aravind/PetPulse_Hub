@@ -2,6 +2,15 @@ import upload from "./multer-middleware.js";
 import multer from "multer";
 import Category from "../models/Category.js";
 import fs from "fs";
+
+export const getCategoryById =async(req,res)=>{
+    const category_id = req.params.category_id;
+    const categoryDetails = await Category.findById(category_id);
+    if (!categoryDetails) {
+        return res.status(404).json({ message: "Category not found" ,status:"failed"});
+    }
+    return res.status(200).json({ categoryDetails ,status:"success"});
+}
 export const getCategory=async(req,res)=>{
     let categoryDetails;
     try{
